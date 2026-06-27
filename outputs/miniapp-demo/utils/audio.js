@@ -2,6 +2,7 @@ let activeAudio = null
 let audioSources = {}
 let playTimer = null
 let playStarted = false
+let audioSessionId = 0
 
 const { getParentSettings } = require("./settings")
 
@@ -28,6 +29,8 @@ function canCreateAudioContext() {
 }
 
 function stopActiveAudio() {
+  audioSessionId += 1
+
   if (playTimer) {
     clearTimeout(playTimer)
     playTimer = null
@@ -55,8 +58,8 @@ function setAudioOptions() {
   }
 }
 
-function startActiveAudio() {
-  if (!activeAudio || playStarted) {
+function startActiveAudio(sessionId) {
+  if (!activeAudio || playStarted || sessionId !== audioSessionId) {
     return
   }
 
@@ -86,15 +89,21 @@ function playAudioSource(src, fallbackText) {
   }
 
   stopActiveAudio()
+  const sessionId = audioSessionId + 1
+  audioSessionId = sessionId
   setAudioOptions()
   activeAudio = wx.createInnerAudioContext()
   playStarted = false
   activeAudio.autoplay = false
   activeAudio.obeyMuteSwitch = false
   activeAudio.onCanplay(function () {
-    startActiveAudio()
+    startActiveAudio(sessionId)
   })
   activeAudio.onError(function (error) {
+    if (sessionId !== audioSessionId) {
+      return
+    }
+
     console.error("Audio playback failed", {
       src,
       error
@@ -103,11 +112,15 @@ function playAudioSource(src, fallbackText) {
     showTextFallback(fallbackText)
   })
   activeAudio.onEnded(function () {
+    if (sessionId !== audioSessionId) {
+      return
+    }
+
     stopActiveAudio()
   })
   activeAudio.src = src
   playTimer = setTimeout(function () {
-    startActiveAudio()
+    startActiveAudio(sessionId)
   }, 300)
 }
 

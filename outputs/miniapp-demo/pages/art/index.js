@@ -3,12 +3,7 @@ const { playText } = require("../../utils/audio")
 const { getAgeLevel } = require("../../utils/age")
 const { feedbackSuccess, feedbackComplete, feedbackError } = require("../../utils/interaction")
 const { getCurrentLayoutMode, getResizeLayoutMode } = require("../../utils/layout")
-
-function shuffle(items) {
-  return items.slice().sort(function () {
-    return Math.random() - 0.5
-  })
-}
+const { shuffle } = require("../../utils/shuffle")
 
 function createPieces(count) {
   return shuffle(Array.from({ length: count }).map(function (_, index) {

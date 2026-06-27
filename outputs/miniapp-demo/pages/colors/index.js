@@ -4,13 +4,14 @@ const { playText } = require("../../utils/audio")
 const { getAgeLevel } = require("../../utils/age")
 const { feedbackSuccess, feedbackComplete, feedbackError } = require("../../utils/interaction")
 const { getCurrentLayoutMode, getResizeLayoutMode } = require("../../utils/layout")
+const { shuffle } = require("../../utils/shuffle")
 
 const COLOR_GOAL = 3
-
-function shuffle(items) {
-  return items.slice().sort(function () {
-    return Math.random() - 0.5
-  })
+const EMPTY_TARGET = {
+  id: "",
+  label: "color",
+  color: "#ffffff",
+  emoji: ""
 }
 
 function buildColorChoices(target, count) {
@@ -32,7 +33,7 @@ function buildProgressDots(completedRounds) {
 Page({
   data: {
     colors: [],
-    target: colors[0],
+    target: EMPTY_TARGET,
     completedRounds: 0,
     progressDots: buildProgressDots(0),
     roundDone: false,

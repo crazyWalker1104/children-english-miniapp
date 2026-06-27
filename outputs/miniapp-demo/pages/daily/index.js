@@ -5,37 +5,59 @@ const { completeTask, hearWord, addStudySeconds } = require("../../utils/progres
 const { playText } = require("../../utils/audio")
 const { feedbackSuccess, feedbackComplete, feedbackError } = require("../../utils/interaction")
 const { getCurrentLayoutMode, getResizeLayoutMode } = require("../../utils/layout")
+const { shuffle } = require("../../utils/shuffle")
 
 const SESSION_GOAL = 3
+const DEFAULT_CHOICE_EMOJI = "✨"
+
+function buildStaticChoices(taskTarget, choices) {
+  return choices.map(function (choice) {
+    return {
+      ...choice,
+      correct: choice.id === taskTarget
+    }
+  })
+}
 
 function buildChoices(task, choiceCount) {
   if (task.target === "apple") {
-    return [
-      { id: "apple", label: "apple", emoji: "🍎", correct: true },
-      { id: "banana", label: "banana", emoji: "🍌", correct: false },
-      { id: "orange", label: "orange", emoji: "🍊", correct: false },
-      { id: "grape", label: "grape", emoji: "🍇", correct: false }
-    ].slice(0, choiceCount)
+    return buildStaticChoices(task.target, [
+      { id: "apple", label: "apple", emoji: "🍎" },
+      { id: "banana", label: "banana", emoji: "🍌" },
+      { id: "orange", label: "orange", emoji: "🍊" },
+      { id: "grape", label: "grape", emoji: "🍇" }
+    ]).slice(0, choiceCount)
   }
 
   if (task.target === "Hello") {
-    return [
-      { id: "Hello", label: "Hello", emoji: "👋", correct: true },
-      { id: "Bye-bye", label: "Bye-bye", emoji: "✨", correct: false },
-      { id: "Thank you", label: "Thank you", emoji: "💛", correct: false }
-    ]
+    return buildStaticChoices(task.target, [
+      { id: "Hello", label: "Hello", emoji: "👋" },
+      { id: "Bye-bye", label: "Bye-bye", emoji: "✨" },
+      { id: "Thank you", label: "Thank you", emoji: "💛" }
+    ])
   }
 
-  const correct = colors.find((color) => color.id === task.target)
-  const rest = colors.filter((color) => color.id !== task.target)
-  return [correct].concat(rest).slice(0, choiceCount).map((color) => ({
-    ...color,
-    correct: color.id === task.target
-  }))
+  const correct = colors.find(function (color) {
+    return color.id === task.target
+  }) || {
+    id: task.target || "unknown",
+    label: task.target || "surprise",
+    emoji: DEFAULT_CHOICE_EMOJI
+  }
+  const rest = colors.filter(function (color) {
+    return color.id !== correct.id
+  })
+  return shuffle([correct].concat(rest).slice(0, choiceCount)).map(function (choice) {
+    return {
+      ...choice,
+      correct: choice.id === correct.id
+    }
+  })
 }
 
 function buildProgressDots(completedRounds) {
-  return [1, 2, 3].map(function (step) {
+  return Array.from({ length: SESSION_GOAL }).map(function (_, index) {
+    const step = index + 1
     return {
       id: `step-${step}`,
       active: step <= completedRounds
@@ -44,15 +66,13 @@ function buildProgressDots(completedRounds) {
 }
 
 function getChallengeLabel(roundIndex, ageLevel) {
-  if (roundIndex === 0) {
-    return "先听一听，再点一点"
-  }
+  const labels = [
+    "先听一听，再点一点",
+    ageLevel.phraseMode ? "加一点短句提示" : "换一个惊喜画面",
+    ageLevel.phraseMode ? "最后一题，说完再选" : "最后一题，找得更快"
+  ]
 
-  if (roundIndex === 1) {
-    return ageLevel.phraseMode ? "加一点短句提示" : "换一个惊喜画面"
-  }
-
-  return ageLevel.phraseMode ? "最后一题，说完再选" : "最后一题，找得更快"
+  return labels[roundIndex] || labels[labels.length - 1]
 }
 
 Page({
