@@ -1,0 +1,114 @@
+.home-page {
+  padding-bottom: 60rpx;
+}
+
+.avatar {
+  width: 70rpx;
+  height: 70rpx;
+  border-radius: 50%;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  box-shadow: 0 10rpx 22rpx rgba(44, 62, 93, 0.1);
+}
+
+.age-line {
+  margin-top: 12rpx;
+  color: #6c7890;
+  font-size: 24rpx;
+  text-align: center;
+}
+
+.mascot {
+  margin-top: 28rpx;
+  padding: 30rpx;
+  display: flex;
+  align-items: center;
+  gap: 24rpx;
+  border-color: rgba(124, 199, 246, 0.18);
+}
+
+.character {
+  width: 132rpx;
+  height: 132rpx;
+  border-radius: 44rpx 44rpx 54rpx 54rpx;
+  background: radial-gradient(circle at 38% 42%, #222 0 8rpx, transparent 9rpx),
+    radial-gradient(circle at 62% 42%, #222 0 8rpx, transparent 9rpx),
+    radial-gradient(circle at 50% 64%, #ff7a88 0 17rpx, transparent 18rpx),
+    #ffd66e;
+  border: 6rpx solid #fff0be;
+}
+
+.hello {
+  font-size: 40rpx;
+  font-weight: 900;
+}
+
+.daily-card {
+  margin-top: 28rpx;
+  min-height: 204rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.daily-title {
+  font-size: 46rpx;
+  font-weight: 900;
+}
+
+.daily-sub {
+  margin-top: 14rpx;
+  font-size: 26rpx;
+  opacity: 0.88;
+}
+
+.play {
+  width: 116rpx;
+  height: 116rpx;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  border: 4rpx solid rgba(255, 255, 255, 0.36);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 46rpx;
+}
+
+.module-grid {
+  margin-top: 28rpx;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20rpx;
+}
+
+.module-card {
+  min-height: 184rpx;
+  padding: 24rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  font-size: 30rpx;
+  font-weight: 900;
+  color: #243047;
+}
+
+.module-icon {
+  font-size: 54rpx;
+}
+
+.reward-card {
+  margin-top: 28rpx;
+  padding: 26rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.reward-title {
+  font-size: 30rpx;
+  font-weight: 900;
+}

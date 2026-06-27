@@ -1,0 +1,96 @@
+.task-card {
+  margin-top: 28rpx;
+  padding: 34rpx;
+  text-align: center;
+  border-color: rgba(255, 143, 122, 0.16);
+}
+
+.task-type {
+  color: #6c7890;
+  font-size: 26rpx;
+  font-weight: 800;
+}
+
+.prompt {
+  margin-top: 18rpx;
+  font-size: 56rpx;
+  font-weight: 900;
+}
+
+.challenge-label {
+  display: inline-block;
+  margin: 18rpx auto 0;
+  max-width: 100%;
+  padding: 10rpx 18rpx;
+  border-radius: 999rpx;
+  color: #49566f;
+  font-size: 24rpx;
+  font-weight: 800;
+  background: rgba(255, 224, 102, 0.36);
+}
+
+.mini-progress {
+  margin-top: 24rpx;
+  display: flex;
+  justify-content: center;
+  gap: 12rpx;
+}
+
+.dot {
+  width: 18rpx;
+  height: 18rpx;
+  border-radius: 50%;
+  background: #dfe7ef;
+}
+
+.dot.active {
+  width: 42rpx;
+  border-radius: 999rpx;
+  background: #72d6b7;
+}
+
+.choice-grid {
+  margin-top: 30rpx;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20rpx;
+}
+
+.choice {
+  min-height: 204rpx;
+  padding: 24rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #243047;
+}
+
+.emoji {
+  font-size: 56rpx;
+}
+
+.choice-label {
+  margin-top: 12rpx;
+  font-size: 32rpx;
+  font-weight: 900;
+}
+
+.next-card {
+  margin-top: 22rpx;
+  min-height: 88rpx;
+  color: #087f5b;
+  font-size: 30rpx;
+  font-weight: 900;
+  background: rgba(114, 214, 183, 0.22);
+  border: 2rpx solid rgba(114, 214, 183, 0.42);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.next-card.finished {
+  color: #8a4b00;
+  background: rgba(255, 224, 102, 0.36);
+  border-color: rgba(255, 193, 7, 0.42);
+}

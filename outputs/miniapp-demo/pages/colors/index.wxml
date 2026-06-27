@@ -1,0 +1,40 @@
+<view class="page page-{{layoutMode}}">
+  <view class="topbar">
+    <button class="round-btn" bind:tap="back">‹</button>
+    <view class="title">颜色乐园</view>
+    <button class="round-btn" bind:tap="nextPrompt">▶</button>
+  </view>
+
+  <view class="card prompt-card">
+    <view class="subtitle">Listen and tap</view>
+    <view class="prompt">Find {{target.label}}!</view>
+    <view class="color-reward">Color sticker · ★</view>
+    <view class="mini-progress">
+      <text
+        wx:for="{{progressDots}}"
+        wx:key="id"
+        class="dot {{item.active ? 'active' : ''}}"
+      ></text>
+    </view>
+  </view>
+
+  <view class="color-grid">
+    <button
+      wx:for="{{colors}}"
+      wx:key="id"
+      class="color-card card"
+      style="background: {{item.color}};"
+      data-id="{{item.id}}"
+      bind:tap="tapColor"
+    >
+      <view class="emoji">{{item.emoji}}</view>
+      <view class="color-label">{{item.label}}</view>
+    </button>
+  </view>
+
+  <button wx:if="{{roundDone}}" class="next-card card {{sessionComplete ? 'finished' : ''}}" bind:tap="nextPrompt">
+    {{sessionComplete ? '再玩一组颜色' : '下一个颜色'}}
+  </button>
+
+  <view wx:if="{{feedback}}" class="feedback">{{feedback}}</view>
+</view>

@@ -1,0 +1,73 @@
+.song-list {
+  margin-top: 28rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 22rpx;
+}
+
+.song-card {
+  min-height: 144rpx;
+  padding: 26rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.song-card.active {
+  border-color: rgba(124, 199, 246, 0.72);
+  background: rgba(124, 199, 246, 0.16);
+}
+
+.song-title {
+  font-size: 34rpx;
+  font-weight: 900;
+}
+
+.song-play {
+  width: 82rpx;
+  height: 82rpx;
+  border-radius: 50%;
+  background: #7cc7f6;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+}
+
+.lyrics-card {
+  margin-top: 28rpx;
+  padding: 28rpx;
+}
+
+.lyric-lines {
+  margin-top: 22rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 14rpx;
+}
+
+.lyric-line {
+  min-height: 76rpx;
+  padding: 16rpx 18rpx;
+  border-radius: 20rpx;
+  color: #6c7890;
+  font-size: 28rpx;
+  font-weight: 800;
+  background: #f5f8fb;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.lyric-line.active {
+  color: #243047;
+  background: #fff7cc;
+  transform: scale(1.02);
+}
+
+.lyric-action {
+  margin-left: 18rpx;
+  color: #087f5b;
+  font-size: 24rpx;
+}

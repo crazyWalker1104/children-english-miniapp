@@ -1,0 +1,1306 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>儿童英语启蒙微信小程序页面原型</title>
+  <style>
+    :root {
+      --bg: #fff8ea;
+      --ink: #243047;
+      --muted: #6c7890;
+      --line: #dfe7ef;
+      --mint: #72d6b7;
+      --sky: #7cc7f6;
+      --sun: #ffd66e;
+      --coral: #ff8f7a;
+      --pink: #f7a6d9;
+      --violet: #9b8df2;
+      --leaf: #9ddc76;
+      --paper: #ffffff;
+      --shadow: 0 18px 45px rgba(44, 62, 93, .16);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 12% 10%, rgba(124, 199, 246, .18), transparent 24%),
+        radial-gradient(circle at 92% 2%, rgba(255, 214, 110, .24), transparent 22%),
+        linear-gradient(180deg, #fffdf6 0%, var(--bg) 100%);
+    }
+
+    .page {
+      max-width: 1720px;
+      margin: 0 auto;
+      padding: 36px 28px 56px;
+    }
+
+    .titlebar {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 28px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 34px;
+      line-height: 1.18;
+      letter-spacing: 0;
+    }
+
+    .subtitle {
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    .legend {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .chip {
+      padding: 8px 12px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255,255,255,.76);
+    }
+
+    .board {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(260px, 1fr));
+      gap: 26px;
+      align-items: start;
+    }
+
+    .phone-block {
+      display: grid;
+      gap: 10px;
+      justify-items: center;
+    }
+
+    .screen-name {
+      width: 260px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 14px;
+      color: var(--muted);
+      padding: 0 4px;
+    }
+
+    .screen-name strong {
+      color: var(--ink);
+      font-size: 16px;
+    }
+
+    .tag-row {
+      width: 260px;
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      padding: 0 4px;
+    }
+
+    .mini-tag {
+      border-radius: 999px;
+      padding: 5px 8px;
+      background: rgba(255, 255, 255, .86);
+      border: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 750;
+    }
+
+    .mini-tag.p0 {
+      color: #087f5b;
+      border-color: rgba(114, 214, 183, .65);
+      background: rgba(114, 214, 183, .16);
+    }
+
+    .phone {
+      width: 260px;
+      min-height: 548px;
+      border: 8px solid #1f2937;
+      border-radius: 34px;
+      background: #fff;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      position: relative;
+    }
+
+    .phone::before {
+      content: "";
+      position: absolute;
+      width: 74px;
+      height: 18px;
+      border-radius: 0 0 12px 12px;
+      background: #1f2937;
+      left: 50%;
+      transform: translateX(-50%);
+      top: 0;
+      z-index: 5;
+    }
+
+    .content {
+      min-height: 532px;
+      padding: 22px 14px 16px;
+      background: linear-gradient(180deg, #eff9ff 0%, #fff8ea 54%, #fff 100%);
+    }
+
+    .top {
+      height: 42px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .avatar, .icon-btn, .back {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 2px solid rgba(36, 48, 71, .12);
+      background: #fff;
+      display: grid;
+      place-items: center;
+      font-size: 17px;
+      font-weight: 800;
+    }
+
+    .back {
+      color: var(--ink);
+    }
+
+    .mini-title {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--ink);
+      text-align: center;
+      flex: 1;
+    }
+
+    .hero {
+      margin-top: 14px;
+      border-radius: 22px;
+      padding: 16px;
+      background: #fff;
+      border: 2px solid rgba(36, 48, 71, .08);
+      box-shadow: 0 8px 20px rgba(44, 62, 93, .08);
+    }
+
+    .mascot {
+      display: grid;
+      grid-template-columns: 70px 1fr;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .character {
+      width: 70px;
+      height: 70px;
+      border-radius: 24px 24px 30px 30px;
+      background:
+        radial-gradient(circle at 38% 42%, #222 0 4px, transparent 5px),
+        radial-gradient(circle at 62% 42%, #222 0 4px, transparent 5px),
+        radial-gradient(circle at 50% 62%, #ff7a88 0 9px, transparent 10px),
+        var(--sun);
+      border: 3px solid #fff0be;
+      position: relative;
+    }
+
+    .character::before,
+    .character::after {
+      content: "";
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--sun);
+      top: -8px;
+      border: 3px solid #fff0be;
+    }
+
+    .character::before { left: 8px; }
+    .character::after { right: 8px; }
+
+    .speech {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.35;
+    }
+
+    .speech strong {
+      display: block;
+      color: var(--ink);
+      font-size: 18px;
+      margin-bottom: 4px;
+    }
+
+    .big-card {
+      margin-top: 14px;
+      min-height: 96px;
+      border-radius: 22px;
+      padding: 14px;
+      background: linear-gradient(135deg, var(--coral), #ffbc87);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 12px 22px rgba(255, 143, 122, .28);
+    }
+
+    .big-card .text {
+      font-weight: 850;
+      font-size: 19px;
+      line-height: 1.2;
+    }
+
+    .big-card small {
+      display: block;
+      margin-top: 6px;
+      opacity: .88;
+      font-size: 12px;
+    }
+
+    .play-badge {
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: rgba(255,255,255,.28);
+      border: 2px solid rgba(255,255,255,.42);
+      font-size: 25px;
+    }
+
+    .grid-2 {
+      margin-top: 14px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .tile {
+      min-height: 92px;
+      border-radius: 20px;
+      padding: 12px;
+      background: #fff;
+      border: 2px solid rgba(36, 48, 71, .08);
+      box-shadow: 0 8px 18px rgba(44, 62, 93, .07);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      font-weight: 800;
+      font-size: 14px;
+    }
+
+    .tile span {
+      font-size: 28px;
+    }
+
+    .task-area {
+      margin-top: 16px;
+      min-height: 260px;
+      border-radius: 24px;
+      background: rgba(255,255,255,.8);
+      border: 2px dashed rgba(36, 48, 71, .14);
+      padding: 14px;
+    }
+
+    .prompt {
+      border-radius: 18px;
+      padding: 12px;
+      background: #fff;
+      font-size: 19px;
+      font-weight: 850;
+      text-align: center;
+      color: var(--ink);
+      box-shadow: 0 8px 18px rgba(44, 62, 93, .08);
+    }
+
+    .choices {
+      margin-top: 18px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    .choice {
+      height: 78px;
+      border-radius: 22px;
+      background: #fff;
+      border: 3px solid rgba(255,255,255,.9);
+      box-shadow: 0 8px 16px rgba(44, 62, 93, .08);
+      display: grid;
+      place-items: center;
+      font-size: 30px;
+    }
+
+    .red { background: #ff6b6b; }
+    .blue { background: #4dabf7; }
+    .yellow { background: #ffd43b; }
+    .green { background: #69db7c; }
+    .pink { background: #f783ac; }
+    .purple { background: #9775fa; }
+
+    .reward {
+      margin-top: 18px;
+      text-align: center;
+      color: #f6b321;
+      font-size: 24px;
+      letter-spacing: 3px;
+    }
+
+    .word-card {
+      margin-top: 20px;
+      border-radius: 24px;
+      min-height: 144px;
+      background: #fff;
+      display: grid;
+      place-items: center;
+      box-shadow: 0 10px 22px rgba(44, 62, 93, .09);
+      border: 2px solid rgba(36, 48, 71, .08);
+      text-align: center;
+    }
+
+    .word-card .word {
+      font-size: 34px;
+      font-weight: 900;
+      color: var(--coral);
+    }
+
+    .word-card .hint {
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 8px;
+    }
+
+    .round-actions {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+    }
+
+    .round {
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      border: 0;
+      display: grid;
+      place-items: center;
+      color: white;
+      font-weight: 900;
+      font-size: 24px;
+      box-shadow: 0 12px 20px rgba(44, 62, 93, .16);
+    }
+
+    .round.sky { background: var(--sky); }
+    .round.coral { background: var(--coral); }
+    .round.mint { background: var(--mint); }
+
+    .song-cover {
+      margin-top: 18px;
+      height: 162px;
+      border-radius: 26px;
+      background:
+        radial-gradient(circle at 28% 28%, #fff 0 10px, transparent 11px),
+        radial-gradient(circle at 68% 38%, #fff 0 13px, transparent 14px),
+        linear-gradient(145deg, #4dabf7, #9775fa);
+      display: grid;
+      place-items: center;
+      color: #fff;
+      font-size: 42px;
+      box-shadow: 0 14px 28px rgba(80, 125, 235, .24);
+    }
+
+    .lyrics {
+      margin-top: 18px;
+      padding: 14px;
+      border-radius: 18px;
+      background: #fff;
+      font-weight: 850;
+      line-height: 1.55;
+      text-align: center;
+    }
+
+    .lyrics .active {
+      color: var(--coral);
+      background: #fff0ec;
+      border-radius: 10px;
+      padding: 2px 8px;
+    }
+
+    .puzzle-preview {
+      height: 112px;
+      border-radius: 24px;
+      background:
+        radial-gradient(circle at 25% 35%, #ffd43b 0 10px, transparent 11px),
+        radial-gradient(circle at 65% 28%, #ffd43b 0 7px, transparent 8px),
+        radial-gradient(circle at 75% 58%, #ffd43b 0 8px, transparent 9px),
+        linear-gradient(160deg, #183b8f, #4dabf7 58%, #101a56);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 12px 24px rgba(32, 80, 158, .22);
+    }
+
+    .puzzle-preview::after {
+      content: "";
+      position: absolute;
+      left: -10px;
+      right: -10px;
+      bottom: -16px;
+      height: 62px;
+      background: #16255f;
+      border-radius: 50% 50% 0 0;
+    }
+
+    .puzzle-grid {
+      margin-top: 14px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .piece {
+      height: 72px;
+      border-radius: 18px;
+      background: #fff;
+      border: 2px solid #e8eef5;
+      display: grid;
+      place-items: center;
+      color: var(--muted);
+      font-weight: 800;
+    }
+
+    .stats {
+      display: grid;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .stat {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .stat strong {
+      color: var(--ink);
+      font-size: 16px;
+    }
+
+    .flow-section {
+      margin-top: 46px;
+      background: rgba(255,255,255,.82);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 24px;
+      box-shadow: 0 12px 32px rgba(44, 62, 93, .08);
+    }
+
+    .flow-section h2 {
+      margin: 0 0 18px;
+      font-size: 22px;
+    }
+
+    .section-note {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.7;
+      margin: -8px 0 18px;
+    }
+
+    .flow {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .flow-node {
+      border-radius: 16px;
+      padding: 12px 14px;
+      background: #fff;
+      border: 1px solid var(--line);
+      font-size: 14px;
+      font-weight: 750;
+      min-width: 106px;
+      text-align: center;
+    }
+
+    .arrow {
+      color: var(--muted);
+      font-weight: 900;
+    }
+
+    .spec-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(220px, 1fr));
+      gap: 16px;
+    }
+
+    .spec-card {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 16px;
+    }
+
+    .spec-card h3 {
+      margin: 0 0 10px;
+      font-size: 16px;
+    }
+
+    .spec-card ul {
+      margin: 0;
+      padding-left: 18px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.8;
+    }
+
+    .journey {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+      align-items: stretch;
+    }
+
+    .journey-step {
+      min-height: 126px;
+      border-radius: 20px;
+      padding: 14px;
+      background: #fff;
+      border: 1px solid var(--line);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .journey-step .num {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--sun);
+      display: grid;
+      place-items: center;
+      font-weight: 900;
+      font-size: 13px;
+    }
+
+    .journey-step strong {
+      display: block;
+      margin-top: 10px;
+      font-size: 15px;
+    }
+
+    .journey-step span {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.5;
+      margin-top: 5px;
+    }
+
+    .route-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(260px, 1fr));
+      gap: 16px;
+    }
+
+    .route-card {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 16px;
+    }
+
+    .route-card h3 {
+      margin: 0 0 12px;
+      font-size: 16px;
+    }
+
+    .route-line {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .route-line b {
+      color: var(--ink);
+      background: #f7fafc;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 7px 9px;
+    }
+
+    .ip-strip {
+      margin-top: 14px;
+      display: block;
+    }
+
+    .ip-mini {
+      min-height: 56px;
+      border-radius: 16px;
+      padding: 8px;
+      background: #fff;
+      border: 1px solid rgba(36, 48, 71, .08);
+      display: grid;
+      place-items: center;
+      text-align: center;
+      font-size: 11px;
+      font-weight: 850;
+      color: var(--ink);
+      line-height: 1.25;
+    }
+
+    .ip-card-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(220px, 1fr));
+      gap: 16px;
+    }
+
+    .ip-card {
+      min-height: 184px;
+      border-radius: 22px;
+      padding: 16px;
+      background: #fff;
+      border: 1px solid var(--line);
+      box-shadow: 0 10px 24px rgba(44, 62, 93, .07);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .ip-visual {
+      height: 72px;
+      border-radius: 18px;
+      display: grid;
+      place-items: center;
+      font-size: 30px;
+      color: #fff;
+      font-weight: 900;
+      margin-bottom: 12px;
+    }
+
+    .ip-visual.words {
+      background: linear-gradient(135deg, #ff8f7a, #ffd66e);
+    }
+
+    .ip-visual.snow {
+      background: linear-gradient(135deg, #7cc7f6, #9b8df2);
+    }
+
+    .ip-visual.rescue {
+      background: linear-gradient(135deg, #ff6b6b, #4dabf7);
+    }
+
+    .ip-card h3 {
+      margin: 0 0 8px;
+      font-size: 17px;
+    }
+
+    .ip-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.65;
+    }
+
+    .legal-note {
+      margin-top: 16px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.7;
+      padding: 12px 14px;
+      border-radius: 16px;
+      background: #fff7e6;
+      border: 1px solid rgba(255, 214, 110, .55);
+    }
+
+    .level-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(180px, 1fr));
+      gap: 14px;
+    }
+
+    .level-card {
+      border-radius: 20px;
+      padding: 16px;
+      background: #fff;
+      border: 1px solid var(--line);
+      box-shadow: 0 10px 24px rgba(44, 62, 93, .06);
+      min-height: 190px;
+    }
+
+    .level-badge {
+      width: 42px;
+      height: 42px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--sun), var(--coral));
+      color: #fff;
+      margin-bottom: 12px;
+    }
+
+    .level-card h3 {
+      margin: 0 0 8px;
+      font-size: 16px;
+    }
+
+    .level-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    .fun-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(220px, 1fr));
+      gap: 14px;
+    }
+
+    .fun-card {
+      border-radius: 20px;
+      background: #fff;
+      border: 1px solid var(--line);
+      padding: 16px;
+    }
+
+    .fun-card strong {
+      display: block;
+      font-size: 16px;
+      margin-bottom: 8px;
+    }
+
+    .fun-card span {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    .age-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(220px, 1fr));
+      gap: 14px;
+    }
+
+    .age-card {
+      border-radius: 20px;
+      background: #fff;
+      border: 1px solid var(--line);
+      padding: 16px;
+      min-height: 188px;
+      box-shadow: 0 10px 24px rgba(44, 62, 93, .06);
+    }
+
+    .age-card h3 {
+      margin: 0 0 8px;
+      font-size: 17px;
+    }
+
+    .age-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    .age-pill {
+      display: inline-block;
+      border-radius: 999px;
+      padding: 6px 10px;
+      margin-bottom: 12px;
+      color: #087f5b;
+      border: 1px solid rgba(114, 214, 183, .65);
+      background: rgba(114, 214, 183, .16);
+      font-size: 12px;
+      font-weight: 850;
+    }
+
+    @media (max-width: 1180px) {
+      .board {
+        grid-template-columns: repeat(2, minmax(260px, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      .page {
+        padding: 22px 14px 38px;
+      }
+
+      .titlebar {
+        display: block;
+      }
+
+      .legend {
+        justify-content: flex-start;
+        margin-top: 16px;
+      }
+
+      .board {
+        grid-template-columns: 1fr;
+      }
+
+      .spec-grid,
+      .journey,
+      .route-grid,
+      .ip-card-grid,
+      .level-grid,
+      .fun-grid,
+      .age-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="titlebar">
+      <div>
+        <h1>儿童英语启蒙微信小程序页面原型 V2</h1>
+        <div class="subtitle">面向 3-6 岁儿童，风格参考 Lingokids / Khan Academy Kids：少文字、大图形、强音频反馈、可爱互动，并按年龄慢慢增加挑战。V2 强化主任务吸引力、年龄分层提示和柔和儿童视觉层次。</div>
+      </div>
+      <div class="legend">
+        <div class="chip">首版 MVP</div>
+        <div class="chip">UI V2</div>
+        <div class="chip">儿童端低文字</div>
+        <div class="chip">家长端中文记录</div>
+      </div>
+    </section>
+
+    <section class="board">
+      <article class="phone-block">
+        <div class="screen-name"><strong>首页</strong><span>Home</span></div>
+        <div class="tag-row"><span class="mini-tag p0">P0</span><span class="mini-tag">入口聚合</span><span class="mini-tag">贴纸反馈</span></div>
+        <div class="phone">
+          <div class="content">
+            <div class="top">
+              <div class="avatar">B</div>
+              <div class="mini-title">Hello Park</div>
+              <div class="icon-btn">家</div>
+            </div>
+            <div class="hero mascot">
+              <div class="character"></div>
+              <div class="speech"><strong>Hello!</strong>Let's play today.</div>
+            </div>
+            <div class="big-card">
+              <div class="text">今日小游戏<small>Tap red!</small></div>
+              <div class="play-badge">▶</div>
+            </div>
+            <div class="grid-2">
+              <div class="tile"><span>🎨</span>颜色乐园</div>
+              <div class="tile"><span>🎙</span>跟我说</div>
+              <div class="tile"><span>🎵</span>儿歌时间</div>
+              <div class="tile"><span>🧩</span>小小艺术家</div>
+            </div>
+            <div class="ip-strip">
+              <div class="ip-mini">Surprise theme<br />点击后随机出现主题任务</div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="phone-block">
+        <div class="screen-name"><strong>今日小游戏</strong><span>Daily</span></div>
+        <div class="tag-row"><span class="mini-tag p0">P0</span><span class="mini-tag">1-3 分钟</span><span class="mini-tag">听音点选</span></div>
+        <div class="phone">
+          <div class="content">
+            <div class="top">
+              <div class="back">‹</div>
+              <div class="mini-title">今日小游戏</div>
+              <div class="icon-btn">★</div>
+            </div>
+            <div class="task-area">
+              <div class="prompt">Tap red!</div>
+              <div class="hero" style="margin-top:12px;text-align:center;background:#fff7e6;">
+                <strong>Rescue mission</strong>
+                <div class="speech" style="margin-top:6px;">听英文，帮救援小队找到颜色物品</div>
+              </div>
+              <div class="choices">
+                <div class="choice red">🎈</div>
+                <div class="choice blue">🎈</div>
+                <div class="choice yellow">🎈</div>
+              </div>
+              <div class="choices">
+                <div class="choice green">🍏</div>
+                <div class="choice pink">🌸</div>
+                <div class="choice purple">🫐</div>
+              </div>
+              <div class="reward">★ ★ ☆</div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="phone-block">
+        <div class="screen-name"><strong>颜色乐园</strong><span>Colors</span></div>
+        <div class="tag-row"><span class="mini-tag p0">P0</span><span class="mini-tag">6 个颜色</span><span class="mini-tag">颜色贴纸</span></div>
+        <div class="phone">
+          <div class="content">
+            <div class="top">
+              <div class="back">‹</div>
+              <div class="mini-title">颜色乐园</div>
+              <div class="icon-btn">▶</div>
+            </div>
+            <div class="hero">
+              <div class="prompt">Find blue!</div>
+            </div>
+            <div class="hero" style="margin-top:10px;text-align:center;background:#eef8ff;">
+              <strong>Snow blue</strong>
+              <div class="speech" style="margin-top:6px;">冰雪主题色彩关卡</div>
+            </div>
+            <div class="choices">
+              <div class="choice red"></div>
+              <div class="choice blue">✓</div>
+              <div class="choice yellow"></div>
+            </div>
+            <div class="choices">
+              <div class="choice green"></div>
+              <div class="choice pink"></div>
+              <div class="choice purple"></div>
+            </div>
+            <div class="big-card" style="background:linear-gradient(135deg,#4dabf7,#72d6b7);">
+              <div class="text">blue<small>tap and listen</small></div>
+              <div class="play-badge">🔊</div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="phone-block">
+        <div class="screen-name"><strong>跟我说</strong><span>Speak</span></div>
+        <div class="tag-row"><span class="mini-tag">P1</span><span class="mini-tag">录音回放</span><span class="mini-tag">无评分</span></div>
+        <div class="phone">
+          <div class="content">
+            <div class="top">
+              <div class="back">‹</div>
+              <div class="mini-title">跟我说</div>
+              <div class="icon-btn">?</div>
+            </div>
+            <div class="word-card">
+              <div>
+                <div class="word">Hello</div>
+                <div class="hint">Yakka Dee style word pop</div>
+              </div>
+            </div>
+            <div class="round-actions">
+              <div class="round sky">▶</div>
+              <div class="round coral">●</div>
+              <div class="round mint">↺</div>
+            </div>
+            <div class="hero" style="text-align:center;margin-top:24px;">
+              <strong>Say it!</strong>
+              <div class="speech" style="margin-top:6px;">单词重复、夸张口型、宝宝录音回放</div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="phone-block">
+        <div class="screen-name"><strong>儿歌时间</strong><span>Songs</span></div>
+        <div class="tag-row"><span class="mini-tag p0">P0</span><span class="mini-tag">3 首儿歌</span><span class="mini-tag">动作提示</span></div>
+        <div class="phone">
+          <div class="content">
+            <div class="top">
+              <div class="back">‹</div>
+              <div class="mini-title">儿歌时间</div>
+              <div class="icon-btn">♪</div>
+            </div>
+            <div class="song-cover">ABC</div>
+            <div class="hero" style="margin-top:12px;text-align:center;background:#eef8ff;">
+              <strong>Snow Song</strong>
+              <div class="speech" style="margin-top:6px;">冰雪氛围儿歌主题，不使用原曲歌词</div>
+            </div>
+            <div class="round-actions">
+              <div class="round sky">▶</div>
+              <div class="round mint">⏸</div>
+            </div>
+            <div class="lyrics">
+              <span class="active">A B C D</span><br />
+              E F G<br />
+              sing with me
+            </div>
+            <div class="hero" style="text-align:center;">
+              <strong>Clap!</strong>
+              <div class="speech" style="margin-top:6px;">动作提示</div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="phone-block">
+        <div class="screen-name"><strong>小小艺术家</strong><span>Art</span></div>
+        <div class="tag-row"><span class="mini-tag p0">P0</span><span class="mini-tag">4 块拼图</span><span class="mini-tag">颜色观察</span></div>
+        <div class="phone">
+          <div class="content">
+            <div class="top">
+              <div class="back">‹</div>
+              <div class="mini-title">小小艺术家</div>
+              <div class="icon-btn">★</div>
+            </div>
+            <div class="puzzle-preview"></div>
+            <div class="puzzle-grid">
+              <div class="piece">1</div>
+              <div class="piece">2</div>
+              <div class="piece">3</div>
+              <div class="piece">4</div>
+            </div>
+            <div class="hero" style="margin-top:14px;text-align:center;">
+              <strong>Find yellow!</strong>
+              <div class="speech" style="margin-top:6px;">I see stars.</div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="phone-block">
+        <div class="screen-name"><strong>家长页</strong><span>Parent</span></div>
+        <div class="tag-row"><span class="mini-tag p0">P0</span><span class="mini-tag">学习记录</span><span class="mini-tag">中文说明</span></div>
+        <div class="phone">
+          <div class="content">
+            <div class="top">
+              <div class="back">‹</div>
+              <div class="mini-title">家长中心</div>
+              <div class="icon-btn">☰</div>
+            </div>
+            <div class="stats">
+              <div class="stat"><span>今日学习</span><strong>6 分钟</strong></div>
+              <div class="stat"><span>完成任务</span><strong>3 个</strong></div>
+              <div class="stat"><span>听过单词</span><strong>8 个</strong></div>
+              <div class="stat"><span>儿歌播放</span><strong>1 次</strong></div>
+              <div class="stat"><span>跟读次数</span><strong>4 次</strong></div>
+            </div>
+            <div class="hero">
+              <div class="speech"><strong>今日建议</strong>明天继续颜色小游戏，复习 red 和 blue。</div>
+            </div>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <section class="flow-section">
+      <h2>核心导航流程</h2>
+      <div class="section-note">儿童端始终围绕“进入、听指令、完成互动、获得奖励、回到首页”形成短闭环。</div>
+      <div class="flow">
+        <div class="flow-node">打开小程序</div>
+        <div class="arrow">→</div>
+        <div class="flow-node">首页</div>
+        <div class="arrow">→</div>
+        <div class="flow-node">选择模块</div>
+        <div class="arrow">→</div>
+        <div class="flow-node">完成互动</div>
+        <div class="arrow">→</div>
+        <div class="flow-node">获得奖励</div>
+        <div class="arrow">→</div>
+        <div class="flow-node">记录数据</div>
+        <div class="arrow">→</div>
+        <div class="flow-node">返回首页</div>
+      </div>
+    </section>
+
+    <section class="flow-section">
+      <h2>儿童首日体验路径</h2>
+      <div class="journey">
+        <div class="journey-step">
+          <div class="num">1</div>
+          <div><strong>看到角色</strong><span>首页卡通伙伴说 Hello，降低进入门槛。</span></div>
+        </div>
+        <div class="journey-step">
+          <div class="num">2</div>
+          <div><strong>玩颜色任务</strong><span>听 Tap red，点击红色气球，建立英文声音和颜色连接。</span></div>
+        </div>
+        <div class="journey-step">
+          <div class="num">3</div>
+          <div><strong>获得星星</strong><span>正确后出现星星、音效和 Great job。</span></div>
+        </div>
+        <div class="journey-step">
+          <div class="num">4</div>
+          <div><strong>听一首歌</strong><span>播放 ABC Song，配合简单歌词高亮和拍手动作。</span></div>
+        </div>
+        <div class="journey-step">
+          <div class="num">5</div>
+          <div><strong>家长查看</strong><span>家长页看到时长、词汇、儿歌和跟读记录。</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="flow-section">
+      <h2>趣味性设计</h2>
+      <div class="section-note">核心目标不是让孩子“上课”，而是让孩子觉得每次打开都有角色、声音、任务和奖励。</div>
+      <div class="fun-grid">
+        <div class="fun-card"><strong>角色陪伴</strong><span>首页伙伴会打招呼、发任务、庆祝完成，让学习更像跟朋友玩。</span></div>
+        <div class="fun-card"><strong>短任务循环</strong><span>每个任务控制在 1-3 分钟，听一句、点一下、得一个反馈。</span></div>
+        <div class="fun-card"><strong>即时奖励</strong><span>正确后出现星星、贴纸、音效和鼓励语，强化继续玩的动力。</span></div>
+        <div class="fun-card"><strong>主题惊喜</strong><span>颜色、儿歌、冰雪、救援、名画拼图轮换出现，减少重复疲劳。</span></div>
+        <div class="fun-card"><strong>允许试错</strong><span>错误只提示 Try again，不扣分、不批评，保护表达兴趣。</span></div>
+        <div class="fun-card"><strong>亲子共玩</strong><span>家长可陪孩子一起拍手、找颜色、拼图，形成每天固定陪伴时刻。</span></div>
+      </div>
+    </section>
+
+    <section class="flow-section">
+      <h2>年龄分层</h2>
+      <div class="section-note">同一套页面不拆成复杂菜单，系统根据年龄或家长选择的模式，调整任务目标、选项数量和表达要求。</div>
+      <div class="age-grid">
+        <div class="age-card">
+          <span class="age-pill">3-4 岁</span>
+          <h3>听点为主</h3>
+          <p>2-3 个选项，听单词点图片或颜色。鼓励点击、观察、跟着做动作，不要求完整表达。</p>
+        </div>
+        <div class="age-card">
+          <span class="age-pill">4-5 岁</span>
+          <h3>跟读与配对</h3>
+          <p>3-4 个选项，加入 `red apple`、动物叫声配对、简单录音回放，开始建立词组感觉。</p>
+        </div>
+        <div class="age-card">
+          <span class="age-pill">5-6 岁</span>
+          <h3>短句和组合</h3>
+          <p>加入 `I see...`、`I like...`、6-9 块拼图、儿歌动作排序，让挑战更耐玩。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="flow-section">
+      <h2>难度递进</h2>
+      <div class="section-note">难度不靠增加文字和考试，而是逐步增加听辨、操作、表达和组合能力。</div>
+      <div class="level-grid">
+        <div class="level-card">
+          <div class="level-badge">1</div>
+          <h3>听一听</h3>
+          <p>孩子先听英文发音，点击角色、颜色或物品即可。重点是熟悉声音。</p>
+        </div>
+        <div class="level-card">
+          <div class="level-badge">2</div>
+          <h3>点一点</h3>
+          <p>听 red 点红色，听 apple 点苹果。开始建立声音和图像对应。</p>
+        </div>
+        <div class="level-card">
+          <div class="level-badge">3</div>
+          <h3>说一说</h3>
+          <p>跟读 Hello、red、apple，支持录音回放，只鼓励不评分。</p>
+        </div>
+        <div class="level-card">
+          <div class="level-badge">4</div>
+          <h3>玩组合</h3>
+          <p>进入 red apple、I see stars、拼图找颜色、儿歌动作等复合任务，慢慢增加挑战。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="flow-section">
+      <h2>模块交互流程</h2>
+      <div class="route-grid">
+        <div class="route-card">
+          <h3>颜色任务</h3>
+          <div class="route-line"><b>播放指令</b><span>→</span><b>展示选项</b><span>→</span><b>宝宝点击</b><span>→</span><b>正确反馈</b><span>→</span><b>记录词汇</b></div>
+        </div>
+        <div class="route-card">
+          <h3>随机主题</h3>
+          <div class="route-line"><b>点击今日小游戏</b><span>→</span><b>主题池抽取</b><span>→</span><b>避免连续重复</b><span>→</span><b>进入任务</b><span>→</span><b>获得奖励</b></div>
+        </div>
+        <div class="route-card">
+          <h3>跟读任务</h3>
+          <div class="route-line"><b>播放原音</b><span>→</span><b>宝宝录音</b><span>→</span><b>回放</b><span>→</span><b>鼓励反馈</b><span>→</span><b>记录次数</b></div>
+        </div>
+        <div class="route-card">
+          <h3>儿歌任务</h3>
+          <div class="route-line"><b>选儿歌</b><span>→</span><b>播放</b><span>→</span><b>歌词高亮</b><span>→</span><b>动作提示</b><span>→</span><b>奖励贴纸</b></div>
+        </div>
+        <div class="route-card">
+          <h3>艺术拼图</h3>
+          <div class="route-line"><b>看名画</b><span>→</span><b>拖拼图</b><span>→</span><b>吸附完成</b><span>→</span><b>找颜色</b><span>→</span><b>艺术贴纸</b></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="flow-section">
+      <h2>IP 元素融入方案</h2>
+      <div class="section-note">这些主题不在首页逐个列出，孩子只看到“今日小游戏/惊喜任务”。点击后系统从主题池中随机抽取一个玩法，保持新鲜感。视觉稿先使用抽象主题和占位表现，后续如正式上线，需要替换为已授权的角色、音频、名称和素材。</div>
+      <div class="ip-card-grid">
+        <div class="ip-card">
+          <div>
+            <div class="ip-visual words">WORD</div>
+            <h3>Yakka Dee 词汇感</h3>
+            <p>用于“跟我说”和每日词汇：单词重复、夸张口型、节奏化发音，强化宝宝对 apple、red、hello 的声音记忆。</p>
+          </div>
+        </div>
+        <div class="ip-card">
+          <div>
+            <div class="ip-visual snow">SNOW</div>
+            <h3>冰雪主题色彩</h3>
+            <p>用于颜色乐园和儿歌时间：雪花、蓝色、闪光、城堡氛围，可对应 blue、white、sparkle 等低幼词汇。</p>
+          </div>
+        </div>
+        <div class="ip-card">
+          <div>
+            <div class="ip-visual rescue">GO!</div>
+            <h3>汪汪队式任务</h3>
+            <p>用于今日小游戏：救援任务结构，比如听指令找颜色、找水果、帮角色送物品，增强目标感和完成感。</p>
+          </div>
+        </div>
+      </div>
+      <div class="legal-note">版权提示：Yakka Dee、冰雪奇缘/爱莎、汪汪队均属于第三方 IP。当前原型只表达内容方向，不绘制或复刻具体角色形象；商业上线前需确认授权或改为原创角色。</div>
+    </section>
+
+    <section class="flow-section">
+      <h2>设计与开发标注</h2>
+      <div class="spec-grid">
+        <div class="spec-card">
+          <h3>视觉原则</h3>
+          <ul>
+            <li>明亮但不刺眼，避免单一色系。</li>
+            <li>儿童端大按钮、大图形、少文字。</li>
+            <li>卡片圆角控制在儿童感和可读性之间。</li>
+            <li>鼓励反馈使用星星、贴纸、轻动画。</li>
+          </ul>
+        </div>
+        <div class="spec-card">
+          <h3>交互原则</h3>
+          <ul>
+            <li>单任务 1-3 分钟，流程不超过 3 步。</li>
+            <li>每次点击都有声音或视觉反馈。</li>
+            <li>错误不惩罚，只提示 Try again。</li>
+            <li>完成后自动记录并回到首页。</li>
+          </ul>
+        </div>
+        <div class="spec-card">
+          <h3>首版范围</h3>
+          <ul>
+            <li>P0：首页、颜色、儿歌、艺术拼图、家长页。</li>
+            <li>P1：跟读录音、歌词高亮、吸附动画。</li>
+            <li>暂不做 AI 评分、会员、排行、复杂后台。</li>
+            <li>内容以颜色、问候、水果、动物、3 首儿歌为主。</li>
+            <li>按 3-4、4-5、5-6 岁调整选项数量和表达难度。</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

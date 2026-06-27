@@ -1,0 +1,47 @@
+<view class="page page-{{layoutMode}}">
+  <view class="topbar">
+    <button class="round-btn" bind:tap="back">‹</button>
+    <view class="title">小小艺术家</view>
+    <button class="round-btn" bind:tap="reset">↻</button>
+  </view>
+
+  <view class="painting card">
+    <view class="star star-a"></view>
+    <view class="star star-b"></view>
+    <view class="star star-c"></view>
+    <view class="board-grid {{gridClass}}">
+      <button
+        wx:for="{{board}}"
+        wx:key="id"
+        class="board-slot {{item.pieceId ? 'filled' : ''}}"
+        data-id="{{item.id}}"
+        bind:tap="placePiece"
+      >
+        {{item.label}}
+      </button>
+    </view>
+  </view>
+
+  <view class="puzzle-status">
+    {{placedCount}} / {{pieceCount}}
+  </view>
+
+  <view class="puzzle-grid {{gridClass}}">
+    <button
+      wx:for="{{pieces}}"
+      wx:key="id"
+      class="piece card {{item.placed ? 'done' : ''}} {{item.selected ? 'selected' : ''}}"
+      data-id="{{item.id}}"
+      bind:tap="selectPiece"
+    >
+      {{item.placed ? "★" : item.label}}
+    </button>
+  </view>
+
+  <view class="card art-prompt">
+    <view class="prompt">Find yellow!</view>
+    <view class="subtitle">I see stars.</view>
+  </view>
+
+  <view wx:if="{{feedback}}" class="feedback">{{feedback}}</view>
+</view>

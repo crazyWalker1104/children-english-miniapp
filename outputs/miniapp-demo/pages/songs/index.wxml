@@ -1,0 +1,39 @@
+<view class="page page-{{layoutMode}}">
+  <view class="topbar">
+    <button class="round-btn" bind:tap="back">‹</button>
+    <view class="title">儿歌时间</view>
+    <view class="round-btn">♪</view>
+  </view>
+
+  <view class="song-list">
+    <button
+      wx:for="{{songs}}"
+      wx:key="id"
+      class="song-card card {{activeSongId === item.id ? 'active' : ''}}"
+      data-id="{{item.id}}"
+      bind:tap="play"
+    >
+      <view>
+        <view class="song-title">{{item.title}}</view>
+        <view class="subtitle">{{item.action}}</view>
+      </view>
+      <view class="song-play">▶</view>
+    </button>
+  </view>
+
+  <view wx:if="{{activeSongId}}" class="lyrics-card card">
+    <view class="song-title">{{activeSong.title}}</view>
+    <view class="lyric-lines">
+      <view
+        wx:for="{{activeSong.lines}}"
+        wx:key="id"
+        class="lyric-line {{activeLineIndex === index ? 'active' : ''}}"
+      >
+        <text>{{item.text}}</text>
+        <text class="lyric-action">{{item.action}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view wx:if="{{feedback}}" class="feedback">{{feedback}}</view>
+</view>

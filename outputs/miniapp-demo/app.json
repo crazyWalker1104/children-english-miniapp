@@ -1,0 +1,21 @@
+{
+  "pages": [
+    "pages/home/index",
+    "pages/daily/index",
+    "pages/colors/index",
+    "pages/speak/index",
+    "pages/songs/index",
+    "pages/art/index",
+    "pages/parent/index"
+  ],
+  "window": {
+    "navigationBarTitleText": "Hello Park",
+    "navigationBarBackgroundColor": "#FFF8EA",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#FFF8EA"
+  },
+  "resizable": true,
+  "pageOrientation": "auto",
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

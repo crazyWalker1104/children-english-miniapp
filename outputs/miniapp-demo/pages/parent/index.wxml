@@ -1,0 +1,75 @@
+<view class="page page-{{layoutMode}}">
+  <view class="topbar">
+    <button class="round-btn" bind:tap="back">‹</button>
+    <view class="title">家长中心</view>
+    <button class="round-btn" bind:tap="reset">清</button>
+  </view>
+
+  <view class="profile card">
+    <view>
+      <view class="profile-title">{{profile.nickname}}</view>
+      <view class="subtitle">{{profile.age}} 岁 · {{ageLabel}}</view>
+    </view>
+    <view class="stars">{{rewardCount}} 枚贴纸</view>
+  </view>
+
+  <view class="age-panel card">
+    <view class="profile-title">年龄难度</view>
+    <view class="age-options">
+      <button
+        wx:for="{{ages}}"
+        wx:key="id"
+        class="age-option {{profile.age === item.value ? 'active' : ''}}"
+        data-age="{{item.value}}"
+        bind:tap="setAge"
+      >
+        {{item.label}}
+      </button>
+    </view>
+    <view class="subtitle">切换后，随机主题会自动调整选项数量和任务难度。</view>
+  </view>
+
+  <view class="stats">
+    <view class="stat card">
+      <text>今日学习</text>
+      <text class="stat-value">{{duration}} 分钟</text>
+    </view>
+    <view class="stat card">
+      <text>完成任务</text>
+      <text class="stat-value">{{taskCount}} 个</text>
+    </view>
+    <view class="stat card">
+      <text>听过单词</text>
+      <text class="stat-value">{{wordCount}} 个</text>
+    </view>
+    <view class="stat card">
+      <text>儿歌播放</text>
+      <text class="stat-value">{{songCount}} 次</text>
+    </view>
+    <view class="stat card">
+      <text>跟读次数</text>
+      <text class="stat-value">{{speakCount}} 次</text>
+    </view>
+  </view>
+
+  <view class="card tip">
+    <view class="profile-title">今日建议</view>
+    <view class="subtitle">继续玩一次颜色任务，再听一首儿歌。5-6 岁可尝试说 I see stars.</view>
+  </view>
+
+  <view class="card detail-panel">
+    <view class="profile-title">今日听过</view>
+    <view class="tag-list">
+      <text wx:for="{{heardWordItems}}" wx:key="id" class="word-tag">{{item.label}}</text>
+      <text wx:if="{{heardWordItems.length === 0}}" class="empty-text">还没有记录</text>
+    </view>
+  </view>
+
+  <view class="card detail-panel">
+    <view class="profile-title">今日奖励</view>
+    <view class="tag-list">
+      <text wx:for="{{rewardItems}}" wx:key="id" class="reward-tag">★ {{item.label}}</text>
+      <text wx:if="{{rewardItems.length === 0}}" class="empty-text">完成任务后点亮贴纸</text>
+    </view>
+  </view>
+</view>

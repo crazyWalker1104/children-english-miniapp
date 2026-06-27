@@ -1,0 +1,30 @@
+<view class="page page-{{layoutMode}}">
+  <view class="topbar">
+    <button class="round-btn" bind:tap="back">‹</button>
+    <view class="title">跟我说</view>
+    <button class="round-btn" bind:tap="nextWord">↻</button>
+  </view>
+
+  <view class="word-card card">
+    <view class="subtitle">Yakka Dee style word pop</view>
+    <view class="word">{{word}}</view>
+    <view class="phrase">{{practicePhrase}}</view>
+    <view class="step-row">
+      <view
+        wx:for="{{steps}}"
+        wx:key="id"
+        class="step-pill {{item.done ? 'done' : ''}} {{item.active ? 'active' : ''}}"
+      >
+        {{item.label}}
+      </view>
+    </view>
+  </view>
+
+  <view class="actions">
+    <button class="action play" bind:tap="playWord">▶</button>
+    <button class="action record" bind:tap="practice">●</button>
+    <button class="action replay" bind:tap="playWord">↺</button>
+  </view>
+
+  <view class="feedback">{{feedback}}</view>
+</view>

@@ -1,0 +1,22 @@
+/* Design tokens for Hello Park */
+
+.token-bg {
+  background: linear-gradient(180deg, #edf8ff 0%, #fff8ea 46%, #fffdf8 100%);
+}
+
+.token-card {
+  border-radius: 34rpx;
+  background: rgba(255, 255, 255, 0.96);
+  border: 2rpx solid rgba(80, 102, 135, 0.08);
+  box-shadow: 0 16rpx 34rpx rgba(44, 62, 93, 0.09);
+}
+
+.token-primary-gradient {
+  background: linear-gradient(135deg, #ff7f70 0%, #ffb86c 100%);
+}
+
+.token-soft-chip {
+  color: #087f5b;
+  background: rgba(114, 214, 183, 0.2);
+  border: 2rpx solid rgba(114, 214, 183, 0.42);
+}

@@ -1,0 +1,41 @@
+<view class="page page-{{layoutMode}}">
+  <view class="topbar">
+    <button class="round-btn" bind:tap="back">‹</button>
+    <view class="title">今日小游戏</view>
+    <button class="round-btn" bind:tap="pickTask">↻</button>
+  </view>
+
+  <view class="task-card card">
+    <view class="task-type">{{task.title}}</view>
+    <view class="prompt">{{task.prompt}}</view>
+    <view class="subtitle">年龄模式：{{ageLabel}}</view>
+    <view class="challenge-label">{{challengeLabel}}</view>
+    <view class="mini-progress">
+      <text
+        wx:for="{{progressDots}}"
+        wx:key="id"
+        class="dot {{item.active ? 'active' : ''}}"
+      ></text>
+    </view>
+  </view>
+
+  <view class="choice-grid">
+    <button
+      wx:for="{{choices}}"
+      wx:key="id"
+      class="choice card"
+      style="background: {{item.color || '#ffffff'}};"
+      data-id="{{item.id}}"
+      bind:tap="choose"
+    >
+      <view class="emoji">{{item.emoji}}</view>
+      <view class="choice-label">{{item.label}}</view>
+    </button>
+  </view>
+
+  <view wx:if="{{feedback}}" class="feedback">{{feedback}}</view>
+
+  <button wx:if="{{completed}}" class="next-card card {{sessionComplete ? 'finished' : ''}}" bind:tap="pickTask">
+    {{sessionComplete ? '再玩一组' : '下一个惊喜任务'}}
+  </button>
+</view>

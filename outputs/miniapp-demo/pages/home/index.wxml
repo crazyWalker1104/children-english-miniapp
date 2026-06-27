@@ -1,0 +1,53 @@
+<view class="page home-page page-{{layoutMode}}">
+  <view class="topbar">
+    <view class="avatar">B</view>
+    <view class="title">Hello Park</view>
+    <button class="round-btn" bind:tap="goParent">家</button>
+  </view>
+  <view class="age-line">
+    <text class="soft-chip">{{profile.age}} 岁 · {{ageLabel}}</text>
+  </view>
+
+  <view class="mascot card" bind:tap="sayHello">
+    <view class="character"></view>
+    <view>
+      <view class="hello">Hello!</view>
+      <view class="subtitle">Let's play today.</view>
+    </view>
+  </view>
+
+  <button class="primary-card daily-card" bind:tap="goDaily">
+    <view>
+      <view class="daily-title">今日小游戏</view>
+      <view class="daily-sub">Tap for a surprise!</view>
+    </view>
+    <view class="play">▶</view>
+  </button>
+
+  <view class="module-grid">
+    <button class="module-card card" bind:tap="goColors">
+      <view class="module-icon">🎨</view>
+      <view>颜色乐园</view>
+    </button>
+    <button class="module-card card" bind:tap="goSpeak">
+      <view class="module-icon">🎙</view>
+      <view>跟我说</view>
+    </button>
+    <button class="module-card card" bind:tap="goSongs">
+      <view class="module-icon">🎵</view>
+      <view>儿歌时间</view>
+    </button>
+    <button class="module-card card" bind:tap="goArt">
+      <view class="module-icon">🧩</view>
+      <view>小小艺术家</view>
+    </button>
+  </view>
+
+  <view class="reward-card card">
+    <view>
+      <view class="reward-title">今日贴纸</view>
+      <view class="subtitle">完成任务后自动点亮</view>
+    </view>
+    <view class="stars">{{stars}}</view>
+  </view>
+</view>

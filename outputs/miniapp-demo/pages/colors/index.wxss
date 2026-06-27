@@ -1,0 +1,85 @@
+.prompt-card {
+  margin-top: 28rpx;
+  padding: 34rpx;
+  text-align: center;
+  border-color: rgba(124, 199, 246, 0.2);
+}
+
+.prompt {
+  margin-top: 12rpx;
+  font-size: 54rpx;
+  font-weight: 900;
+}
+
+.color-reward {
+  margin-top: 20rpx;
+  color: #f6b321;
+  font-size: 24rpx;
+  font-weight: 900;
+}
+
+.mini-progress {
+  margin-top: 24rpx;
+  display: flex;
+  justify-content: center;
+  gap: 12rpx;
+}
+
+.dot {
+  width: 18rpx;
+  height: 18rpx;
+  border-radius: 50%;
+  background: #dfe7ef;
+}
+
+.dot.active {
+  width: 42rpx;
+  border-radius: 999rpx;
+  background: #72d6b7;
+}
+
+.color-grid {
+  margin-top: 30rpx;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20rpx;
+}
+
+.color-card {
+  min-height: 190rpx;
+  padding: 22rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #243047;
+}
+
+.emoji {
+  font-size: 54rpx;
+}
+
+.color-label {
+  margin-top: 10rpx;
+  font-size: 30rpx;
+  font-weight: 900;
+}
+
+.next-card {
+  margin-top: 22rpx;
+  min-height: 88rpx;
+  color: #087f5b;
+  font-size: 30rpx;
+  font-weight: 900;
+  background: rgba(114, 214, 183, 0.22);
+  border: 2rpx solid rgba(114, 214, 183, 0.42);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.next-card.finished {
+  color: #8a4b00;
+  background: rgba(255, 224, 102, 0.36);
+  border-color: rgba(255, 193, 7, 0.42);
+}

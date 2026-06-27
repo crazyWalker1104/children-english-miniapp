@@ -1,0 +1,144 @@
+@import "./styles/tokens.wxss";
+
+page {
+  min-height: 100vh;
+  color: #243047;
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+  background: linear-gradient(180deg, #edf8ff 0%, #fff8ea 46%, #fffdf8 100%);
+}
+
+view,
+text,
+button {
+  box-sizing: border-box;
+}
+
+button {
+  padding: 0;
+  margin: 0;
+  border: 0;
+  background: transparent;
+  line-height: 1;
+}
+
+button::after {
+  border: 0;
+}
+
+.page {
+  min-height: 100vh;
+  padding: 32rpx 28rpx calc(48rpx + env(safe-area-inset-bottom));
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 72rpx;
+}
+
+.title {
+  font-size: 34rpx;
+  font-weight: 900;
+  color: #243047;
+  letter-spacing: 0;
+}
+
+.subtitle {
+  margin-top: 10rpx;
+  color: #6c7890;
+  font-size: 24rpx;
+  line-height: 1.5;
+}
+
+.round-btn {
+  width: 68rpx;
+  height: 68rpx;
+  border-radius: 50%;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10rpx 22rpx rgba(44, 62, 93, 0.1);
+  font-size: 28rpx;
+  font-weight: 900;
+  color: #243047;
+}
+
+.card {
+  border-radius: 34rpx;
+  background: rgba(255, 255, 255, 0.96);
+  border: 2rpx solid rgba(80, 102, 135, 0.08);
+  box-shadow: 0 16rpx 34rpx rgba(44, 62, 93, 0.09);
+}
+
+.primary-card {
+  border-radius: 36rpx;
+  padding: 30rpx;
+  color: #ffffff;
+  background: linear-gradient(135deg, #ff7f70 0%, #ffb86c 100%);
+  box-shadow: 0 20rpx 38rpx rgba(255, 127, 112, 0.3);
+}
+
+.feedback {
+  margin-top: 24rpx;
+  padding: 24rpx 28rpx;
+  border-radius: 28rpx;
+  text-align: center;
+  font-size: 32rpx;
+  font-weight: 900;
+  background: #ffffff;
+  color: #243047;
+  box-shadow: 0 14rpx 28rpx rgba(44, 62, 93, 0.1);
+}
+
+.muted {
+  color: #6c7890;
+}
+
+.stars {
+  color: #f6b321;
+  letter-spacing: 8rpx;
+}
+
+.soft-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48rpx;
+  padding: 0 18rpx;
+  border-radius: 999rpx;
+  color: #087f5b;
+  background: rgba(114, 214, 183, 0.2);
+  border: 2rpx solid rgba(114, 214, 183, 0.42);
+  font-size: 22rpx;
+  font-weight: 900;
+}
+
+@media (min-width: 768px) {
+  .page {
+    padding-left: 40rpx;
+    padding-right: 40rpx;
+  }
+
+  .page-tablet .module-grid,
+  .page-pc .module-grid,
+  .page-tablet .choice-grid,
+  .page-pc .choice-grid,
+  .page-tablet .color-grid,
+  .page-pc .color-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .page {
+    max-width: 960px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  button:hover {
+    opacity: 0.92;
+  }
+}
