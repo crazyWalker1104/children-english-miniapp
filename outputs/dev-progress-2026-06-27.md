@@ -56,10 +56,45 @@
 - 未先听音时点击练习会提示先听
 - 重播按钮改为真正重播当前词/短句
 
+### 8. 统一触觉反馈
+
+- 新增 `utils/interaction.js`
+- 成功、完成、错误反馈使用不同触觉强度
+- 所有震动调用先通过 `wx.canIUse` 做能力判断
+- PC 端或不支持设备自动静默降级
+
+### 9. 音频管理器升级
+
+- `utils/audio.js` 从 toast 占位升级为统一音频播放封装
+- 有真实资源时使用 `wx.createInnerAudioContext`
+- 无资源或 API 不可用时自动降级为文字提示
+- 新增 `data/audio-sources.js` 管理文本 key 到音频 URL 的映射
+- App 进入后台时停止当前音频
+- 新增 `assets/audio` 和 `assets/images` 素材目录占位
+
+### 10. 家长照护设置
+
+- 新增 `utils/settings.js`
+- 家长中心新增声音提示、触觉反馈、安静模式开关
+- 音频封装读取家长设置，关闭声音后不再播放或弹出发音提示
+- 触觉封装读取家长设置，安静模式下自动关闭震动
+- 设置保存在本地缓存，并同步到 App 全局状态
+
+### 11. 家长中心安全与建议
+
+- 清空今日记录增加二次确认，避免误触
+- 今日建议改为根据年龄、学习时长、听词数、跟读数和儿歌播放动态生成
+- 学习时长过长时提示收尾休息，降低过度使用风险
+
 ## 涉及文件
 
 - `outputs/miniapp-demo/utils/progress.js`
+- `outputs/miniapp-demo/utils/interaction.js`
+- `outputs/miniapp-demo/utils/audio.js`
+- `outputs/miniapp-demo/utils/settings.js`
 - `outputs/miniapp-demo/app.js`
+- `outputs/miniapp-demo/data/audio-sources.js`
+- `outputs/miniapp-demo/assets/*`
 - `outputs/miniapp-demo/pages/daily/*`
 - `outputs/miniapp-demo/pages/colors/index.js`
 - `outputs/miniapp-demo/pages/colors/index.wxml`
@@ -78,7 +113,7 @@
 
 ## 下一步建议
 
-1. 替换 `utils/audio.js` 为真实 `wx.createInnerAudioContext`
+1. 补充真实英文发音与儿歌音频资源
 2. 增加素材目录和占位图片
 3. 如需更强手感，可把拼图页继续升级为 `movable-view` 拖拽
 4. 替换儿歌页占位节拍为真实音频播放进度

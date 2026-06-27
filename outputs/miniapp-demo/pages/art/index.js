@@ -1,6 +1,7 @@
 const { completeTask, hearWord, addStudySeconds } = require("../../utils/progress")
 const { playText } = require("../../utils/audio")
 const { getAgeLevel } = require("../../utils/age")
+const { feedbackSuccess, feedbackComplete, feedbackError } = require("../../utils/interaction")
 const { getCurrentLayoutMode, getResizeLayoutMode } = require("../../utils/layout")
 
 function shuffle(items) {
@@ -112,12 +113,14 @@ Page({
 
     if (!selectedPieceId || this.data.completed) {
       this.setData({ feedback: "Pick a piece first!" })
+      feedbackError()
       playText("Pick a piece first!")
       return
     }
 
     if (slotId !== selectedPieceId) {
       this.setData({ feedback: "Try another spot!" })
+      feedbackError()
       playText("Try another spot!")
       return
     }
@@ -161,10 +164,12 @@ Page({
     if (completed) {
       completeTask("art-starry-night", "art-star")
       addStudySeconds(30)
+      feedbackComplete()
       playText("Beautiful!")
       return
     }
 
+    feedbackSuccess()
     playText("Great!")
   },
 

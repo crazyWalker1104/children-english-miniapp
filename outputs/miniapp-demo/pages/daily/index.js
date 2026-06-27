@@ -3,6 +3,7 @@ const { getAgeLevel } = require("../../utils/age")
 const { pickDailyTask } = require("../../utils/randomizer")
 const { completeTask, hearWord, addStudySeconds } = require("../../utils/progress")
 const { playText } = require("../../utils/audio")
+const { feedbackSuccess, feedbackComplete, feedbackError } = require("../../utils/interaction")
 const { getCurrentLayoutMode, getResizeLayoutMode } = require("../../utils/layout")
 
 const SESSION_GOAL = 3
@@ -132,11 +133,17 @@ Page({
         progressDots: buildProgressDots(completedRounds),
         sessionComplete
       })
+      if (sessionComplete) {
+        feedbackComplete()
+      } else {
+        feedbackSuccess()
+      }
       playText(sessionComplete ? "All done! Super star!" : "Great job!")
       return
     }
 
     this.setData({ feedback: "Try again!" })
+    feedbackError()
     playText("Try again!")
   },
 

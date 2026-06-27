@@ -1,6 +1,7 @@
 const { songs } = require("../../data/tasks")
 const { playSong, completeTask, addStudySeconds } = require("../../utils/progress")
 const { playText } = require("../../utils/audio")
+const { feedbackComplete } = require("../../utils/interaction")
 const { getCurrentLayoutMode, getResizeLayoutMode } = require("../../utils/layout")
 
 Page({
@@ -67,6 +68,7 @@ Page({
         page.setData({
           feedback: "Great singing! ★"
         })
+        feedbackComplete()
         playText("Great singing!")
         return
       }

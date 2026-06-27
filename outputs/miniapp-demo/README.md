@@ -10,13 +10,14 @@
 - 避免连续重复主题
 - 年龄分层基础规则
 - 家长端年龄切换
-- 音频播放占位管理器
+- 音频播放管理器：有真实资源时播放音频，无资源时文字降级
 - 颜色乐园：按年龄控制选项数量、3 题一组颜色星
 - 跟我说：Listen / Say / Smile 三步练习
 - 儿歌时间：歌词卡片、动作提示、自动高亮当前句
 - 小小艺术家：按年龄切换 4 / 6 / 9 片拼图
-- 家长中心：学习时长、任务数、听过单词、奖励贴纸
+- 家长中心：学习时长、任务数、听过单词、奖励贴纸、照护设置、动态建议
 - 本地学习记录
+- 统一触觉反馈：成功、完成、错误状态区分震动强度
 - 安全区与大屏适配
 - `onResize` 横竖屏 / 平板 / PC 响应
 
@@ -37,7 +38,7 @@
 - 名画儿童化素材
 - 授权 IP 角色或原创角色素材
 
-当前 `utils/audio.js` 只用 `wx.showToast` 模拟发音反馈，后续接入真实音频时建议统一替换该封装，页面侧不直接操作音频 API。
+当前 `utils/audio.js` 已支持 `wx.createInnerAudioContext`。后续接入真实音频时，在 `data/audio-sources.js` 中维护文本 key 到音频 URL 的映射即可；没有配置音频时会自动用 `wx.showToast` 文字降级。
 
 ## 页面
 
@@ -54,10 +55,14 @@
 - `utils/randomizer.js` 随机主题池
 - `utils/age.js` 年龄分层规则
 - `utils/progress.js` 学习记录
-- `utils/audio.js` 音频播放占位，后续可替换为真实音频
+- `utils/settings.js` 家长照护偏好设置
+- `utils/audio.js` 音频播放封装，支持真实音频和文字降级
+- `utils/interaction.js` 触觉反馈封装，自动做能力判断和降级
 - `utils/layout.js` 多端布局模式
 - `utils/request.js` RESTful 请求统一封装
+- `data/audio-sources.js` 音频资源映射
 - `data/tasks.js` mock 内容数据
+- `assets/` 静态素材目录
 - `styles/tokens.wxss` 设计 token 样式占位
 
 ## 验证记录
@@ -66,9 +71,19 @@
 
 - JS 语法检查
 - JSON 配置解析
-- 规范扫描：旧式 `bindtap`、`wx:key="*this"`、页面直接 `wx.request`
+- 规范扫描：旧式 `bindtap`、`wx:key="*this"`、页面直接 `wx.request`、页面直接硬件 API
 
 当前 `wx.request` 仅存在于 `utils/request.js`，符合统一请求封装约定。
+当前 `wx.vibrateShort` 仅存在于 `utils/interaction.js`，符合硬件能力统一降级约定。
+当前 `wx.createInnerAudioContext` 仅存在于 `utils/audio.js`，页面侧不直接操作音频实例。
+
+家长中心可配置：
+
+- 声音提示
+- 触觉反馈
+- 安静模式
+
+家长中心清空今日记录前会二次确认，避免误触删除宝宝当天学习进度。
 
 ## 设计系统
 

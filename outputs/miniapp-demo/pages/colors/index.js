@@ -2,6 +2,7 @@ const { colors } = require("../../data/tasks")
 const { completeTask, hearWord, addStudySeconds } = require("../../utils/progress")
 const { playText } = require("../../utils/audio")
 const { getAgeLevel } = require("../../utils/age")
+const { feedbackSuccess, feedbackComplete, feedbackError } = require("../../utils/interaction")
 const { getCurrentLayoutMode, getResizeLayoutMode } = require("../../utils/layout")
 
 const COLOR_GOAL = 3
@@ -96,10 +97,16 @@ Page({
         sessionComplete,
         feedback: sessionComplete ? "Color stars complete! ★★★" : "Beautiful! ★"
       })
+      if (sessionComplete) {
+        feedbackComplete()
+      } else {
+        feedbackSuccess()
+      }
       playText(sessionComplete ? "Color stars complete!" : "Great job!")
       return
     }
     this.setData({ feedback: "Try again!" })
+    feedbackError()
     playText("Try again!")
   },
 

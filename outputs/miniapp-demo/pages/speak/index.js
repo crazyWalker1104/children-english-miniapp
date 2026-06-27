@@ -2,6 +2,7 @@ const { words } = require("../../data/tasks")
 const { hearWord, addSpeakCount, addStudySeconds } = require("../../utils/progress")
 const { playText } = require("../../utils/audio")
 const { getAgeLevel } = require("../../utils/age")
+const { feedbackSuccess, feedbackComplete, feedbackError } = require("../../utils/interaction")
 const { getCurrentLayoutMode, getResizeLayoutMode } = require("../../utils/layout")
 
 const PRACTICE_STEPS = [
@@ -94,6 +95,7 @@ Page({
   practice() {
     if (this.data.stepCount === 0) {
       this.setData({ feedback: "Tap listen first" })
+      feedbackError()
       playText("Tap listen first")
       return
     }
@@ -107,6 +109,11 @@ Page({
       steps: buildSteps(nextStepCount),
       feedback: nextStepCount >= 3 ? "You did it! ★" : "Great sound!"
     })
+    if (nextStepCount >= 3) {
+      feedbackComplete()
+    } else {
+      feedbackSuccess()
+    }
     playText(nextStepCount >= 3 ? "You did it!" : "Great sound!")
   },
 
