@@ -52,7 +52,11 @@ function playAudioSource(src, fallbackText) {
   activeAudio = wx.createInnerAudioContext()
   activeAudio.src = src
   activeAudio.obeyMuteSwitch = false
-  activeAudio.onError(function () {
+  activeAudio.onError(function (error) {
+    console.error("Audio playback failed", {
+      src,
+      error
+    })
     stopActiveAudio()
     showTextFallback(fallbackText)
   })

@@ -1,7 +1,6 @@
 import math
 import os
 import subprocess
-import tempfile
 
 from PIL import Image, ImageDraw, ImageFont
 
@@ -19,14 +18,14 @@ def asset_path(*parts):
 
 def generate_audio():
     items = [
-        ("Hello", asset_path("audio", "words", "hello.wav")),
-        ("Bye-bye", asset_path("audio", "words", "bye-bye.wav")),
-        ("red", asset_path("audio", "words", "red.wav")),
-        ("I see red.", asset_path("audio", "phrases", "i-see-red.wav")),
-        ("A B C. Sing with me. Now I know.", asset_path("audio", "songs", "abc-song.wav")),
+        ("Hello", asset_path("audio", "words", "hello.m4a")),
+        ("Bye-bye", asset_path("audio", "words", "bye-bye.m4a")),
+        ("red", asset_path("audio", "words", "red.m4a")),
+        ("I see red.", asset_path("audio", "phrases", "i-see-red.m4a")),
+        ("A B C. Sing with me. Now I know.", asset_path("audio", "songs", "abc-song.m4a")),
         (
             "Twinkle, twinkle. Little star. How I wonder.",
-            asset_path("audio", "songs", "twinkle-twinkle.wav"),
+            asset_path("audio", "songs", "twinkle-twinkle.m4a"),
         ),
     ]
 
@@ -34,18 +33,17 @@ def generate_audio():
         ensure_dir(os.path.dirname(output_path))
 
     for text, output_path in items:
-        with tempfile.NamedTemporaryFile(suffix=".aiff", delete=False) as temp_file:
-            temp_path = temp_file.name
-
-        try:
-            subprocess.run(["say", text, "-o", temp_path], check=True)
-            subprocess.run(
-                ["afconvert", temp_path, "-f", "WAVE", "-d", "LEI16", output_path],
-                check=True,
-            )
-        finally:
-            if os.path.exists(temp_path):
-                os.unlink(temp_path)
+        subprocess.run(
+            [
+                "say",
+                "--file-format=m4af",
+                "--data-format=aac",
+                "-o",
+                output_path,
+                text,
+            ],
+            check=True,
+        )
 
 
 def draw_starry_art():

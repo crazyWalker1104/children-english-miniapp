@@ -3,37 +3,37 @@ const requiredAudio = [
     id: "hello",
     label: "Hello word audio",
     sourceKey: "hello",
-    recommendedPath: "/assets/audio/words/hello.wav"
+    recommendedPath: "/assets/audio/words/hello.m4a"
   },
   {
     id: "bye-bye",
     label: "Bye-bye word audio",
     sourceKey: "bye-bye",
-    recommendedPath: "/assets/audio/words/bye-bye.wav"
+    recommendedPath: "/assets/audio/words/bye-bye.m4a"
   },
   {
     id: "red",
     label: "red word audio",
     sourceKey: "red",
-    recommendedPath: "/assets/audio/words/red.wav"
+    recommendedPath: "/assets/audio/words/red.m4a"
   },
   {
     id: "i-see-red",
     label: "I see red phrase audio",
     sourceKey: "i-see-red",
-    recommendedPath: "/assets/audio/phrases/i-see-red.wav"
+    recommendedPath: "/assets/audio/phrases/i-see-red.m4a"
   },
   {
     id: "abc-song",
     label: "ABC Song audio",
     sourceKey: "abc-song",
-    recommendedPath: "/assets/audio/songs/abc-song.wav"
+    recommendedPath: "/assets/audio/songs/abc-song.m4a"
   },
   {
     id: "twinkle-twinkle",
     label: "Twinkle Twinkle audio",
     sourceKey: "twinkle-twinkle",
-    recommendedPath: "/assets/audio/songs/twinkle-twinkle.wav"
+    recommendedPath: "/assets/audio/songs/twinkle-twinkle.m4a"
   }
 ]
 
