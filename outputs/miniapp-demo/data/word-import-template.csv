@@ -1,0 +1,6 @@
+id,text,zh,category,minAge,phrase,status
+mommy,Mommy,妈妈,family,3,I see Mommy.,approved
+daddy,Daddy,爸爸,family,3,I see Daddy.,approved
+milk,milk,牛奶,food,3,I want milk.,approved
+ball,ball,球,toy,3,I see a ball.,approved
+dog,dog,狗,animal,4,I see a dog.,approved

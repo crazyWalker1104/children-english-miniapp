@@ -69,6 +69,8 @@ DELIVERY.md
 - `data/audio-sources.js` 音频资源映射
 - `data/content.js` 内容查询助手，统一处理年龄筛选和短句选择
 - `data/tasks.js` 结构化内容数据：颜色、单词、儿歌、随机任务
+- `data/import-words.js` 单词 CSV 导入工具
+- `data/word-import-template.csv` 单词导入模板
 - `data/README.md` 内容库维护说明
 - `assets/` 静态素材目录
 - `styles/tokens.wxss` 设计 token 样式占位
@@ -98,6 +100,7 @@ DELIVERY.md
 家长中心会展示最近 7 天活跃天数、学习分钟、任务数、贴纸数和每日学习柱状图。
 
 内容库维护见 `data/README.md`。单词支持年龄、分类、中文提示和短句；儿歌支持年龄、中文标题和未来音频 key。
+单词可先在 `data/word-import-template.csv` 中审核整理，再执行 `node data/import-words.js data/word-import-template.csv` 合入内容库。
 
 ## 设计系统
 

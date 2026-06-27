@@ -115,6 +115,13 @@
 - 新增 `data/README.md` 说明单词、儿歌和音频映射维护方式
 - 新增 `data/content.js`，统一处理年龄筛选、随机取词和短句选择
 
+### 16. 单词库导入工具
+
+- 新增 `data/word-import-template.csv`，支持用表格维护候选单词
+- 新增 `data/import-words.js`，把审核通过的 CSV 单词合入 `tasks.js`
+- 导入时自动规范化 `id`、跳过未审核行、覆盖同 id 单词并追加新增单词
+- 导入完成后自动执行内容库校验，降低维护出错概率
+
 ## 涉及文件
 
 - `outputs/miniapp-demo/utils/progress.js`
@@ -129,6 +136,8 @@
 - `outputs/miniapp-demo/pages/colors/index.wxml`
 - `outputs/miniapp-demo/pages/colors/index.wxss`
 - `outputs/miniapp-demo/data/tasks.js`
+- `outputs/miniapp-demo/data/import-words.js`
+- `outputs/miniapp-demo/data/word-import-template.csv`
 - `outputs/miniapp-demo/pages/songs/index.js`
 - `outputs/miniapp-demo/pages/songs/index.wxml`
 - `outputs/miniapp-demo/pages/songs/index.wxss`

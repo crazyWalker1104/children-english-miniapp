@@ -10,6 +10,30 @@ Run content validation before release:
 node data/validate-content.js
 ```
 
+## Import Workflow
+
+Use `word-import-template.csv` when a parent, teacher, or content editor wants to add words without editing JavaScript directly.
+
+Recommended flow:
+
+1. Copy or edit `data/word-import-template.csv`.
+2. Keep only reviewed rows as `status=approved`.
+3. Import words:
+
+```sh
+node data/import-words.js data/word-import-template.csv
+```
+
+The importer will:
+
+- Skip rows whose `status` is not `approved`.
+- Normalize `id` to lowercase kebab-case.
+- Replace an existing word when the same `id` already exists.
+- Append new words after the existing word list.
+- Run `validate-content.js` after writing.
+
+For production content, prefer importing from a reviewed internal CSV instead of live-fetching words inside the mini program. This keeps children's content predictable, auditable, and available offline.
+
 ## Words
 
 Each word item should include:

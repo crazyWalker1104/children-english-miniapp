@@ -71,6 +71,46 @@ const words = [
     category: "color",
     minAge: 3,
     phrase: "I see blue."
+  },
+  {
+    id: "mommy",
+    text: "Mommy",
+    zh: "妈妈",
+    category: "family",
+    minAge: 3,
+    phrase: "I see Mommy."
+  },
+  {
+    id: "daddy",
+    text: "Daddy",
+    zh: "爸爸",
+    category: "family",
+    minAge: 3,
+    phrase: "I see Daddy."
+  },
+  {
+    id: "milk",
+    text: "milk",
+    zh: "牛奶",
+    category: "food",
+    minAge: 3,
+    phrase: "I want milk."
+  },
+  {
+    id: "ball",
+    text: "ball",
+    zh: "球",
+    category: "toy",
+    minAge: 3,
+    phrase: "I see a ball."
+  },
+  {
+    id: "dog",
+    text: "dog",
+    zh: "狗",
+    category: "animal",
+    minAge: 4,
+    phrase: "I see a dog."
   }
 ]
 
