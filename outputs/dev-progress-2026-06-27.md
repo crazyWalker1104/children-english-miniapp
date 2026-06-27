@@ -122,6 +122,13 @@
 - 导入时自动规范化 `id`、跳过未审核行、覆盖同 id 单词并追加新增单词
 - 导入完成后自动执行内容库校验，降低维护出错概率
 
+### 17. 儿歌库导入工具
+
+- 新增 `data/song-import-template.csv`，支持用表格维护儿歌卡片和动作提示
+- 新增 `data/import-songs.js`，把审核通过的 CSV 儿歌合入 `tasks.js`
+- 导入时自动规范化 `id` 和 `audioKey`，生成稳定歌词行 id
+- 导入完成后自动执行内容库校验，便于后续替换为授权儿歌内容
+
 ## 涉及文件
 
 - `outputs/miniapp-demo/utils/progress.js`
@@ -138,6 +145,8 @@
 - `outputs/miniapp-demo/data/tasks.js`
 - `outputs/miniapp-demo/data/import-words.js`
 - `outputs/miniapp-demo/data/word-import-template.csv`
+- `outputs/miniapp-demo/data/import-songs.js`
+- `outputs/miniapp-demo/data/song-import-template.csv`
 - `outputs/miniapp-demo/pages/songs/index.js`
 - `outputs/miniapp-demo/pages/songs/index.wxml`
 - `outputs/miniapp-demo/pages/songs/index.wxss`

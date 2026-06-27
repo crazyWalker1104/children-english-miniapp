@@ -41,6 +41,8 @@ node outputs/miniapp-demo/data/validate-content.js
 - 年龄筛选和随机取词逻辑在 `data/content.js`。
 - 音频映射维护在 `data/audio-sources.js`。
 - 维护说明见 `data/README.md`。
+- 单词可通过 `data/word-import-template.csv` + `node data/import-words.js data/word-import-template.csv` 导入。
+- 儿歌可通过 `data/song-import-template.csv` + `node data/import-songs.js data/song-import-template.csv` 导入。
 
 ## 仍需替换
 

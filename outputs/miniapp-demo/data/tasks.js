@@ -153,6 +153,32 @@ const songs = [
       { id: "happy-2", text: "Clap your hands", action: "clap clap" },
       { id: "happy-3", text: "Hooray!", action: "hands up" }
     ]
+  },
+  {
+    id: "rainbow",
+    title: "Rainbow Song",
+    zh: "彩虹歌",
+    action: "Point colors!",
+    minAge: 3,
+    audioKey: "rainbow-song",
+    lines: [
+      { id: "rainbow-1", text: "Red and yellow", action: "point" },
+      { id: "rainbow-2", text: "Green and blue", action: "wave" },
+      { id: "rainbow-3", text: "Rainbow for you", action: "clap" }
+    ]
+  },
+  {
+    id: "wash-hands",
+    title: "Wash Your Hands",
+    zh: "洗手歌",
+    action: "Rub hands!",
+    minAge: 3,
+    audioKey: "wash-hands",
+    lines: [
+      { id: "wash-hands-1", text: "Wash wash wash", action: "rub" },
+      { id: "wash-hands-2", text: "Clean little hands", action: "show hands" },
+      { id: "wash-hands-3", text: "Ready to play", action: "smile" }
+    ]
   }
 ]
 

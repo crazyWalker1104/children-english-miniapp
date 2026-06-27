@@ -10,7 +10,7 @@ Run content validation before release:
 node data/validate-content.js
 ```
 
-## Import Workflow
+## Word Import Workflow
 
 Use `word-import-template.csv` when a parent, teacher, or content editor wants to add words without editing JavaScript directly.
 
@@ -33,6 +33,31 @@ The importer will:
 - Run `validate-content.js` after writing.
 
 For production content, prefer importing from a reviewed internal CSV instead of live-fetching words inside the mini program. This keeps children's content predictable, auditable, and available offline.
+
+## Song Import Workflow
+
+Use `song-import-template.csv` to maintain short song cards and movement prompts.
+
+Recommended flow:
+
+1. Copy or edit `data/song-import-template.csv`.
+2. Keep only reviewed rows as `status=approved`.
+3. Import songs:
+
+```sh
+node data/import-songs.js data/song-import-template.csv
+```
+
+The importer will:
+
+- Skip rows whose `status` is not `approved`.
+- Normalize `id` and `audioKey` to lowercase kebab-case.
+- Replace an existing song when the same `id` already exists.
+- Append new songs after the existing song list.
+- Generate stable lyric line ids like `rainbow-1`.
+- Run `validate-content.js` after writing.
+
+Keep all imported lyrics original, public-domain, or properly licensed before production release.
 
 ## Words
 
