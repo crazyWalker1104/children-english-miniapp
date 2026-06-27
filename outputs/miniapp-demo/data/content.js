@@ -16,8 +16,13 @@ function getWordsForAge(age) {
   return filterByAge(words, age)
 }
 
-function pickWordForAge(age) {
-  return pickRandom(getWordsForAge(age))
+function pickWordForAge(age, excludedId) {
+  const candidates = getWordsForAge(age)
+  const filtered = candidates.filter(function (word) {
+    return word.id !== excludedId
+  })
+  const pool = filtered.length ? filtered : candidates
+  return pickRandom(pool)
 }
 
 function getWordText(word) {
@@ -26,6 +31,17 @@ function getWordText(word) {
 
 function getWordHint(word) {
   return word && word.zh ? word.zh : ""
+}
+
+function getWordCategoryLabel(word) {
+  const labels = {
+    greeting: "问候",
+    daily: "日常",
+    color: "颜色",
+    food: "食物",
+    art: "艺术"
+  }
+  return labels[word.category] || "单词"
 }
 
 function getPracticePhrase(word, phraseMode) {
@@ -47,6 +63,7 @@ module.exports = {
   pickWordForAge,
   getWordText,
   getWordHint,
+  getWordCategoryLabel,
   getPracticePhrase,
   getSongsForAge
 }

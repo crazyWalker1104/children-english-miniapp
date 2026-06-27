@@ -4,6 +4,12 @@ Content data is maintained in `tasks.js`.
 
 Pages should read filtered content through `content.js` instead of duplicating age filtering rules.
 
+Run content validation before release:
+
+```sh
+node data/validate-content.js
+```
+
 ## Words
 
 Each word item should include:

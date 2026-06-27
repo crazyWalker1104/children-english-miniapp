@@ -8,7 +8,10 @@
   <view class="word-card card">
     <view class="subtitle">Yakka Dee style word pop</view>
     <view class="word">{{wordText}}</view>
-    <view class="word-hint">{{wordHint}}</view>
+    <view class="word-meta">
+      <text class="word-category">{{wordCategory}}</text>
+      <text class="word-hint">{{wordHint}}</text>
+    </view>
     <view class="phrase">{{practicePhrase}}</view>
     <view class="step-row">
       <view

@@ -3,6 +3,7 @@ const {
   pickWordForAge,
   getWordText,
   getWordHint,
+  getWordCategoryLabel,
   getPracticePhrase
 } = require("../../data/content")
 const { hearWord, addSpeakCount, addStudySeconds } = require("../../utils/progress")
@@ -32,6 +33,8 @@ Page({
     word: {},
     wordText: "",
     wordHint: "",
+    wordCategory: "",
+    lastWordId: "",
     practicePhrase: "",
     stepCount: 0,
     steps: buildSteps(0),
@@ -48,6 +51,8 @@ Page({
       word,
       wordText: getWordText(word),
       wordHint: getWordHint(word),
+      wordCategory: getWordCategoryLabel(word),
+      lastWordId: word.id,
       practicePhrase: getPracticePhrase(word, false)
     })
   },
@@ -68,6 +73,7 @@ Page({
     this.setData({
       wordText: getWordText(this.data.word),
       wordHint: getWordHint(this.data.word),
+      wordCategory: getWordCategoryLabel(this.data.word),
       practicePhrase: getPracticePhrase(this.data.word, level.phraseMode)
     })
   },
@@ -75,12 +81,14 @@ Page({
   nextWord() {
     const app = getApp()
     const level = getAgeLevel(app.globalData.childProfile.age)
-    const word = pickWordForAge(app.globalData.childProfile.age)
+    const word = pickWordForAge(app.globalData.childProfile.age, this.data.lastWordId)
 
     this.setData({
       word,
       wordText: getWordText(word),
       wordHint: getWordHint(word),
+      wordCategory: getWordCategoryLabel(word),
+      lastWordId: word.id,
       practicePhrase: getPracticePhrase(word, level.phraseMode),
       stepCount: 0,
       steps: buildSteps(0),

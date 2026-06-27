@@ -15,11 +15,34 @@
   color: #ff8f7a;
 }
 
+.word-meta {
+  margin-top: 10rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12rpx;
+  flex-wrap: wrap;
+}
+
+.word-category,
 .word-hint {
-  margin-top: 8rpx;
+  min-height: 40rpx;
+  padding: 0 14rpx;
+  border-radius: 999rpx;
+  display: flex;
+  align-items: center;
   color: #6c7890;
   font-size: 24rpx;
   font-weight: 800;
+}
+
+.word-category {
+  color: #087f5b;
+  background: rgba(114, 214, 183, 0.18);
+}
+
+.word-hint {
+  background: #f5f8fb;
 }
 
 .phrase {
