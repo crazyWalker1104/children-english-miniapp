@@ -18,29 +18,41 @@ def asset_path(*parts):
 
 def generate_audio():
     items = [
-        ("Hello", asset_path("audio", "words", "hello.m4a")),
-        ("Bye-bye", asset_path("audio", "words", "bye-bye.m4a")),
-        ("red", asset_path("audio", "words", "red.m4a")),
-        ("I see red.", asset_path("audio", "phrases", "i-see-red.m4a")),
-        ("A B C. Sing with me. Now I know.", asset_path("audio", "songs", "abc-song.m4a")),
+        ("Hello.", asset_path("audio", "words", "hello.m4a"), 120, 300, 450),
+        ("Bye-bye.", asset_path("audio", "words", "bye-bye.m4a"), 120, 300, 450),
+        ("red.", asset_path("audio", "words", "red.m4a"), 110, 300, 450),
+        ("I see red.", asset_path("audio", "phrases", "i-see-red.m4a"), 120, 260, 420),
+        (
+            "A B C. Sing with me. Now I know.",
+            asset_path("audio", "songs", "abc-song.m4a"),
+            125,
+            260,
+            520,
+        ),
         (
             "Twinkle, twinkle. Little star. How I wonder.",
             asset_path("audio", "songs", "twinkle-twinkle.m4a"),
+            125,
+            260,
+            520,
         ),
     ]
 
-    for _, output_path in items:
+    for _, output_path, _, _, _ in items:
         ensure_dir(os.path.dirname(output_path))
 
-    for text, output_path in items:
+    for text, output_path, rate, lead_silence, tail_silence in items:
+        spoken_text = f"[[slnc {lead_silence}]] {text} [[slnc {tail_silence}]]"
         subprocess.run(
             [
                 "say",
+                "-r",
+                str(rate),
                 "--file-format=m4af",
                 "--data-format=aac",
                 "-o",
                 output_path,
-                text,
+                spoken_text,
             ],
             check=True,
         )

@@ -1,6 +1,7 @@
 let activeAudio = null
 let audioSources = {}
 let playTimer = null
+let playStarted = false
 
 const { getParentSettings } = require("./settings")
 
@@ -39,6 +40,7 @@ function stopActiveAudio() {
   activeAudio.stop()
   activeAudio.destroy()
   activeAudio = null
+  playStarted = false
 }
 
 function setAudioOptions() {
@@ -54,10 +56,16 @@ function setAudioOptions() {
 }
 
 function startActiveAudio() {
-  if (!activeAudio) {
+  if (!activeAudio || playStarted) {
     return
   }
 
+  if (playTimer) {
+    clearTimeout(playTimer)
+    playTimer = null
+  }
+
+  playStarted = true
   activeAudio.play()
 }
 
@@ -80,6 +88,7 @@ function playAudioSource(src, fallbackText) {
   stopActiveAudio()
   setAudioOptions()
   activeAudio = wx.createInnerAudioContext()
+  playStarted = false
   activeAudio.autoplay = false
   activeAudio.obeyMuteSwitch = false
   activeAudio.onCanplay(function () {
