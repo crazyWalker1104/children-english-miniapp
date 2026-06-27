@@ -4,6 +4,7 @@ const childProcess = require("child_process")
 
 const projectRoot = path.resolve(__dirname, "..")
 const strictAssets = process.argv.indexOf("--strict-assets") >= 0
+const strictCommercial = process.argv.indexOf("--strict-commercial") >= 0
 
 const forbiddenPatterns = [
   {
@@ -108,6 +109,18 @@ function checkAssets() {
   })
 }
 
+function checkCommercial() {
+  const args = [path.join(projectRoot, "data/validate-commercial.js")]
+
+  if (strictCommercial) {
+    args.push("--strict")
+  }
+
+  childProcess.execFileSync(process.execPath, args, {
+    stdio: "inherit"
+  })
+}
+
 function checkPatterns(files) {
   const violations = []
 
@@ -165,6 +178,7 @@ function checkDemo() {
   })
   runStep("Content library", checkContent)
   runStep("Asset checklist", checkAssets)
+  runStep("Commercial readiness", checkCommercial)
   runStep("Mini program spec scan", function () {
     checkPatterns(files)
   })

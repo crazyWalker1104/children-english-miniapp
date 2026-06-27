@@ -4,7 +4,7 @@
 
 当前分支：`codex/audio-haptic-feedback`
 
-最新远端提交：`d36826e fix reviewed edge cases`
+最新远端分支：`origin/codex/audio-haptic-feedback`
 
 远程仓库：[crazyWalker1104/children-english-miniapp](https://github.com/crazyWalker1104/children-english-miniapp)
 
@@ -21,9 +21,9 @@
 | 产品需求与流程 | 90% | 需求、页面原型、功能流程已完成 |
 | UI 与视觉方向 | 80% | Figma UI 初版完成，小程序端已接入基础视觉 |
 | 小程序 MVP 功能 | 78% | 7 个核心页面已可体验 |
-| 内容库维护 | 75% | 单词、儿歌支持 CSV 审核导入 |
+| 内容库维护 | 82% | 单词、儿歌支持 CSV 审核导入，内容库和任务池已扩充 |
 | 音频与素材 | 65% | MVP 可运行音频和原创图片已补齐，商用素材仍需替换 |
-| 工程质量与检查 | 82% | 一键检查、素材检查、边界修复已完成 |
+| 工程质量与检查 | 86% | 一键检查、素材检查、商用 readiness 检查、边界修复已完成 |
 | 真机与上线准备 | 55% | 代码侧准备完成，仍需微信开发者工具真机验收 |
 | 商业化合规 | 40% | 未使用商业 IP，但正式音频 / 歌词 / 图片仍需版权确认 |
 
@@ -64,8 +64,9 @@
 - 新增儿歌 CSV 导入工具。
 - 导入后自动执行内容校验。
 - 当前 Demo 内容状态：
-  - 单词库：13 个
-  - 儿歌库：5 首
+  - 单词库：25 个
+  - 儿歌库：7 首
+  - 每日任务池：9 个
 
 ### 5. 音频与素材
 
@@ -122,6 +123,9 @@ node outputs/miniapp-demo/scripts/check-demo.js --strict-assets
 - `daily` 进度点改为基于 `SESSION_GOAL` 生成。
 - 音频播放增加 session id，避免快速切换导致旧音频回调影响新音频。
 - 未自动修改 `project.config.json`，因为项目规范禁止改动；已在交付说明中标记为人工检查项。
+- 新增商用 readiness 清单和严格检查入口。
+- 内容校验新增每日任务 target 合法性检查。
+- 每日任务支持基于单词库生成选项。
 
 ## 四、当前验证状态
 
@@ -135,6 +139,7 @@ node outputs/miniapp-demo/scripts/check-demo.js --strict-assets
 - 小程序规范扫描
 - Fisher-Yates 替换扫描
 - Python 素材生成脚本语法检查
+- 商用 readiness 普通检查
 
 当前工作区状态：
 
@@ -156,20 +161,25 @@ node outputs/miniapp-demo/scripts/check-demo.js --strict-assets
 
 ### P0 商用前确认
 
+- [x] 建立商用 readiness 清单。
+- [x] 建立商用严格检查入口。
 - [ ] 替换真人美语单词 / 短句音频。
 - [ ] 替换正式儿歌音频。
 - [ ] 确认儿歌歌词版权，优先使用原创或授权内容。
 - [ ] 替换最终原创角色素材。
 - [ ] 替换最终名画儿童化图片资源。
-- [ ] 确认没有使用 Elsa、汪汪队等商业 IP 未授权素材。
+- [ ] 完成儿童隐私与数据合规复核。
+- [ ] 将 `commercial-readiness.js` 中对应项改为 `approved`。
 
 ## 六、后续待办清单
 
 ### P1 优先开发
 
 - [ ] 扩充基础单词库：家庭、玩具、动物、食物、颜色、动作。
-- [ ] 扩充原创儿歌和动作歌。
+- [x] 扩充第一批基础单词库：家庭、玩具、动物、食物、动作、日常。
+- [x] 扩充第一批原创儿歌和动作歌。
 - [ ] 给每日任务增加更多题型：听音选图、颜色配对、单词气泡、找一找。
+- [x] 扩充每日随机任务池。
 - [ ] 拼图页升级为真正拖拽拼图，而不是点击放置。
 - [ ] 让歌词高亮跟真实音频进度同步，替换当前固定 interval。
 - [ ] 给音频播放增加轻量 loading / playing 状态。
@@ -219,6 +229,15 @@ node outputs/miniapp-demo/scripts/check-demo.js --strict-assets
 cd /Users/zhoutianrun/Documents/Codex/2026-06-26/ni/outputs/miniapp-demo
 node scripts/check-demo.js --strict-assets
 ```
+
+商用发布前严格检查：
+
+```sh
+cd /Users/zhoutianrun/Documents/Codex/2026-06-26/ni/outputs/miniapp-demo
+node scripts/check-demo.js --strict-assets --strict-commercial
+```
+
+当前商用严格检查会因为商用审批项 pending 而失败，这是预期的发布前闸门行为。
 
 素材生成：
 

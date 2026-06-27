@@ -111,6 +111,102 @@ const words = [
     category: "animal",
     minAge: 4,
     phrase: "I see a dog."
+  },
+  {
+    id: "cat",
+    text: "cat",
+    zh: "猫",
+    category: "animal",
+    minAge: 3,
+    phrase: "I see a cat."
+  },
+  {
+    id: "fish",
+    text: "fish",
+    zh: "鱼",
+    category: "animal",
+    minAge: 3,
+    phrase: "I see a fish."
+  },
+  {
+    id: "bird",
+    text: "bird",
+    zh: "鸟",
+    category: "animal",
+    minAge: 4,
+    phrase: "I see a bird."
+  },
+  {
+    id: "banana",
+    text: "banana",
+    zh: "香蕉",
+    category: "food",
+    minAge: 3,
+    phrase: "I want a banana."
+  },
+  {
+    id: "water",
+    text: "water",
+    zh: "水",
+    category: "food",
+    minAge: 3,
+    phrase: "I want water."
+  },
+  {
+    id: "cookie",
+    text: "cookie",
+    zh: "饼干",
+    category: "food",
+    minAge: 4,
+    phrase: "I want a cookie."
+  },
+  {
+    id: "car",
+    text: "car",
+    zh: "小汽车",
+    category: "toy",
+    minAge: 3,
+    phrase: "I see a car."
+  },
+  {
+    id: "train",
+    text: "train",
+    zh: "火车",
+    category: "toy",
+    minAge: 4,
+    phrase: "I see a train."
+  },
+  {
+    id: "book",
+    text: "book",
+    zh: "书",
+    category: "daily",
+    minAge: 3,
+    phrase: "Open the book."
+  },
+  {
+    id: "jump",
+    text: "jump",
+    zh: "跳",
+    category: "action",
+    minAge: 4,
+    phrase: "I can jump."
+  },
+  {
+    id: "clap",
+    text: "clap",
+    zh: "拍手",
+    category: "action",
+    minAge: 3,
+    phrase: "Clap your hands."
+  },
+  {
+    id: "sleep",
+    text: "sleep",
+    zh: "睡觉",
+    category: "daily",
+    minAge: 4,
+    phrase: "Time to sleep."
   }
 ]
 
@@ -179,6 +275,32 @@ const songs = [
       { id: "wash-hands-2", text: "Clean little hands", action: "show hands" },
       { id: "wash-hands-3", text: "Ready to play", action: "smile" }
     ]
+  },
+  {
+    id: "hello-friends",
+    title: "Hello Friends",
+    zh: "朋友问候歌",
+    action: "Wave!",
+    minAge: 3,
+    audioKey: "hello-friends",
+    lines: [
+      { id: "hello-friends-1", text: "Hello, hello", action: "wave" },
+      { id: "hello-friends-2", text: "Smile with me", action: "smile" },
+      { id: "hello-friends-3", text: "Ready to play", action: "clap" }
+    ]
+  },
+  {
+    id: "animal-move",
+    title: "Animal Move",
+    zh: "动物动一动",
+    action: "Move!",
+    minAge: 4,
+    audioKey: "animal-move",
+    lines: [
+      { id: "animal-move-1", text: "Cat can jump", action: "jump" },
+      { id: "animal-move-2", text: "Bird can fly", action: "arms out" },
+      { id: "animal-move-3", text: "Dog can run", action: "run in place" }
+    ]
   }
 ]
 
@@ -232,6 +354,46 @@ const themeTasks = [
     minAge: 3,
     maxAge: 6,
     reward: "word-pop"
+  },
+  {
+    id: "daily-animal-cat",
+    type: "animal",
+    title: "Animal pop",
+    prompt: "Tap cat!",
+    target: "cat",
+    minAge: 3,
+    maxAge: 6,
+    reward: "cat-sticker"
+  },
+  {
+    id: "daily-food-banana",
+    type: "food",
+    title: "Snack time",
+    prompt: "Find banana!",
+    target: "banana",
+    minAge: 3,
+    maxAge: 6,
+    reward: "banana-sticker"
+  },
+  {
+    id: "daily-toy-car",
+    type: "toy",
+    title: "Toy box",
+    prompt: "Tap car!",
+    target: "car",
+    minAge: 3,
+    maxAge: 6,
+    reward: "car-sticker"
+  },
+  {
+    id: "daily-action-clap",
+    type: "action",
+    title: "Move and say",
+    prompt: "Clap!",
+    target: "clap",
+    minAge: 4,
+    maxAge: 6,
+    reward: "clap-sticker"
   }
 ]
 

@@ -38,6 +38,7 @@ node scripts/check-demo.js --strict-assets
 ```
 
 替换真实素材后，发布前可执行 `node scripts/check-demo.js --strict-assets`。
+商用发布前需在所有素材和合规项审批后执行 `node scripts/check-demo.js --strict-assets --strict-commercial`。
 
 ## 内容维护
 

@@ -1,4 +1,4 @@
-const { colors } = require("../../data/tasks")
+const { colors, words } = require("../../data/tasks")
 const { getAgeLevel } = require("../../utils/age")
 const { pickDailyTask } = require("../../utils/randomizer")
 const { completeTask, hearWord, addStudySeconds } = require("../../utils/progress")
@@ -9,6 +9,17 @@ const { shuffle } = require("../../utils/shuffle")
 
 const SESSION_GOAL = 3
 const DEFAULT_CHOICE_EMOJI = "✨"
+const WORD_EMOJI = {
+  animal: "🐾",
+  action: "👏",
+  art: "⭐",
+  color: "🎨",
+  daily: "📘",
+  family: "🏠",
+  food: "🍪",
+  greeting: "👋",
+  toy: "🧸"
+}
 
 function buildStaticChoices(taskTarget, choices) {
   return choices.map(function (choice) {
@@ -19,7 +30,40 @@ function buildStaticChoices(taskTarget, choices) {
   })
 }
 
+function getWordChoice(word, taskTarget) {
+  return {
+    id: word.id,
+    label: word.text,
+    emoji: WORD_EMOJI[word.category] || DEFAULT_CHOICE_EMOJI,
+    correct: word.id === taskTarget || word.text === taskTarget
+  }
+}
+
+function buildWordChoices(task, choiceCount) {
+  const correctWord = words.find(function (word) {
+    return word.id === task.target || word.text === task.target
+  })
+
+  if (!correctWord) {
+    return []
+  }
+
+  const rest = shuffle(words.filter(function (word) {
+    return word.id !== correctWord.id && word.minAge <= task.maxAge
+  }))
+
+  return shuffle([correctWord].concat(rest).slice(0, choiceCount)).map(function (word) {
+    return getWordChoice(word, correctWord.id)
+  })
+}
+
 function buildChoices(task, choiceCount) {
+  const wordChoices = buildWordChoices(task, choiceCount)
+
+  if (wordChoices.length) {
+    return wordChoices
+  }
+
   if (task.target === "apple") {
     return buildStaticChoices(task.target, [
       { id: "apple", label: "apple", emoji: "🍎" },

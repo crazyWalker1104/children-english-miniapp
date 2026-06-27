@@ -1,4 +1,4 @@
-const { words, songs, themeTasks } = require("./tasks")
+const { colors, words, songs, themeTasks } = require("./tasks")
 
 function assertUnique(items, getId, label) {
   const seen = {}
@@ -48,6 +48,18 @@ function validateSongs() {
 }
 
 function validateThemeTasks() {
+  const wordIds = {}
+  const colorIds = {}
+
+  words.forEach(function (word) {
+    wordIds[word.id] = true
+    wordIds[word.text] = true
+  })
+  colors.forEach(function (color) {
+    colorIds[color.id] = true
+    colorIds[color.label] = true
+  })
+
   assertUnique(themeTasks, function (task) {
     return task.id
   }, "themeTasks")
@@ -55,6 +67,9 @@ function validateThemeTasks() {
     assertAge(task, "themeTask")
     if (typeof task.maxAge !== "number" || !task.prompt || !task.target) {
       throw new Error(`themeTask ${task.id} missing maxAge, prompt, or target`)
+    }
+    if (!wordIds[task.target] && !colorIds[task.target]) {
+      throw new Error(`themeTask ${task.id} target is not in words or colors`)
     }
   })
 }

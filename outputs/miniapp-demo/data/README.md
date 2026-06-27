@@ -141,3 +141,21 @@ node data/validate-assets.js --strict
 ```
 
 Use `audio-sources.js` for actual audio mappings. Use `asset-manifest.js` for required image paths and licensing notes.
+
+## Commercial Readiness
+
+Commercial launch checks are tracked in `commercial-readiness.js`.
+
+Run a non-blocking status check:
+
+```sh
+node data/validate-commercial.js
+```
+
+Run a release gate after legal/content/design approval:
+
+```sh
+node data/validate-commercial.js --strict
+```
+
+Keep Demo TTS audio and placeholder images marked as `pending` until they are replaced with approved commercial assets.

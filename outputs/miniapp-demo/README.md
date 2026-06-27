@@ -77,6 +77,8 @@ DELIVERY.md
 - `data/song-import-template.csv` 儿歌导入模板
 - `data/asset-manifest.js` 上线素材清单
 - `data/validate-assets.js` 音频 / 图片缺失检测
+- `data/commercial-readiness.js` 商用前素材 / 合规确认清单
+- `data/validate-commercial.js` 商用前确认检查
 - `data/README.md` 内容库维护说明
 - `assets/` 静态素材目录
 - `styles/tokens.wxss` 设计 token 样式占位
@@ -124,6 +126,12 @@ node scripts/check-demo.js
 
 ```sh
 node scripts/check-demo.js --strict-assets
+```
+
+商用发布前执行：
+
+```sh
+node scripts/check-demo.js --strict-assets --strict-commercial
 ```
 
 ## 设计系统
