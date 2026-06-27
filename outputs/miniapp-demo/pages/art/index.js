@@ -46,6 +46,7 @@ Page({
     pieces: [],
     board: [],
     selectedPieceId: 0,
+    artImage: "/assets/images/art/starry-night-child-safe.png",
     pieceCount: 4,
     gridClass: "grid-2",
     placedCount: 0,

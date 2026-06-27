@@ -51,12 +51,7 @@
 .character {
   width: 132rpx;
   height: 132rpx;
-  border-radius: 44rpx 44rpx 54rpx 54rpx;
-  background: radial-gradient(circle at 38% 42%, #222 0 8rpx, transparent 9rpx),
-    radial-gradient(circle at 62% 42%, #222 0 8rpx, transparent 9rpx),
-    radial-gradient(circle at 50% 64%, #ff7a88 0 17rpx, transparent 18rpx),
-    #ffd66e;
-  border: 6rpx solid #fff0be;
+  display: block;
 }
 
 .hello {

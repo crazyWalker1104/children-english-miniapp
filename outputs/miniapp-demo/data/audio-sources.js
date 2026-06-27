@@ -1,7 +1,10 @@
 const audioSources = {
-  // Example:
-  // hello: "/assets/audio/hello.mp3",
-  // "i-see-red": "/assets/audio/i-see-red.mp3"
+  hello: "/assets/audio/words/hello.wav",
+  "bye-bye": "/assets/audio/words/bye-bye.wav",
+  red: "/assets/audio/words/red.wav",
+  "i-see-red": "/assets/audio/phrases/i-see-red.wav",
+  "abc-song": "/assets/audio/songs/abc-song.wav",
+  "twinkle-twinkle": "/assets/audio/songs/twinkle-twinkle.wav"
 }
 
 module.exports = {

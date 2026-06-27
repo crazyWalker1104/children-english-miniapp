@@ -36,13 +36,13 @@ DELIVERY.md
 
 ## 说明
 
-当前 Demo 不包含真实音频和授权 IP 素材，所有内容均为 mock。正式开发时需要替换：
+当前 Demo 已补齐 MVP 可运行音频和原创图片素材，不使用 Elsa、汪汪队等商业 IP。正式商用前建议替换为最终素材：
 
-- 英文发音音频
-- 儿歌音频
-- 儿歌歌词
-- 名画儿童化素材
-- 授权 IP 角色或原创角色素材
+- 真人美语英文发音音频
+- 儿歌正式音频
+- 儿歌授权或原创歌词
+- 最终名画儿童化素材
+- 最终原创角色素材
 
 当前 `utils/audio.js` 已支持 `wx.createInnerAudioContext`。后续接入真实音频时，在 `data/audio-sources.js` 中维护文本 key 到音频 URL 的映射即可；没有配置音频时会自动用 `wx.showToast` 文字降级。
 
@@ -67,6 +67,7 @@ DELIVERY.md
 - `utils/layout.js` 多端布局模式
 - `utils/request.js` RESTful 请求统一封装
 - `scripts/check-demo.js` 一键交付检查
+- `scripts/generate-demo-assets.py` MVP 音频 / 图片素材生成脚本
 - `data/audio-sources.js` 音频资源映射
 - `data/content.js` 内容查询助手，统一处理年龄筛选和短句选择
 - `data/tasks.js` 结构化内容数据：颜色、单词、儿歌、随机任务

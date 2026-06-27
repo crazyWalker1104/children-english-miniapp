@@ -10,7 +10,7 @@
   <view class="rest-hint {{restReached ? 'reached' : ''}}">{{restHint}}</view>
 
   <view class="mascot card" bind:tap="sayHello">
-    <view class="character"></view>
+    <image class="character" src="{{mascotImage}}" mode="aspectFit"></image>
     <view>
       <view class="hello">Hello!</view>
       <view class="subtitle">Let's play today.</view>

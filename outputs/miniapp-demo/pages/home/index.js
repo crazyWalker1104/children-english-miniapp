@@ -25,6 +25,7 @@ Page({
     stars: "☆ ☆ ☆",
     profile: {},
     ageLabel: "",
+    mascotImage: "/assets/images/characters/home-mascot.png",
     restHint: "",
     restReached: false,
     layoutMode: "mobile"
