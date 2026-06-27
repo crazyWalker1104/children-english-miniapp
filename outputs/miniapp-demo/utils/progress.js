@@ -18,9 +18,45 @@ function createEmptyRecord() {
   }
 }
 
+function getHistory() {
+  return wx.getStorageSync("learningHistory") || []
+}
+
+function saveHistory(history) {
+  wx.setStorageSync("learningHistory", history.slice(-7))
+}
+
+function summarizeRecord(record) {
+  if (!record || !record.date) {
+    return null
+  }
+
+  return {
+    date: record.date,
+    durationSeconds: record.durationSeconds || 0,
+    completedTaskCount: (record.completedTaskIds || []).length,
+    heardWordCount: (record.heardWords || []).length,
+    rewardCount: (record.rewards || []).length,
+    speakCount: record.speakCount || 0,
+    songCount: Object.values(record.songPlayCounts || {}).reduce((sum, count) => sum + count, 0)
+  }
+}
+
+function archiveRecord(record) {
+  const summary = summarizeRecord(record)
+  if (!summary) {
+    return
+  }
+
+  const history = getHistory().filter((item) => item.date !== summary.date)
+  history.push(summary)
+  saveHistory(history)
+}
+
 function ensureTodayRecord() {
   const record = wx.getStorageSync("learningRecord")
   if (!record || record.date !== getTodayKey()) {
+    archiveRecord(record)
     wx.setStorageSync("learningRecord", createEmptyRecord())
     return createEmptyRecord()
   }
@@ -75,11 +111,31 @@ function addStudySeconds(seconds) {
   }))
 }
 
+function getWeeklySummary() {
+  const todayRecord = ensureTodayRecord()
+  const todaySummary = summarizeRecord(todayRecord)
+  const history = getHistory().filter((item) => item.date !== todaySummary.date)
+  const records = history.concat(todaySummary).slice(-7)
+  const totalDurationSeconds = records.reduce((sum, item) => sum + item.durationSeconds, 0)
+  const totalTaskCount = records.reduce((sum, item) => sum + item.completedTaskCount, 0)
+  const totalRewardCount = records.reduce((sum, item) => sum + item.rewardCount, 0)
+  const activeDays = records.filter((item) => item.durationSeconds > 0 || item.completedTaskCount > 0).length
+
+  return {
+    records,
+    totalDurationMinutes: Math.ceil(totalDurationSeconds / 60),
+    totalTaskCount,
+    totalRewardCount,
+    activeDays
+  }
+}
+
 module.exports = {
   ensureTodayRecord,
   completeTask,
   hearWord,
   playSong,
   addSpeakCount,
-  addStudySeconds
+  addStudySeconds,
+  getWeeklySummary
 }

@@ -7,6 +7,7 @@
   <view class="age-line">
     <text class="soft-chip">{{profile.age}} 岁 · {{ageLabel}}</text>
   </view>
+  <view class="rest-hint {{restReached ? 'reached' : ''}}">{{restHint}}</view>
 
   <view class="mascot card" bind:tap="sayHello">
     <view class="character"></view>
@@ -18,8 +19,8 @@
 
   <button class="primary-card daily-card" bind:tap="goDaily">
     <view>
-      <view class="daily-title">今日小游戏</view>
-      <view class="daily-sub">Tap for a surprise!</view>
+      <view class="daily-title">{{restReached ? '短任务收尾' : '今日小游戏'}}</view>
+      <view class="daily-sub">{{restReached ? 'One tiny game.' : 'Tap for a surprise!'}}</view>
     </view>
     <view class="play">▶</view>
   </button>

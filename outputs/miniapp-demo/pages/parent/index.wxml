@@ -29,6 +29,60 @@
     <view class="subtitle">切换后，随机主题会自动调整选项数量和任务难度。</view>
   </view>
 
+  <view class="settings-panel card">
+    <view class="profile-title">照护设置</view>
+    <view class="time-limit-block">
+      <view class="setting-title">每日建议时长</view>
+      <view class="limit-options">
+        <button
+          wx:for="{{timeLimits}}"
+          wx:key="id"
+          class="limit-option {{parentSettings.dailyLimitMinutes === item.value ? 'active' : ''}}"
+          data-minutes="{{item.value}}"
+          bind:tap="setTimeLimit"
+        >
+          {{item.label}}
+        </button>
+      </view>
+    </view>
+    <view class="setting-row">
+      <view>
+        <view class="setting-title">声音提示</view>
+        <view class="subtitle">关闭后不播放单词和反馈音。</view>
+      </view>
+      <switch
+        checked="{{parentSettings.soundEnabled}}"
+        data-key="soundEnabled"
+        bind:change="toggleSetting"
+        color="#72d6b7"
+      />
+    </view>
+    <view class="setting-row">
+      <view>
+        <view class="setting-title">触觉反馈</view>
+        <view class="subtitle">支持设备会在答题时轻微震动。</view>
+      </view>
+      <switch
+        checked="{{parentSettings.hapticEnabled}}"
+        data-key="hapticEnabled"
+        bind:change="toggleSetting"
+        color="#72d6b7"
+      />
+    </view>
+    <view class="setting-row">
+      <view>
+        <view class="setting-title">安静模式</view>
+        <view class="subtitle">减少弹窗和震动，适合睡前短学。</view>
+      </view>
+      <switch
+        checked="{{parentSettings.calmMode}}"
+        data-key="calmMode"
+        bind:change="toggleSetting"
+        color="#72d6b7"
+      />
+    </view>
+  </view>
+
   <view class="stats">
     <view class="stat card">
       <text>今日学习</text>
@@ -54,7 +108,39 @@
 
   <view class="card tip">
     <view class="profile-title">今日建议</view>
-    <view class="subtitle">继续玩一次颜色任务，再听一首儿歌。5-6 岁可尝试说 I see stars.</view>
+    <view class="subtitle">{{todaySuggestion}}</view>
+  </view>
+
+  <view class="card week-panel">
+    <view class="profile-title">一周概览</view>
+    <view class="week-total">
+      <view>
+        <view class="week-value">{{weeklySummary.activeDays}}</view>
+        <view class="subtitle">活跃天</view>
+      </view>
+      <view>
+        <view class="week-value">{{weeklySummary.totalDurationMinutes}}</view>
+        <view class="subtitle">分钟</view>
+      </view>
+      <view>
+        <view class="week-value">{{weeklySummary.totalTaskCount}}</view>
+        <view class="subtitle">任务</view>
+      </view>
+      <view>
+        <view class="week-value">{{weeklySummary.totalRewardCount}}</view>
+        <view class="subtitle">贴纸</view>
+      </view>
+    </view>
+    <view class="week-bars">
+      <view wx:for="{{weekItems}}" wx:key="id" class="week-day">
+        <view class="bar-wrap">
+          <view class="bar-fill" style="height: {{item.barHeight}};"></view>
+        </view>
+        <view class="day-label">{{item.label}}</view>
+        <view class="day-min">{{item.minutes}}m</view>
+      </view>
+    </view>
+    <view wx:if="{{weekItems.length === 0}}" class="empty-text">还没有一周记录</view>
   </view>
 
   <view class="card detail-panel">

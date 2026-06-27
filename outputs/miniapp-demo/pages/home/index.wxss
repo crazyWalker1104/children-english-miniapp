@@ -21,6 +21,24 @@
   text-align: center;
 }
 
+.rest-hint {
+  margin: 14rpx auto 0;
+  max-width: 520rpx;
+  min-height: 52rpx;
+  padding: 12rpx 20rpx;
+  border-radius: 999rpx;
+  color: #5b667a;
+  font-size: 24rpx;
+  font-weight: 800;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.78);
+}
+
+.rest-hint.reached {
+  color: #8a4b00;
+  background: rgba(255, 224, 102, 0.36);
+}
+
 .mascot {
   margin-top: 28rpx;
   padding: 30rpx;
