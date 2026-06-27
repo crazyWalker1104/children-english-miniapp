@@ -15,7 +15,7 @@
     >
       <view>
         <view class="song-title">{{item.title}}</view>
-        <view class="subtitle">{{item.action}}</view>
+        <view class="subtitle">{{item.zh}} · {{item.action}}</view>
       </view>
       <view class="song-play">▶</view>
     </button>

@@ -1,4 +1,10 @@
-const { words } = require("../../data/tasks")
+const {
+  getWordsForAge,
+  pickWordForAge,
+  getWordText,
+  getWordHint,
+  getPracticePhrase
+} = require("../../data/content")
 const { hearWord, addSpeakCount, addStudySeconds } = require("../../utils/progress")
 const { playText } = require("../../utils/audio")
 const { getAgeLevel } = require("../../utils/age")
@@ -21,22 +27,12 @@ function buildSteps(doneCount) {
   })
 }
 
-function getPracticePhrase(word, phraseMode) {
-  if (!phraseMode) {
-    return word
-  }
-
-  if (word === "red" || word === "apple") {
-    return `I see ${word}.`
-  }
-
-  return word
-}
-
 Page({
   data: {
-    word: words[0],
-    practicePhrase: words[0],
+    word: {},
+    wordText: "",
+    wordHint: "",
+    practicePhrase: "",
     stepCount: 0,
     steps: buildSteps(0),
     feedback: "Listen and say",
@@ -44,8 +40,15 @@ Page({
   },
 
   onLoad() {
+    const app = getApp()
+    const word = getWordsForAge(app.globalData.childProfile.age)[0]
+
     this.setData({
-      layoutMode: getCurrentLayoutMode()
+      layoutMode: getCurrentLayoutMode(),
+      word,
+      wordText: getWordText(word),
+      wordHint: getWordHint(word),
+      practicePhrase: getPracticePhrase(word, false)
     })
   },
 
@@ -63,18 +66,21 @@ Page({
     const app = getApp()
     const level = getAgeLevel(app.globalData.childProfile.age)
     this.setData({
+      wordText: getWordText(this.data.word),
+      wordHint: getWordHint(this.data.word),
       practicePhrase: getPracticePhrase(this.data.word, level.phraseMode)
     })
   },
 
   nextWord() {
-    const index = Math.floor(Math.random() * words.length)
     const app = getApp()
     const level = getAgeLevel(app.globalData.childProfile.age)
-    const word = words[index]
+    const word = pickWordForAge(app.globalData.childProfile.age)
 
     this.setData({
       word,
+      wordText: getWordText(word),
+      wordHint: getWordHint(word),
       practicePhrase: getPracticePhrase(word, level.phraseMode),
       stepCount: 0,
       steps: buildSteps(0),
@@ -83,7 +89,7 @@ Page({
   },
 
   playWord() {
-    hearWord(this.data.word)
+    hearWord(this.data.wordText)
     this.setData({
       stepCount: 1,
       steps: buildSteps(1),

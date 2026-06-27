@@ -61,7 +61,9 @@
 - `utils/layout.js` 多端布局模式
 - `utils/request.js` RESTful 请求统一封装
 - `data/audio-sources.js` 音频资源映射
-- `data/tasks.js` mock 内容数据
+- `data/content.js` 内容查询助手，统一处理年龄筛选和短句选择
+- `data/tasks.js` 结构化内容数据：颜色、单词、儿歌、随机任务
+- `data/README.md` 内容库维护说明
 - `assets/` 静态素材目录
 - `styles/tokens.wxss` 设计 token 样式占位
 
@@ -87,6 +89,8 @@
 家长中心清空今日记录前会二次确认，避免误触删除宝宝当天学习进度。
 达到每日建议时长后，从首页进入学习模块会先出现休息确认，可选择休息或再玩一个短任务。
 家长中心会展示最近 7 天活跃天数、学习分钟、任务数、贴纸数和每日学习柱状图。
+
+内容库维护见 `data/README.md`。单词支持年龄、分类、中文提示和短句；儿歌支持年龄、中文标题和未来音频 key。
 
 ## 设计系统
 

@@ -15,6 +15,13 @@
   color: #ff8f7a;
 }
 
+.word-hint {
+  margin-top: 8rpx;
+  color: #6c7890;
+  font-size: 24rpx;
+  font-weight: 800;
+}
+
 .phrase {
   margin-top: 16rpx;
   color: #243047;

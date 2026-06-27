@@ -1,12 +1,13 @@
-const { songs } = require("../../data/tasks")
+const { getSongsForAge } = require("../../data/content")
 const { playSong, completeTask, addStudySeconds } = require("../../utils/progress")
 const { playText } = require("../../utils/audio")
 const { feedbackComplete } = require("../../utils/interaction")
 const { getCurrentLayoutMode, getResizeLayoutMode } = require("../../utils/layout")
+const { getAgeLevel } = require("../../utils/age")
 
 Page({
   data: {
-    songs,
+    songs: [],
     activeSong: {},
     activeSongId: "",
     activeLineIndex: 0,
@@ -19,6 +20,17 @@ Page({
   onLoad() {
     this.setData({
       layoutMode: getCurrentLayoutMode()
+    })
+  },
+
+  onShow() {
+    const app = getApp()
+    const age = app.globalData.childProfile.age
+    const level = getAgeLevel(age)
+
+    this.setData({
+      songs: getSongsForAge(age),
+      feedback: `年龄模式：${level.label}`
     })
   },
 
@@ -38,7 +50,7 @@ Page({
 
   play(event) {
     const id = event.currentTarget.dataset.id
-    const song = songs.find((item) => item.id === id)
+    const song = this.data.songs.find((item) => item.id === id)
 
     if (!song) {
       return

@@ -8,19 +8,80 @@ const colors = [
 ]
 
 const words = [
-  "Hello",
-  "Bye-bye",
-  "Good morning",
-  "Thank you",
-  "red",
-  "apple"
+  {
+    id: "hello",
+    text: "Hello",
+    zh: "你好",
+    category: "greeting",
+    minAge: 3,
+    phrase: "Hello!"
+  },
+  {
+    id: "bye-bye",
+    text: "Bye-bye",
+    zh: "再见",
+    category: "greeting",
+    minAge: 3,
+    phrase: "Bye-bye!"
+  },
+  {
+    id: "good-morning",
+    text: "Good morning",
+    zh: "早上好",
+    category: "greeting",
+    minAge: 4,
+    phrase: "Good morning!"
+  },
+  {
+    id: "thank-you",
+    text: "Thank you",
+    zh: "谢谢",
+    category: "daily",
+    minAge: 4,
+    phrase: "Thank you!"
+  },
+  {
+    id: "red",
+    text: "red",
+    zh: "红色",
+    category: "color",
+    minAge: 3,
+    phrase: "I see red."
+  },
+  {
+    id: "apple",
+    text: "apple",
+    zh: "苹果",
+    category: "food",
+    minAge: 4,
+    phrase: "I see an apple."
+  },
+  {
+    id: "star",
+    text: "star",
+    zh: "星星",
+    category: "art",
+    minAge: 3,
+    phrase: "I see a star."
+  },
+  {
+    id: "blue",
+    text: "blue",
+    zh: "蓝色",
+    category: "color",
+    minAge: 3,
+    phrase: "I see blue."
+  }
 ]
 
 const songs = [
   {
     id: "abc",
     title: "ABC Song",
+    zh: "字母歌",
     action: "Clap!",
+    minAge: 3,
+    audioKey: "abc-song",
     lines: [
       { id: "abc-1", text: "A B C", action: "clap clap" },
       { id: "abc-2", text: "Sing with me", action: "wave" },
@@ -30,7 +91,10 @@ const songs = [
   {
     id: "twinkle",
     title: "Twinkle Twinkle",
+    zh: "小星星",
     action: "Twinkle!",
+    minAge: 3,
+    audioKey: "twinkle-twinkle",
     lines: [
       { id: "twinkle-1", text: "Twinkle, twinkle", action: "open hands" },
       { id: "twinkle-2", text: "Little star", action: "point up" },
@@ -40,7 +104,10 @@ const songs = [
   {
     id: "happy",
     title: "If You're Happy",
+    zh: "幸福拍手歌",
     action: "Clap hands!",
+    minAge: 4,
+    audioKey: "if-youre-happy",
     lines: [
       { id: "happy-1", text: "If you're happy", action: "smile" },
       { id: "happy-2", text: "Clap your hands", action: "clap clap" },
