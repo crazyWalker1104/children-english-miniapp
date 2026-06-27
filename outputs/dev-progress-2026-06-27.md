@@ -136,6 +136,13 @@
 - 默认模式只提示缺失项，`--strict` 模式可作为上线前阻断检查
 - README 和交付文档补充素材检查入口
 
+### 19. 一键交付检查
+
+- 新增 `scripts/check-demo.js`
+- 一键执行 JS 语法、JSON 解析、内容库、素材清单和小程序规范扫描
+- 支持 `--strict-assets`，用于真实素材替换后的发布前阻断检查
+- 交付文档改为优先使用一键检查命令
+
 ## 涉及文件
 
 - `outputs/miniapp-demo/utils/progress.js`
@@ -156,6 +163,7 @@
 - `outputs/miniapp-demo/data/song-import-template.csv`
 - `outputs/miniapp-demo/data/asset-manifest.js`
 - `outputs/miniapp-demo/data/validate-assets.js`
+- `outputs/miniapp-demo/scripts/check-demo.js`
 - `outputs/miniapp-demo/pages/songs/index.js`
 - `outputs/miniapp-demo/pages/songs/index.wxml`
 - `outputs/miniapp-demo/pages/songs/index.wxss`

@@ -66,6 +66,7 @@ DELIVERY.md
 - `utils/interaction.js` 触觉反馈封装，自动做能力判断和降级
 - `utils/layout.js` 多端布局模式
 - `utils/request.js` RESTful 请求统一封装
+- `scripts/check-demo.js` 一键交付检查
 - `data/audio-sources.js` 音频资源映射
 - `data/content.js` 内容查询助手，统一处理年龄筛选和短句选择
 - `data/tasks.js` 结构化内容数据：颜色、单词、儿歌、随机任务
@@ -83,6 +84,7 @@ DELIVERY.md
 
 已执行：
 
+- 一键检查：`node scripts/check-demo.js`
 - JS 语法检查
 - JSON 配置解析
 - 内容库校验：`node data/validate-content.js`
@@ -108,6 +110,20 @@ DELIVERY.md
 单词可先在 `data/word-import-template.csv` 中审核整理，再执行 `node data/import-words.js data/word-import-template.csv` 合入内容库。
 儿歌可先在 `data/song-import-template.csv` 中审核整理，再执行 `node data/import-songs.js data/song-import-template.csv` 合入内容库。
 上线素材清单维护在 `data/asset-manifest.js`，可执行 `node data/validate-assets.js --strict` 作为发布前检查。
+
+## 一键检查
+
+日常交付前执行：
+
+```sh
+node scripts/check-demo.js
+```
+
+替换真实素材后，发布前执行：
+
+```sh
+node scripts/check-demo.js --strict-assets
+```
 
 ## 设计系统
 

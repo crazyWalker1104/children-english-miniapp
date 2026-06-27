@@ -30,10 +30,11 @@ outputs/miniapp-demo
 ## 已验证
 
 ```sh
-find outputs/miniapp-demo -name '*.js' -print0 | xargs -0 -n 1 node --check
-find outputs/miniapp-demo -name '*.json' -print0 | xargs -0 -n 1 node -e "const fs=require('fs'); JSON.parse(fs.readFileSync(process.argv[1], 'utf8'))"
-node outputs/miniapp-demo/data/validate-content.js
+cd outputs/miniapp-demo
+node scripts/check-demo.js
 ```
+
+替换真实素材后，发布前可执行 `node scripts/check-demo.js --strict-assets`。
 
 ## 内容维护
 
