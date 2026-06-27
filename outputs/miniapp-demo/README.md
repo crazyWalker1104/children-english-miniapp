@@ -73,6 +73,8 @@ DELIVERY.md
 - `data/word-import-template.csv` 单词导入模板
 - `data/import-songs.js` 儿歌 CSV 导入工具
 - `data/song-import-template.csv` 儿歌导入模板
+- `data/asset-manifest.js` 上线素材清单
+- `data/validate-assets.js` 音频 / 图片缺失检测
 - `data/README.md` 内容库维护说明
 - `assets/` 静态素材目录
 - `styles/tokens.wxss` 设计 token 样式占位
@@ -84,6 +86,7 @@ DELIVERY.md
 - JS 语法检查
 - JSON 配置解析
 - 内容库校验：`node data/validate-content.js`
+- 素材缺失检查：`node data/validate-assets.js`
 - 规范扫描：旧式 `bindtap`、`wx:key="*this"`、页面直接 `wx.request`、页面直接硬件 API
 
 当前 `wx.request` 仅存在于 `utils/request.js`，符合统一请求封装约定。
@@ -104,6 +107,7 @@ DELIVERY.md
 内容库维护见 `data/README.md`。单词支持年龄、分类、中文提示和短句；儿歌支持年龄、中文标题和未来音频 key。
 单词可先在 `data/word-import-template.csv` 中审核整理，再执行 `node data/import-words.js data/word-import-template.csv` 合入内容库。
 儿歌可先在 `data/song-import-template.csv` 中审核整理，再执行 `node data/import-songs.js data/song-import-template.csv` 合入内容库。
+上线素材清单维护在 `data/asset-manifest.js`，可执行 `node data/validate-assets.js --strict` 作为发布前检查。
 
 ## 设计系统
 

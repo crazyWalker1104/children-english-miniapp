@@ -123,3 +123,21 @@ const audioSources = {
   "i-see-red": "/assets/audio/i-see-red.mp3"
 }
 ```
+
+## Asset Validation
+
+Launch-ready audio and image expectations are tracked in `asset-manifest.js`.
+
+Run a non-blocking check while the Demo still uses placeholders:
+
+```sh
+node data/validate-assets.js
+```
+
+Run a release gate after replacing real resources:
+
+```sh
+node data/validate-assets.js --strict
+```
+
+Use `audio-sources.js` for actual audio mappings. Use `asset-manifest.js` for required image paths and licensing notes.

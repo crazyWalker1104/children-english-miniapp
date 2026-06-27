@@ -129,6 +129,13 @@
 - 导入时自动规范化 `id` 和 `audioKey`，生成稳定歌词行 id
 - 导入完成后自动执行内容库校验，便于后续替换为授权儿歌内容
 
+### 18. 上线素材缺失检测
+
+- 新增 `data/asset-manifest.js`，集中记录必须替换的音频和图片资源
+- 新增 `data/validate-assets.js`，检查音频映射、音频文件和图片文件是否缺失
+- 默认模式只提示缺失项，`--strict` 模式可作为上线前阻断检查
+- README 和交付文档补充素材检查入口
+
 ## 涉及文件
 
 - `outputs/miniapp-demo/utils/progress.js`
@@ -147,6 +154,8 @@
 - `outputs/miniapp-demo/data/word-import-template.csv`
 - `outputs/miniapp-demo/data/import-songs.js`
 - `outputs/miniapp-demo/data/song-import-template.csv`
+- `outputs/miniapp-demo/data/asset-manifest.js`
+- `outputs/miniapp-demo/data/validate-assets.js`
 - `outputs/miniapp-demo/pages/songs/index.js`
 - `outputs/miniapp-demo/pages/songs/index.wxml`
 - `outputs/miniapp-demo/pages/songs/index.wxss`

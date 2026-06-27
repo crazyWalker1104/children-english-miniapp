@@ -43,6 +43,7 @@ node outputs/miniapp-demo/data/validate-content.js
 - 维护说明见 `data/README.md`。
 - 单词可通过 `data/word-import-template.csv` + `node data/import-words.js data/word-import-template.csv` 导入。
 - 儿歌可通过 `data/song-import-template.csv` + `node data/import-songs.js data/song-import-template.csv` 导入。
+- 上线素材清单在 `data/asset-manifest.js`，可通过 `node data/validate-assets.js` 检查缺失音频和图片。
 
 ## 仍需替换
 
