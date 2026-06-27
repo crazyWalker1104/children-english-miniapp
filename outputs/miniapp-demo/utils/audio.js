@@ -1,5 +1,6 @@
 let activeAudio = null
 let audioSources = {}
+let playTimer = null
 
 const { getParentSettings } = require("./settings")
 
@@ -26,6 +27,11 @@ function canCreateAudioContext() {
 }
 
 function stopActiveAudio() {
+  if (playTimer) {
+    clearTimeout(playTimer)
+    playTimer = null
+  }
+
   if (!activeAudio) {
     return
   }
@@ -35,9 +41,32 @@ function stopActiveAudio() {
   activeAudio = null
 }
 
+function setAudioOptions() {
+  if (
+    typeof wx.setInnerAudioOption === "function" &&
+    (!wx.canIUse || wx.canIUse("setInnerAudioOption"))
+  ) {
+    wx.setInnerAudioOption({
+      mixWithOther: true,
+      obeyMuteSwitch: false
+    })
+  }
+}
+
+function startActiveAudio() {
+  if (!activeAudio) {
+    return
+  }
+
+  activeAudio.play()
+}
+
 function playAudioSource(src, fallbackText) {
   const settings = getParentSettings()
   if (!settings.soundEnabled) {
+    if (!settings.calmMode) {
+      showTextFallback("声音已关闭")
+    }
     return
   }
 
@@ -49,9 +78,13 @@ function playAudioSource(src, fallbackText) {
   }
 
   stopActiveAudio()
+  setAudioOptions()
   activeAudio = wx.createInnerAudioContext()
-  activeAudio.src = src
+  activeAudio.autoplay = false
   activeAudio.obeyMuteSwitch = false
+  activeAudio.onCanplay(function () {
+    startActiveAudio()
+  })
   activeAudio.onError(function (error) {
     console.error("Audio playback failed", {
       src,
@@ -63,7 +96,10 @@ function playAudioSource(src, fallbackText) {
   activeAudio.onEnded(function () {
     stopActiveAudio()
   })
-  activeAudio.play()
+  activeAudio.src = src
+  playTimer = setTimeout(function () {
+    startActiveAudio()
+  }, 300)
 }
 
 function setAudioSources(nextSources) {
