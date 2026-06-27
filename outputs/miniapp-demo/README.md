@@ -79,6 +79,7 @@ DELIVERY.md
 
 - JS 语法检查
 - JSON 配置解析
+- 内容库校验：`node data/validate-content.js`
 - 规范扫描：旧式 `bindtap`、`wx:key="*this"`、页面直接 `wx.request`、页面直接硬件 API
 
 当前 `wx.request` 仅存在于 `utils/request.js`，符合统一请求封装约定。
