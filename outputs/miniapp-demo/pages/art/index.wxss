@@ -92,6 +92,7 @@
   display: grid;
   gap: 8rpx;
   padding: 20rpx;
+  height: 100%;
 }
 
 .board-grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
@@ -105,16 +106,55 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
+  padding: 0;
+  transition: transform 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
 }
 
 .board-slot.filled {
-  background: rgba(255,255,255,0.3);
+  background: rgba(255,255,255,0.1);
   border: 3rpx solid rgba(255,255,255,0.6);
   animation: popBounce 0.4s ease;
 }
 
+.board-slot.ready {
+  background: rgba(255,255,255,0.26);
+  border-color: rgba(253, 203, 110, 0.86);
+  box-shadow: inset 0 0 0 4rpx rgba(253, 203, 110, 0.22);
+}
+
+.board-slot:active {
+  transform: scale(0.95);
+}
+
+.slot-picture,
+.slot-empty {
+  width: 100%;
+  height: 100%;
+  border-radius: 16rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.slot-picture {
+  background-repeat: no-repeat;
+  background-color: rgba(255,255,255,0.2);
+}
+
+.slot-empty {
+  background: rgba(255,255,255,0.08);
+}
+
 .slot-number {
-  font-size: 48rpx;
+  width: 56rpx;
+  height: 56rpx;
+  border-radius: 50%;
+  background: rgba(45, 52, 54, 0.46);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 34rpx;
   font-weight: 900;
   color: #ffffff;
   text-shadow: 0 2rpx 8rpx rgba(0,0,0,0.3);
@@ -176,6 +216,8 @@
   justify-content: center;
   box-shadow: 0 4rpx 16rpx rgba(44, 62, 93, 0.06);
   transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  overflow: hidden;
+  padding: 10rpx;
 }
 
 .piece-card:active {
@@ -183,7 +225,6 @@
 }
 
 .piece-card.selected {
-  background: linear-gradient(135deg, #fdcb6e, #e17055);
   border-color: #e17055;
   box-shadow: 0 6rpx 20rpx rgba(253, 203, 110, 0.4);
   transform: scale(1.08);
@@ -195,13 +236,35 @@
   pointer-events: none;
 }
 
+.piece-picture {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 22rpx;
+  background-repeat: no-repeat;
+  box-shadow: inset 0 0 0 4rpx rgba(255,255,255,0.48);
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  overflow: hidden;
+}
+
 .piece-num {
-  font-size: 52rpx;
+  width: 58rpx;
+  height: 58rpx;
+  margin: 10rpx;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32rpx;
   font-weight: 900;
   color: #2d3436;
 }
 
 .piece-card.selected .piece-num {
+  background: #fdcb6e;
   color: #ffffff;
 }
 
@@ -221,48 +284,6 @@
   font-weight: 800;
   color: #e17055;
   animation: fadeInUp 0.3s ease;
-}
-
-/* Board Grid Tappable */
-.board-grid-tappable {
-  margin-top: 16rpx;
-  display: grid;
-  gap: 8rpx;
-}
-
-.board-grid-tappable.cols-2 { grid-template-columns: repeat(2, 1fr); }
-.board-grid-tappable.cols-3 { grid-template-columns: repeat(3, 1fr); }
-
-.board-slot-tap {
-  min-height: 88rpx;
-  border-radius: 20rpx;
-  background: rgba(255,255,255,0.95);
-  border: 3rpx dashed #dfe6e9;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-.board-slot-tap:active {
-  transform: scale(0.92);
-}
-
-.board-slot-tap.filled-tap {
-  background: rgba(107, 203, 119, 0.15);
-  border: 3rpx solid rgba(107, 203, 119, 0.36);
-}
-
-.slot-number-tap {
-  font-size: 40rpx;
-  font-weight: 900;
-  color: #2d6a4f;
-}
-
-.slot-placeholder-tap {
-  font-size: 28rpx;
-  font-weight: 800;
-  color: #b2bec3;
 }
 
 /* Completion Banner — 更大庆祝 */

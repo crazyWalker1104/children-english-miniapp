@@ -7,11 +7,11 @@
     <view class="prompt-steps">
       <view class="prompt-step">
         <text class="step-num">1</text>
-        <text>从下方拖拽数字块到拼图板</text>
+        <text>先选择下方的图片碎片</text>
       </view>
       <view class="prompt-step">
         <text class="step-num">2</text>
-        <text>将数字放到对应位置完成拼图</text>
+        <text>再点画板上相同位置完成拼图</text>
       </view>
     </view>
   </view>
@@ -29,15 +29,21 @@
 
     <!-- Board Grid -->
     <view class="board-grid {{gridClass}}">
-      <view
+      <button
         wx:for="{{board}}"
         wx:key="id"
-        class="board-slot {{item.pieceId ? 'filled' : ''}}"
+        class="board-slot {{item.pieceId ? 'filled' : ''}} {{selectedPieceId && !item.pieceId ? 'ready' : ''}}"
         data-id="{{item.id}}"
+        bind:tap="placePiece"
+        disabled="{{item.pieceId > 0}}"
       >
-        <text wx:if="{{item.pieceId}}" class="slot-number">{{item.label}}</text>
-        <text wx:else class="slot-placeholder">{{item.id}}</text>
-      </view>
+        <view wx:if="{{item.pieceId}}" class="slot-picture" style="{{item.style}}">
+          <text class="slot-number">{{item.label}}</text>
+        </view>
+        <view wx:else class="slot-empty">
+          <text class="slot-placeholder">{{selectedPieceId ? '放这里' : item.id}}</text>
+        </view>
+      </button>
     </view>
   </view>
 
@@ -58,29 +64,16 @@
       data-id="{{item.id}}"
       bind:tap="selectPiece"
     >
-      <text wx:if="{{item.placed}}" class="piece-done">★</text>
-      <text wx:else class="piece-num">{{item.label}}</text>
+      <view wx:if="{{item.placed}}" class="piece-done">★</view>
+      <view wx:else class="piece-picture" style="{{item.style}}">
+        <text class="piece-num">{{item.label}}</text>
+      </view>
     </button>
   </view>
 
   <!-- Auto-place hint -->
   <view wx:if="{{selectedPieceId && !completed}}" class="auto-hint">
     <text>已选中数字 {{selectedPieceId}}，点击拼图板上对应位置放置</text>
-  </view>
-
-  <!-- Board Taps to place -->
-  <view class="board-grid-tappable {{gridClass}}">
-    <button
-      wx:for="{{board}}"
-      wx:key="id"
-      class="board-slot-tap {{item.pieceId ? 'filled-tap' : 'empty-tap'}}"
-      data-id="{{item.id}}"
-      bind:tap="placePiece"
-      disabled="{{item.pieceId > 0}}"
-    >
-      <text wx:if="{{item.pieceId}}" class="slot-number-tap">{{item.label}}</text>
-      <text wx:else class="slot-placeholder-tap">{{selectedPieceId ? '放这里' : item.id}}</text>
-    </button>
   </view>
 
   <!-- Feedback -->
