@@ -1,150 +1,265 @@
-.profile {
+/* ===== Parent Page ===== */
+.parent-page {
+  padding-bottom: 80rpx;
+}
+
+.ghost-btn {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ===== Profile Card ===== */
+.profile-card {
   margin-top: 28rpx;
-  padding: 30rpx;
+  padding: 28rpx 32rpx;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 20rpx;
 }
 
-.profile-title {
-  font-size: 32rpx;
-  font-weight: 900;
-}
-
-.age-panel {
-  margin-top: 24rpx;
-  padding: 28rpx;
-  border-color: rgba(114, 214, 183, 0.18);
-}
-
-.age-options {
-  margin: 20rpx 0 14rpx;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 14rpx;
-}
-
-.age-option {
-  height: 78rpx;
-  border-radius: 999rpx;
-  background: #f7fafc;
-  color: #6c7890;
-  font-size: 26rpx;
-  font-weight: 900;
+.profile-avatar {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ff6b6b, #ffd93d);
+  color: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 32rpx;
+  font-weight: 900;
+  flex-shrink: 0;
 }
 
-.age-option.active {
-  color: #087f5b;
-  background: rgba(114, 214, 183, 0.22);
-  border: 2rpx solid rgba(114, 214, 183, 0.65);
+.profile-info {
+  flex: 1;
+  min-width: 0;
 }
 
-.settings-panel {
+.profile-name {
+  font-size: 32rpx;
+  font-weight: 900;
+  color: #2d3436;
+}
+
+.profile-meta {
+  margin-top: 4rpx;
+  font-size: 24rpx;
+  color: #636e72;
+  font-weight: 600;
+}
+
+.profile-rewards {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rpx;
+  padding: 12rpx 20rpx;
+  border-radius: 20rpx;
+  background: rgba(255, 217, 61, 0.12);
+  flex-shrink: 0;
+}
+
+.rewards-num {
+  font-size: 32rpx;
+  font-weight: 900;
+  color: #f39c12;
+}
+
+.rewards-label {
+  font-size: 20rpx;
+  color: #b8860b;
+  font-weight: 700;
+}
+
+/* ===== Stats Grid ===== */
+.stats-grid {
   margin-top: 24rpx;
-  padding: 28rpx;
-}
-
-.time-limit-block {
-  padding: 20rpx 0 24rpx;
-  border-bottom: 2rpx solid rgba(80, 102, 135, 0.08);
-}
-
-.limit-options {
-  margin-top: 18rpx;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  gap: 16rpx;
+}
+
+.stat-card {
+  padding: 24rpx 16rpx;
+  border-radius: 24rpx;
+  background: rgba(255, 255, 255, 0.92);
+  border: 2rpx solid rgba(80, 102, 135, 0.06);
+  box-shadow: 0 2rpx 8rpx rgba(44, 62, 93, 0.04);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8rpx;
+  text-align: center;
+}
+
+.stat-icon {
+  font-size: 32rpx;
+  line-height: 1;
+}
+
+.stat-value {
+  font-size: 36rpx;
+  font-weight: 900;
+  color: #2d3436;
+  line-height: 1;
+}
+
+.stat-label {
+  font-size: 20rpx;
+  color: #636e72;
+  font-weight: 600;
+}
+
+/* ===== Settings Cards ===== */
+.settings-card {
+  margin-top: 24rpx;
+  padding: 28rpx 32rpx;
+}
+
+.settings-title {
+  font-size: 30rpx;
+  font-weight: 900;
+  color: #2d3436;
+  margin-bottom: 18rpx;
+}
+
+.settings-hint {
+  margin-top: 16rpx;
+  font-size: 22rpx;
+  color: #b2bec3;
+  font-weight: 600;
+}
+
+/* Age Chips */
+.age-options,
+.time-options {
+  display: flex;
+  flex-wrap: wrap;
   gap: 14rpx;
 }
 
-.limit-option {
-  min-height: 72rpx;
-  border-radius: 22rpx;
-  color: #6c7890;
-  font-size: 24rpx;
+.age-chip,
+.time-chip {
+  flex: 1 0 auto;
+  min-width: 120rpx;
+  height: 72rpx;
+  padding: 0 20rpx;
+  border-radius: 999rpx;
+  background: #f5f6fa;
+  color: #636e72;
+  font-size: 26rpx;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.age-chip.active,
+.time-chip.active {
+  color: #2d6a4f;
+  background: rgba(107, 203, 119, 0.18);
+  border: 2rpx solid rgba(107, 203, 119, 0.5);
   font-weight: 900;
-  background: #f7fafc;
 }
 
-.limit-option.active {
-  color: #087f5b;
-  background: rgba(114, 214, 183, 0.22);
-  border: 2rpx solid rgba(114, 214, 183, 0.65);
-}
-
-.setting-row {
-  min-height: 108rpx;
-  padding: 20rpx 0;
-  border-bottom: 2rpx solid rgba(80, 102, 135, 0.08);
+/* Toggle Rows */
+.toggle-row {
+  min-height: 88rpx;
+  padding: 16rpx 0;
+  border-bottom: 2rpx solid rgba(80, 102, 135, 0.06);
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 24rpx;
 }
 
-.setting-row:last-child {
+.toggle-row:last-child {
   border-bottom: 0;
 }
 
-.setting-title {
+.toggle-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.toggle-label {
   font-size: 28rpx;
-  font-weight: 900;
+  font-weight: 800;
+  color: #2d3436;
 }
 
-.stats {
-  margin-top: 28rpx;
-  display: flex;
-  flex-direction: column;
-  gap: 18rpx;
+.toggle-desc {
+  margin-top: 4rpx;
+  font-size: 22rpx;
+  color: #b2bec3;
+  font-weight: 600;
 }
 
-.stat {
-  min-height: 104rpx;
-  padding: 24rpx 28rpx;
+/* ===== Suggestion Card ===== */
+.suggestion-card {
+  margin-top: 24rpx;
+  padding: 28rpx 32rpx;
+  border-color: rgba(77, 150, 255, 0.15);
+  background: linear-gradient(180deg, rgba(255,255,255,0.96) 0%, rgba(245,249,255,0.96) 100%);
+}
+
+.suggestion-header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 10rpx;
+  margin-bottom: 14rpx;
 }
 
-.stat text {
-  color: #6c7890;
-  font-size: 26rpx;
+.suggestion-header .settings-title {
+  margin-bottom: 0;
 }
 
-.stat-value {
+.suggestion-icon {
   font-size: 32rpx;
-  font-weight: 900;
-  color: #243047;
 }
 
-.tip {
-  margin-top: 28rpx;
-  padding: 28rpx;
+.suggestion-text {
+  font-size: 26rpx;
+  color: #4d96ff;
+  font-weight: 700;
+  line-height: 1.6;
 }
 
-.week-panel {
+/* ===== Week Card ===== */
+.week-card {
   margin-top: 24rpx;
-  padding: 28rpx;
+  padding: 28rpx 32rpx;
 }
 
-.week-total {
-  margin-top: 22rpx;
+.week-summary {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 12rpx;
   text-align: center;
+  margin-bottom: 24rpx;
+  padding-bottom: 20rpx;
+  border-bottom: 2rpx solid rgba(80, 102, 135, 0.06);
 }
 
-.week-value {
-  color: #243047;
+.week-stat-value {
   font-size: 34rpx;
   font-weight: 900;
+  color: #2d3436;
+  line-height: 1;
 }
 
+.week-stat-label {
+  margin-top: 6rpx;
+  font-size: 20rpx;
+  color: #636e72;
+  font-weight: 600;
+}
+
+/* Week Bars */
 .week-bars {
-  margin-top: 24rpx;
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   gap: 10rpx;
@@ -159,7 +274,7 @@
 .bar-wrap {
   height: 98rpx;
   border-radius: 999rpx;
-  background: #f1f5f8;
+  background: #f0f3f5;
   display: flex;
   align-items: flex-end;
   justify-content: center;
@@ -170,20 +285,23 @@
   width: 100%;
   min-height: 14rpx;
   border-radius: 999rpx 999rpx 0 0;
-  background: #72d6b7;
+  background: linear-gradient(180deg, #6bcb77, #b8e994);
+  transition: height 0.5s ease;
 }
 
 .day-label,
 .day-min {
   margin-top: 8rpx;
-  color: #6c7890;
+  color: #636e72;
   font-size: 20rpx;
-  font-weight: 800;
+  font-weight: 700;
+  white-space: nowrap;
 }
 
-.detail-panel {
+/* ===== Detail Cards ===== */
+.detail-card {
   margin-top: 24rpx;
-  padding: 28rpx;
+  padding: 28rpx 32rpx;
 }
 
 .tag-list {
@@ -201,20 +319,131 @@
   display: flex;
   align-items: center;
   font-size: 24rpx;
-  font-weight: 900;
+  font-weight: 800;
 }
 
 .word-tag {
-  color: #245b82;
-  background: rgba(124, 199, 246, 0.2);
+  color: #2d6a4f;
+  background: rgba(107, 203, 119, 0.15);
 }
 
 .reward-tag {
-  color: #9b6500;
-  background: rgba(255, 211, 66, 0.24);
+  color: #b8860b;
+  background: rgba(255, 217, 61, 0.2);
 }
 
 .empty-text {
-  color: #6c7890;
+  color: #b2bec3;
   font-size: 24rpx;
+  font-weight: 600;
+}
+
+/* ===== Reset Area ===== */
+.reset-area {
+  margin-top: 36rpx;
+  display: flex;
+  justify-content: center;
+}
+
+.reset-btn {
+  padding: 14rpx 36rpx;
+  border-radius: 999rpx;
+  color: #b2bec3;
+  font-size: 24rpx;
+  font-weight: 700;
+  background: #f5f6fa;
+  transition: all 0.2s ease;
+}
+
+.reset-btn:active {
+  color: #ff6b6b;
+  background: rgba(255, 107, 107, 0.1);
+}
+
+/* ===== Content Management ===== */
+.content-row {
+  min-height: 80rpx;
+  padding: 16rpx 0;
+  border-bottom: 2rpx solid rgba(80, 102, 135, 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20rpx;
+}
+
+.content-row:last-child {
+  border-bottom: 0;
+}
+
+.content-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.content-label {
+  font-size: 28rpx;
+  font-weight: 800;
+  color: #2d3436;
+}
+
+.content-desc {
+  margin-top: 4rpx;
+  font-size: 22rpx;
+  color: #b2bec3;
+  font-weight: 600;
+}
+
+.content-count {
+  font-size: 36rpx;
+  font-weight: 900;
+  color: #6c5ce7;
+  flex-shrink: 0;
+}
+
+/* ===== Learning Path Theme ===== */
+.week-theme-card {
+  padding: 24rpx 28rpx;
+  border-radius: 24rpx;
+  background: linear-gradient(135deg, rgba(108, 92, 231, 0.08), rgba(162, 155, 254, 0.12));
+  border: 2rpx solid rgba(108, 92, 231, 0.15);
+  display: flex;
+  gap: 18rpx;
+}
+
+.theme-icon {
+  font-size: 44rpx;
+  flex-shrink: 0;
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: 18rpx;
+  background: rgba(108, 92, 231, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.theme-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.theme-title {
+  font-size: 28rpx;
+  font-weight: 900;
+  color: #2d3436;
+  margin-bottom: 6rpx;
+}
+
+.theme-desc {
+  font-size: 24rpx;
+  color: #636e72;
+  font-weight: 600;
+  margin-bottom: 8rpx;
+}
+
+.theme-tip {
+  font-size: 22rpx;
+  color: #6c5ce7;
+  font-weight: 700;
+  line-height: 1.5;
 }

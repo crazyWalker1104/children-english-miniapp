@@ -1,54 +1,133 @@
 <view class="page home-page page-{{layoutMode}}">
-  <view class="topbar">
-    <view class="avatar">B</view>
+  <!-- Floating Decorations -->
+  <view class="deco-cloud deco-cloud-1">☁️</view>
+  <view class="deco-cloud deco-cloud-2">☁️</view>
+  <view class="deco-star deco-star-1">✨</view>
+  <view class="deco-star deco-star-2">⭐</view>
+
+  <!-- Top Bar -->
+  <view class="topbar entrance-1">
+    <view class="avatar">{{profile.nickname ? profile.nickname[0] : 'B'}}</view>
     <view class="title">Hello Park</view>
-    <button class="round-btn" bind:tap="goParent">家</button>
+    <button class="round-btn parent-btn" bind:tap="goParent">
+      <text class="parent-icon">👨‍👩‍👧</text>
+    </button>
   </view>
-  <view class="age-line">
+
+  <!-- Age Chip -->
+  <view class="age-line entrance-1">
     <text class="soft-chip">{{profile.age}} 岁 · {{ageLabel}}</text>
   </view>
-  <view class="rest-hint {{restReached ? 'reached' : ''}}">{{restHint}}</view>
 
-  <view class="mascot card" bind:tap="sayHello">
-    <image class="character" src="{{mascotImage}}" mode="aspectFit"></image>
-    <view>
-      <view class="hello">Hello!</view>
-      <view class="subtitle">Let's play today.</view>
+  <!-- Hero Mascot Card -->
+  <view class="hero-card entrance-2" bind:tap="sayHello">
+    <view class="hero-bg"></view>
+    <view class="hero-content">
+      <view class="hero-avatar-wrap">
+        <image class="hero-mascot" src="{{mascotImage}}" mode="aspectFit"></image>
+        <view class="hero-sparkle sparkle-1">✦</view>
+        <view class="hero-sparkle sparkle-2">✦</view>
+        <view class="hero-sparkle sparkle-3">✧</view>
+      </view>
+      <view class="hero-text">
+        <view class="hero-greeting">Hello!</view>
+        <view class="hero-sub">一起来玩吧</view>
+      </view>
     </view>
+    <view class="hero-wave">👋</view>
   </view>
 
-  <button class="primary-card daily-card" bind:tap="goDaily">
-    <view>
-      <view class="daily-title">{{restReached ? '短任务收尾' : '今日小游戏'}}</view>
-      <view class="daily-sub">{{restReached ? 'One tiny game.' : 'Tap for a surprise!'}}</view>
+  <!-- Today's Challenge Card -->
+  <button class="daily-card entrance-3" bind:tap="goDaily">
+    <view class="daily-left">
+      <view class="daily-badge">今日推荐</view>
+      <view class="daily-title">小游戏</view>
+      <view class="daily-sub">点击发现惊喜</view>
     </view>
-    <view class="play">▶</view>
+    <view class="daily-play">
+      <text class="daily-play-icon">▶</text>
+    </view>
   </button>
 
-  <view class="module-grid">
-    <button class="module-card card" bind:tap="goColors">
-      <view class="module-icon">🎨</view>
-      <view>颜色乐园</view>
+  <!-- Week Theme Bar -->
+  <view wx:if="{{weekTheme}}" class="week-bar entrance-3">
+    <text class="week-bar-icon">📚</text>
+    <text class="week-bar-text">{{weekTheme}}</text>
+  </view>
+
+  <!-- Module Grid -->
+  <view class="section-header entrance-4">
+    <view class="section-title">
+      <text class="section-title-emoji">🎯</text>
+      <text>探索乐园</text>
+    </view>
+  </view>
+
+  <view class="module-grid entrance-4">
+    <button class="module-card module-colors" bind:tap="goColors">
+      <view class="module-icon-wrap">
+        <text class="module-icon">🎨</text>
+      </view>
+      <view class="module-info">
+        <view class="module-label">颜色乐园</view>
+        <view class="module-desc">认识颜色</view>
+      </view>
     </button>
-    <button class="module-card card" bind:tap="goSpeak">
-      <view class="module-icon">🎙</view>
-      <view>跟我说</view>
+
+    <button class="module-card module-speak" bind:tap="goSpeak">
+      <view class="module-icon-wrap">
+        <text class="module-icon">🎙️</text>
+      </view>
+      <view class="module-info">
+        <view class="module-label">跟我说</view>
+        <view class="module-desc">跟读练习</view>
+      </view>
     </button>
-    <button class="module-card card" bind:tap="goSongs">
-      <view class="module-icon">🎵</view>
-      <view>儿歌时间</view>
+
+    <button class="module-card module-songs" bind:tap="goSongs">
+      <view class="module-icon-wrap">
+        <text class="module-icon">🎵</text>
+      </view>
+      <view class="module-info">
+        <view class="module-label">儿歌时间</view>
+        <view class="module-desc">唱唱跳跳</view>
+      </view>
     </button>
-    <button class="module-card card" bind:tap="goArt">
-      <view class="module-icon">🧩</view>
-      <view>小小艺术家</view>
+
+    <button class="module-card module-art" bind:tap="goArt">
+      <view class="module-icon-wrap">
+        <text class="module-icon">🧩</text>
+      </view>
+      <view class="module-info">
+        <view class="module-label">小小艺术家</view>
+        <view class="module-desc">数字拼图</view>
+      </view>
     </button>
   </view>
 
-  <view class="reward-card card">
-    <view>
-      <view class="reward-title">今日贴纸</view>
-      <view class="subtitle">完成任务后自动点亮</view>
+  <!-- Sticker Progress -->
+  <view class="sticker-card entrance-5">
+    <view class="sticker-header">
+      <view class="sticker-title">
+        <text class="sticker-title-icon">⭐</text>
+        <text>今日贴纸</text>
+      </view>
+      <view class="sticker-count">{{completedCount}}/3</view>
     </view>
-    <view class="stars">{{stars}}</view>
+    <view class="sticker-row">
+      <view class="sticker-slot {{completedCount >= 1 ? 'earned' : ''}}">
+        <text>{{completedCount >= 1 ? '🌟' : '○'}}</text>
+      </view>
+      <view class="sticker-connector {{completedCount >= 2 ? 'active' : ''}}"></view>
+      <view class="sticker-slot {{completedCount >= 2 ? 'earned' : ''}}">
+        <text>{{completedCount >= 2 ? '🌟' : '○'}}</text>
+      </view>
+      <view class="sticker-connector {{completedCount >= 3 ? 'active' : ''}}"></view>
+      <view class="sticker-slot {{completedCount >= 3 ? 'earned' : ''}}">
+        <text>{{completedCount >= 3 ? '🌟' : '○'}}</text>
+      </view>
+    </view>
+    <view class="sticker-hint" wx:if="{{completedCount < 3}}">完成任务自动点亮贴纸</view>
+    <view class="sticker-hint done" wx:else>全部完成！太棒了 🎉</view>
   </view>
 </view>

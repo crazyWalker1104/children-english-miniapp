@@ -1,3 +1,7 @@
 {
-  "navigationBarTitleText": "小小艺术家"
+  "navigationBarTitleText": "小小艺术家",
+  "usingComponents": {
+    "topbar": "../../components/topbar/index",
+    "feedback-toast": "../../components/feedback-toast/index"
+  }
 }

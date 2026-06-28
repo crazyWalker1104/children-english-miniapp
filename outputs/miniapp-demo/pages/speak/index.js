@@ -11,6 +11,7 @@ const { playText } = require("../../utils/audio")
 const { getAgeLevel } = require("../../utils/age")
 const { feedbackSuccess, feedbackComplete, feedbackError } = require("../../utils/interaction")
 const { getCurrentLayoutMode, getResizeLayoutMode } = require("../../utils/layout")
+const { encourage, encourageComplete } = require("../../utils/encouragement")
 
 const PRACTICE_STEPS = [
   { id: "listen", label: "Listen", done: false },
@@ -101,34 +102,35 @@ Page({
     this.setData({
       stepCount: 1,
       steps: buildSteps(1),
-      feedback: `${this.data.practicePhrase}, ${this.data.practicePhrase}!`
+      feedback: this.data.practicePhrase + "，大声说！"
     })
-    playText(this.data.practicePhrase)
+    playText(this.data.wordText)
   },
 
   practice() {
     if (this.data.stepCount === 0) {
-      this.setData({ feedback: "Tap listen first" })
+      this.setData({ feedback: "请先点 ▶ 听一听" })
       feedbackError()
       playText("Tap listen first")
       return
     }
 
-    const nextStepCount = Math.min(this.data.stepCount + 1, 3)
+    var nextStepCount = Math.min(this.data.stepCount + 1, 3)
 
     addSpeakCount()
     addStudySeconds(10)
+    var msg = nextStepCount >= 3 ? encourageComplete() : encourage()
     this.setData({
       stepCount: nextStepCount,
       steps: buildSteps(nextStepCount),
-      feedback: nextStepCount >= 3 ? "You did it! ★" : "Great sound!"
+      feedback: msg
     })
     if (nextStepCount >= 3) {
       feedbackComplete()
     } else {
       feedbackSuccess()
     }
-    playText(nextStepCount >= 3 ? "You did it!" : "Great sound!")
+    playText(msg)
   },
 
   back() {

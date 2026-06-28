@@ -1,40 +1,37 @@
-<view class="page page-{{layoutMode}}">
-  <view class="topbar">
-    <button class="round-btn" bind:tap="back">‹</button>
-    <view class="title">颜色乐园</view>
-    <button class="round-btn" bind:tap="nextPrompt">▶</button>
-  </view>
+<view class="page colors-page page-{{layoutMode}}">
+  <topbar title="颜色乐园" bind:back="back" />
 
-  <view class="card prompt-card">
-    <view class="subtitle">Listen and tap</view>
-    <view class="prompt">Find {{target.label}}!</view>
-    <view class="color-reward">Color sticker · ★</view>
-    <view class="mini-progress">
-      <text
-        wx:for="{{progressDots}}"
-        wx:key="id"
-        class="dot {{item.active ? 'active' : ''}}"
-      ></text>
+  <!-- Prompt Card -->
+  <view class="prompt-card card">
+    <view class="prompt-badge">听一听，点一点</view>
+    <view class="prompt-question">找找 <text class="prompt-target">{{target.label}}</text>！</view>
+    <view class="prompt-emoji-wrap">
+      <text class="prompt-emoji">{{target.emoji}}</text>
     </view>
+    <progress-dots dots="{{progressDots}}" />
   </view>
 
+  <!-- Color Grid -->
   <view class="color-grid">
     <button
       wx:for="{{colors}}"
       wx:key="id"
-      class="color-card card"
+      class="color-card"
       style="background: {{item.color}};"
       data-id="{{item.id}}"
       bind:tap="tapColor"
     >
-      <view class="emoji">{{item.emoji}}</view>
+      <view class="color-emoji">{{item.emoji}}</view>
       <view class="color-label">{{item.label}}</view>
+      <view class="color-shine"></view>
     </button>
   </view>
 
-  <button wx:if="{{roundDone}}" class="next-card card {{sessionComplete ? 'finished' : ''}}" bind:tap="nextPrompt">
-    {{sessionComplete ? '再玩一组颜色' : '下一个颜色'}}
-  </button>
+  <!-- Feedback -->
+  <feedback-toast text="{{feedback}}" type="{{roundDone ? 'success' : 'default'}}" />
 
-  <view wx:if="{{feedback}}" class="feedback">{{feedback}}</view>
+  <!-- Next Button -->
+  <button wx:if="{{roundDone}}" class="next-card {{sessionComplete ? 'finished' : ''}}" bind:tap="nextPrompt">
+    {{sessionComplete ? '🎉 再玩一组颜色' : '下一个颜色 →'}}
+  </button>
 </view>

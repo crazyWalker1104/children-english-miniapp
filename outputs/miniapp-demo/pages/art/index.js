@@ -4,6 +4,7 @@ const { getAgeLevel } = require("../../utils/age")
 const { feedbackSuccess, feedbackComplete, feedbackError } = require("../../utils/interaction")
 const { getCurrentLayoutMode, getResizeLayoutMode } = require("../../utils/layout")
 const { shuffle } = require("../../utils/shuffle")
+const { encourage, encourageComplete } = require("../../utils/encouragement")
 
 function createPieces(count) {
   return shuffle(Array.from({ length: count }).map(function (_, index) {
@@ -153,7 +154,7 @@ Page({
       pieces,
       selectedPieceId: 0,
       placedCount,
-      feedback: completed ? "Beautiful! ★" : "Great!",
+      feedback: completed ? encourageComplete() : encourage(),
       completed
     })
 
@@ -161,12 +162,12 @@ Page({
       completeTask("art-starry-night", "art-star")
       addStudySeconds(30)
       feedbackComplete()
-      playText("Beautiful!")
+      playText(encourageComplete())
       return
     }
 
     feedbackSuccess()
-    playText("Great!")
+    playText(encourage())
   },
 
   reset() {

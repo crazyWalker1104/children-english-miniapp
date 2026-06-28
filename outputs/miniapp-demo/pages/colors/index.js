@@ -71,7 +71,7 @@ Page({
     this.setData({
       colors: buildColorChoices(target, level.choiceCount),
       target,
-      feedback: "Listen and tap",
+      feedback: "听一听，找找 " + target.label,
       roundDone: false,
       sessionComplete: false
     })
@@ -84,29 +84,30 @@ Page({
       return
     }
 
-    const id = event.currentTarget.dataset.id
+    var id = event.currentTarget.dataset.id
     if (id === this.data.target.id) {
-      const completedRounds = Math.min(this.data.completedRounds + 1, COLOR_GOAL)
-      const sessionComplete = completedRounds === COLOR_GOAL
+      var completedRounds = Math.min(this.data.completedRounds + 1, COLOR_GOAL)
+      var sessionComplete = completedRounds === COLOR_GOAL
+      var feedbackText = sessionComplete ? "全部完成！太棒了 ★★★" : "答对了！真厉害 ★"
 
-      completeTask(`color-${id}`, `${id}-sticker`)
+      completeTask("color-" + id, id + "-sticker")
       addStudySeconds(15)
       this.setData({
-        completedRounds,
+        completedRounds: completedRounds,
         progressDots: buildProgressDots(completedRounds),
         roundDone: true,
-        sessionComplete,
-        feedback: sessionComplete ? "Color stars complete! ★★★" : "Beautiful! ★"
+        sessionComplete: sessionComplete,
+        feedback: feedbackText
       })
       if (sessionComplete) {
         feedbackComplete()
       } else {
         feedbackSuccess()
       }
-      playText(sessionComplete ? "Color stars complete!" : "Great job!")
+      playText(id)
       return
     }
-    this.setData({ feedback: "Try again!" })
+    this.setData({ feedback: "再试一次！" })
     feedbackError()
     playText("Try again!")
   },

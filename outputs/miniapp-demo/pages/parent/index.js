@@ -2,6 +2,8 @@ const { ensureTodayRecord, getWeeklySummary } = require("../../utils/progress")
 const { getAgeLevel } = require("../../utils/age")
 const { getCurrentLayoutMode, getResizeLayoutMode } = require("../../utils/layout")
 const { getParentSettings, updateParentSetting } = require("../../utils/settings")
+const { getWeekTheme } = require("../../utils/learning-path")
+const { words, songs, themeTasks } = require("../../data/tasks")
 
 function buildTodaySuggestion(profile, level, record, durationMinutes, songCount, parentSettings) {
   const dailyLimitMinutes = parentSettings.dailyLimitMinutes
@@ -73,7 +75,13 @@ Page({
     todaySuggestion: "",
     weeklySummary: {},
     weekItems: [],
-    layoutMode: "mobile"
+    layoutMode: "mobile",
+    wordCount: 0,
+    songCount: 0,
+    taskPoolCount: 0,
+    wordCategoryCount: 0,
+    learningPathThemes: 0,
+    currentWeekTheme: { title: "", description: "", dailyTip: "" }
   },
 
   onLoad() {
@@ -99,8 +107,10 @@ Page({
     const level = getAgeLevel(profile.age)
     const record = ensureTodayRecord()
     const weeklySummary = getWeeklySummary()
-    const songCount = Object.values(record.songPlayCounts).reduce((sum, count) => sum + count, 0)
+    const songPlayCount = Object.values(record.songPlayCounts).reduce((sum, count) => sum + count, 0)
     const duration = Math.ceil(record.durationSeconds / 60)
+    const weekTheme = getWeekTheme()
+    const categories = [...new Set(words.map(function (w) { return w.category }))]
 
     this.setData({
       profile,
@@ -109,10 +119,10 @@ Page({
       duration,
       taskCount: record.completedTaskIds.length,
       wordCount: record.heardWords.length,
-      songCount,
+      songCount: songPlayCount,
       speakCount: record.speakCount,
       rewardCount: record.rewards.length,
-      todaySuggestion: buildTodaySuggestion(profile, level, record, duration, songCount, parentSettings),
+      todaySuggestion: buildTodaySuggestion(profile, level, record, duration, songPlayCount, parentSettings),
       weeklySummary,
       weekItems: formatWeekItems(weeklySummary.records),
       heardWordItems: record.heardWords.map(function (word) {
@@ -126,7 +136,13 @@ Page({
           id: `reward-${reward}`,
           label: reward
         }
-      })
+      }),
+      wordCount: words.length,
+      songCount: songs.length,
+      taskPoolCount: themeTasks.length,
+      wordCategoryCount: categories.length,
+      learningPathThemes: 6,
+      currentWeekTheme: weekTheme
     })
   },
 

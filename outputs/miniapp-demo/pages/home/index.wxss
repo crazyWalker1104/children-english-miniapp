@@ -1,127 +1,464 @@
+/* ===== Home Page — Bouncy Toy Box ===== */
 .home-page {
-  padding-bottom: 60rpx;
+  padding-bottom: 80rpx;
+  position: relative;
+  overflow: hidden;
 }
 
+/* ===== Floating Decorations ===== */
+.deco-cloud {
+  position: absolute;
+  font-size: 60rpx;
+  opacity: 0.5;
+  pointer-events: none;
+  animation: floatUpDown 6s ease-in-out infinite;
+  z-index: 0;
+}
+
+.deco-cloud-1 {
+  top: 60rpx;
+  right: -20rpx;
+  animation-delay: 0s;
+}
+
+.deco-cloud-2 {
+  top: 300rpx;
+  left: -30rpx;
+  font-size: 48rpx;
+  animation-delay: 2s;
+}
+
+.deco-star {
+  position: absolute;
+  font-size: 36rpx;
+  opacity: 0.6;
+  pointer-events: none;
+  animation: spinPop 0.8s ease both, floatUpDown 4s 0.8s ease-in-out infinite;
+  z-index: 0;
+}
+
+.deco-star-1 {
+  top: 200rpx;
+  right: 40rpx;
+}
+
+.deco-star-2 {
+  top: 450rpx;
+  left: 20rpx;
+  font-size: 28rpx;
+  animation-delay: 0.5s, 2.5s;
+}
+
+/* Avatar — 更大，更圆 */
 .avatar {
-  width: 70rpx;
-  height: 70rpx;
+  width: 80rpx;
+  height: 80rpx;
   border-radius: 50%;
-  background: #ffffff;
+  background: linear-gradient(135deg, #ff6b6b, #ffd93d);
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 900;
-  box-shadow: 0 10rpx 22rpx rgba(44, 62, 93, 0.1);
+  font-size: 32rpx;
+  color: #ffffff;
+  box-shadow: 0 6rpx 16rpx rgba(255, 107, 107, 0.3);
+  border: 3rpx solid rgba(255, 255, 255, 0.6);
 }
 
+.parent-btn {
+  width: 80rpx;
+  height: 80rpx;
+  font-size: 28rpx;
+}
+
+.parent-icon {
+  font-size: 32rpx;
+  line-height: 1;
+}
+
+/* Age line */
 .age-line {
-  margin-top: 12rpx;
-  color: #6c7890;
-  font-size: 24rpx;
+  margin-top: 16rpx;
   text-align: center;
+  position: relative;
+  z-index: 1;
 }
 
-.rest-hint {
-  margin: 14rpx auto 0;
-  max-width: 520rpx;
-  min-height: 52rpx;
-  padding: 12rpx 20rpx;
-  border-radius: 999rpx;
-  color: #5b667a;
-  font-size: 24rpx;
-  font-weight: 800;
-  text-align: center;
-  background: rgba(255, 255, 255, 0.78);
-}
-
-.rest-hint.reached {
-  color: #8a4b00;
-  background: rgba(255, 224, 102, 0.36);
-}
-
-.mascot {
+/* ===== Hero Card — 更大，更有玩具感 ===== */
+.hero-card {
+  position: relative;
   margin-top: 28rpx;
-  padding: 30rpx;
+  border-radius: 40rpx;
+  overflow: hidden;
+  min-height: 300rpx;
+  background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 25%, #f9ca24 50%, #f0932b 100%);
+  box-shadow: 0 8rpx 28rpx rgba(243, 156, 18, 0.25),
+              0 20rpx 48rpx rgba(243, 156, 18, 0.16);
+  z-index: 1;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 20% 70%, rgba(255,255,255,0.35) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(255,255,255,0.3) 0%, transparent 40%);
+  pointer-events: none;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
   display: flex;
   align-items: center;
-  gap: 24rpx;
-  border-color: rgba(124, 199, 246, 0.18);
+  padding: 36rpx 40rpx;
+  gap: 32rpx;
 }
 
-.character {
-  width: 132rpx;
-  height: 132rpx;
-  display: block;
+.hero-avatar-wrap {
+  position: relative;
+  width: 180rpx;
+  height: 180rpx;
+  flex-shrink: 0;
 }
 
-.hello {
-  font-size: 40rpx;
+.hero-mascot {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.5);
+  box-shadow: 0 8rpx 24rpx rgba(0,0,0,0.1);
+  animation: bounceUpDown 3s ease-in-out infinite;
+}
+
+.hero-sparkle {
+  position: absolute;
+  font-size: 32rpx;
+  color: #ffffff;
+  animation: floatUpDown 2.5s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.sparkle-1 {
+  top: -8rpx;
+  right: 8rpx;
+  animation-delay: 0s;
+}
+
+.sparkle-2 {
+  bottom: 12rpx;
+  left: -4rpx;
+  animation-delay: 0.8s;
+  font-size: 24rpx;
+}
+
+.sparkle-3 {
+  top: 30rpx;
+  left: -12rpx;
+  animation-delay: 1.6s;
+  font-size: 26rpx;
+}
+
+.hero-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.hero-greeting {
+  font-size: 60rpx;
   font-weight: 900;
+  color: #ffffff;
+  text-shadow: 0 3rpx 12rpx rgba(0,0,0,0.1);
+  letter-spacing: 2rpx;
 }
 
+.hero-sub {
+  margin-top: 12rpx;
+  font-size: 32rpx;
+  color: rgba(255,255,255,0.92);
+  font-weight: 700;
+}
+
+.hero-wave {
+  position: absolute;
+  right: 40rpx;
+  bottom: 32rpx;
+  font-size: 56rpx;
+  z-index: 1;
+  animation: sway 2s ease-in-out infinite;
+  pointer-events: none;
+  transform-origin: bottom center;
+}
+
+/* ===== Daily Challenge Card — 更大，更吸引人 ===== */
 .daily-card {
   margin-top: 28rpx;
-  min-height: 204rpx;
+  min-height: 200rpx;
+  border-radius: 36rpx;
+  padding: 32rpx 36rpx;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  background: linear-gradient(135deg, #4d96ff 0%, #68d6ff 100%);
+  box-shadow: 0 6rpx 20rpx rgba(77, 150, 255, 0.28),
+              0 14rpx 36rpx rgba(77, 150, 255, 0.16);
+  border: 0;
+  color: #ffffff;
+  position: relative;
+  z-index: 1;
+}
+
+.daily-card:active {
+  transform: scale(0.95);
+  box-shadow: 0 3rpx 12rpx rgba(77, 150, 255, 0.2);
+}
+
+.daily-left {
+  text-align: left;
+}
+
+.daily-badge {
+  display: inline-block;
+  padding: 8rpx 24rpx;
+  border-radius: 999rpx;
+  background: rgba(255,255,255,0.3);
+  font-size: 24rpx;
+  font-weight: 800;
+  margin-bottom: 14rpx;
 }
 
 .daily-title {
-  font-size: 46rpx;
+  font-size: 52rpx;
   font-weight: 900;
+  letter-spacing: 1rpx;
 }
 
 .daily-sub {
-  margin-top: 14rpx;
-  font-size: 26rpx;
-  opacity: 0.88;
+  margin-top: 12rpx;
+  font-size: 28rpx;
+  opacity: 0.9;
 }
 
-.play {
-  width: 116rpx;
-  height: 116rpx;
+.daily-play {
+  width: 120rpx;
+  height: 120rpx;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.3);
-  border: 4rpx solid rgba(255, 255, 255, 0.36);
+  background: rgba(255,255,255,0.3);
+  border: 4rpx solid rgba(255,255,255,0.5);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 46rpx;
+  flex-shrink: 0;
+  animation: heartbeat 2.5s ease-in-out infinite;
 }
 
+.daily-play-icon {
+  font-size: 48rpx;
+  margin-left: 4rpx;
+}
+
+/* ===== Week Theme Bar ===== */
+.week-bar {
+  margin-top: 20rpx;
+  padding: 16rpx 28rpx;
+  border-radius: 24rpx;
+  background: rgba(108, 92, 231, 0.1);
+  border: 2rpx solid rgba(108, 92, 231, 0.14);
+  display: flex;
+  align-items: center;
+  gap: 14rpx;
+  position: relative;
+  z-index: 1;
+}
+
+.week-bar-icon {
+  font-size: 32rpx;
+}
+
+.week-bar-text {
+  font-size: 26rpx;
+  font-weight: 800;
+  color: #6c5ce7;
+}
+
+/* ===== Module Grid — 玩具式卡片 ===== */
 .module-grid {
-  margin-top: 28rpx;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 20rpx;
+  gap: 24rpx;
+  position: relative;
+  z-index: 1;
 }
 
 .module-card {
-  min-height: 184rpx;
-  padding: 24rpx;
+  min-height: 200rpx;
+  padding: 28rpx;
+  border-radius: 36rpx;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: space-between;
-  font-size: 30rpx;
+  border: 0;
+  color: #ffffff;
   font-weight: 900;
-  color: #243047;
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease;
+}
+
+.module-card:active {
+  transform: scale(0.92) translateY(4rpx);
+}
+
+.module-colors {
+  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+  box-shadow: 0 6rpx 20rpx rgba(255, 107, 107, 0.3),
+              0 12rpx 32rpx rgba(255, 107, 107, 0.15);
+}
+
+.module-speak {
+  background: linear-gradient(135deg, #a29bfe 0%, #6c5ce7 100%);
+  box-shadow: 0 6rpx 20rpx rgba(108, 92, 231, 0.3),
+              0 12rpx 32rpx rgba(108, 92, 231, 0.15);
+}
+
+.module-songs {
+  background: linear-gradient(135deg, #6bcb77 0%, #27ae60 100%);
+  box-shadow: 0 6rpx 20rpx rgba(107, 203, 119, 0.3),
+              0 12rpx 32rpx rgba(107, 203, 119, 0.15);
+}
+
+.module-art {
+  background: linear-gradient(135deg, #fdcb6e 0%, #e17055 100%);
+  box-shadow: 0 6rpx 20rpx rgba(253, 203, 110, 0.3),
+              0 12rpx 32rpx rgba(253, 203, 110, 0.15);
+}
+
+.module-icon-wrap {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 24rpx;
+  background: rgba(255,255,255,0.28);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2rpx solid rgba(255,255,255,0.2);
 }
 
 .module-icon {
-  font-size: 54rpx;
+  font-size: 44rpx;
+  line-height: 1;
 }
 
-.reward-card {
+.module-info {
+  text-align: left;
+}
+
+.module-label {
+  font-size: 34rpx;
+  font-weight: 900;
+  letter-spacing: 0.5rpx;
+}
+
+.module-desc {
+  margin-top: 8rpx;
+  font-size: 24rpx;
+  opacity: 0.85;
+  font-weight: 600;
+}
+
+/* ===== Sticker Progress Card — 更大贴纸，更有奖励感 ===== */
+.sticker-card {
   margin-top: 28rpx;
-  padding: 26rpx;
+  padding: 32rpx 36rpx;
+  border-radius: 36rpx;
+  background: rgba(255,255,255,0.95);
+  border: 2rpx solid rgba(80, 102, 135, 0.06);
+  box-shadow: 0 4rpx 16rpx rgba(44, 62, 93, 0.06),
+              0 12rpx 32rpx rgba(44, 62, 93, 0.08);
+  position: relative;
+  z-index: 1;
+}
+
+.sticker-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-bottom: 28rpx;
 }
 
-.reward-title {
-  font-size: 30rpx;
+.sticker-title {
+  display: flex;
+  align-items: center;
+  gap: 10rpx;
+  font-size: 34rpx;
   font-weight: 900;
+  color: #2d3436;
+}
+
+.sticker-title-icon {
+  font-size: 36rpx;
+}
+
+.sticker-count {
+  font-size: 32rpx;
+  font-weight: 900;
+  color: #ff6b6b;
+  background: rgba(255, 107, 107, 0.12);
+  padding: 8rpx 24rpx;
+  border-radius: 999rpx;
+}
+
+.sticker-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+}
+
+.sticker-slot {
+  width: 104rpx;
+  height: 104rpx;
+  border-radius: 50%;
+  background: #f5f6fa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 44rpx;
+  color: #b2bec3;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  border: 4rpx dashed #dfe6e9;
+}
+
+.sticker-slot.earned {
+  background: linear-gradient(135deg, #fff9e6, #ffeaa7);
+  border: 4rpx solid #ffd93d;
+  color: #ffd93d;
+  animation: spinPop 0.6s ease;
+  box-shadow: 0 6rpx 20rpx rgba(255, 217, 61, 0.35);
+}
+
+.sticker-connector {
+  width: 48rpx;
+  height: 6rpx;
+  background: #dfe6e9;
+  border-radius: 3rpx;
+  transition: background 0.4s ease;
+}
+
+.sticker-connector.active {
+  background: linear-gradient(90deg, #ffd93d, #fdcb6e);
+}
+
+.sticker-hint {
+  margin-top: 24rpx;
+  text-align: center;
+  color: #b2bec3;
+  font-size: 26rpx;
+  font-weight: 600;
+}
+
+.sticker-hint.done {
+  color: #f39c12;
+  font-weight: 900;
+  font-size: 30rpx;
+  animation: heartbeat 1.5s ease-in-out infinite;
 }

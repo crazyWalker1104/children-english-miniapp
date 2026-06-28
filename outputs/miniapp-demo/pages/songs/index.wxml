@@ -1,39 +1,45 @@
-<view class="page page-{{layoutMode}}">
-  <view class="topbar">
-    <button class="round-btn" bind:tap="back">‹</button>
-    <view class="title">儿歌时间</view>
-    <view class="round-btn">♪</view>
-  </view>
+<view class="page songs-page page-{{layoutMode}}">
+  <topbar title="儿歌时间" bind:back="back" />
 
   <view class="song-list">
     <button
       wx:for="{{songs}}"
       wx:key="id"
-      class="song-card card {{activeSongId === item.id ? 'active' : ''}}"
+      class="song-card {{activeSongId === item.id ? 'active' : ''}}"
       data-id="{{item.id}}"
       bind:tap="play"
     >
-      <view>
+      <view class="song-info">
         <view class="song-title">{{item.title}}</view>
-        <view class="subtitle">{{item.zh}} · {{item.action}}</view>
+        <view class="song-meta">{{item.zh}} · {{item.action}}</view>
       </view>
-      <view class="song-play">▶</view>
+      <view class="song-play-btn {{activeSongId === item.id ? 'playing' : ''}}">
+        <text>{{activeSongId === item.id ? '♫' : '▶'}}</text>
+      </view>
     </button>
   </view>
 
   <view wx:if="{{activeSongId}}" class="lyrics-card card">
-    <view class="song-title">{{activeSong.title}}</view>
+    <view class="lyrics-header">
+      <view class="lyrics-title">{{activeSong.title}}</view>
+      <view class="lyrics-sub">{{activeSong.zh}}</view>
+      <view wx:if="{{audioStatus !== 'idle'}}" class="audio-status-row">
+        <view class="audio-status-dot {{audioStatus === 'loading' ? 'loading-dot' : ''}}"></view>
+        <text class="audio-status-text">{{audioStatus === 'loading' ? '加载中...' : '播放中'}}</text>
+        <text class="audio-status-progress">{{loadProgress}}%</text>
+      </view>
+    </view>
     <view class="lyric-lines">
       <view
         wx:for="{{activeSong.lines}}"
         wx:key="id"
         class="lyric-line {{activeLineIndex === index ? 'active' : ''}}"
       >
-        <text>{{item.text}}</text>
+        <text class="lyric-text">{{item.text}}</text>
         <text class="lyric-action">{{item.action}}</text>
       </view>
     </view>
   </view>
 
-  <view wx:if="{{feedback}}" class="feedback">{{feedback}}</view>
+  <feedback-toast text="{{feedback}}" />
 </view>

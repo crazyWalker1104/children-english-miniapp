@@ -1,0 +1,7 @@
+<view class="mini-progress">
+  <text
+    wx:for="{{dots}}"
+    wx:key="id"
+    class="dot {{item.active ? 'active' : ''}}"
+  ></text>
+</view>

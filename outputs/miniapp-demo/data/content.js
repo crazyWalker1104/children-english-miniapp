@@ -39,7 +39,12 @@ function getWordCategoryLabel(word) {
     daily: "日常",
     color: "颜色",
     food: "食物",
-    art: "艺术"
+    art: "艺术",
+    family: "家人",
+    toy: "玩具",
+    animal: "动物",
+    action: "动作",
+    body: "身体"
   }
   return labels[word.category] || "单词"
 }

@@ -1,41 +1,108 @@
-<view class="page page-{{layoutMode}}">
-  <view class="topbar">
-    <button class="round-btn" bind:tap="back">‹</button>
-    <view class="title">今日小游戏</view>
-    <button class="round-btn" bind:tap="pickTask">↻</button>
-  </view>
+<view class="page daily-page page-{{layoutMode}}">
+  <topbar title="今日小游戏" right-icon="↻" bind:back="back" bind:righttap="pickTask" />
 
+  <!-- Task Card -->
   <view class="task-card card">
-    <view class="task-type">{{task.title}}</view>
-    <view class="prompt">{{task.prompt}}</view>
-    <view class="subtitle">年龄模式：{{ageLabel}}</view>
-    <view class="challenge-label">{{challengeLabel}}</view>
-    <view class="mini-progress">
-      <text
-        wx:for="{{progressDots}}"
-        wx:key="id"
-        class="dot {{item.active ? 'active' : ''}}"
-      ></text>
-    </view>
+    <view class="task-badge">{{task.title}}</view>
+    <view class="task-prompt">{{task.prompt}}</view>
+    <view wx:if="{{task.hint && showHint}}" class="task-hint">{{task.hint}}</view>
   </view>
 
-  <view class="choice-grid">
+  <!-- ===== 普通选择题 (color/word/animal/food/toy/action/family/body) ===== -->
+  <view wx:if="{{taskType === 'color' || taskType === 'word' || taskType === 'animal' || taskType === 'food' || taskType === 'toy' || taskType === 'action' || taskType === 'family' || taskType === 'body'}}" class="choice-grid">
     <button
       wx:for="{{choices}}"
       wx:key="id"
-      class="choice card"
+      class="choice-card"
       style="background: {{item.color || '#ffffff'}};"
       data-id="{{item.id}}"
       bind:tap="choose"
     >
-      <view class="emoji">{{item.emoji}}</view>
+      <view class="choice-emoji">{{item.emoji}}</view>
       <view class="choice-label">{{item.label}}</view>
     </button>
   </view>
 
-  <view wx:if="{{feedback}}" class="feedback">{{feedback}}</view>
+  <!-- ===== 听音选图 (listen-match) ===== -->
+  <view wx:if="{{taskType === 'listen-match'}}" class="listen-section">
+    <button class="listen-replay-btn" bind:tap="replayAudio">
+      <text class="listen-replay-icon">🔊</text>
+      <text>再听一遍</text>
+    </button>
+    <view class="choice-grid">
+      <button
+        wx:for="{{listenItems}}"
+        wx:key="id"
+        class="choice-card"
+        data-id="{{item.id}}"
+        bind:tap="tapListenMatch"
+      >
+        <view class="choice-emoji">{{item.emoji}}</view>
+        <view class="choice-label">{{item.label}}</view>
+      </button>
+    </view>
+  </view>
 
-  <button wx:if="{{completed}}" class="next-card card {{sessionComplete ? 'finished' : ''}}" bind:tap="pickTask">
-    {{sessionComplete ? '再玩一组' : '下一个惊喜任务'}}
+  <!-- ===== 颜色配对 (color-match) ===== -->
+  <view wx:if="{{taskType === 'color-match'}}" class="color-match-section">
+    <view class="color-match-grid">
+      <button
+        wx:for="{{colorItems}}"
+        wx:key="id"
+        class="color-match-card"
+        style="background: {{item.color}};"
+        data-id="{{item.id}}"
+        bind:tap="tapColorMatch"
+      >
+        <view class="color-match-emoji">{{item.emoji}}</view>
+        <view class="color-match-label">{{item.label}}</view>
+      </button>
+    </view>
+  </view>
+
+  <!-- ===== 找一找 (find-it) ===== -->
+  <view wx:if="{{taskType === 'find-it'}}" class="find-it-section">
+    <view class="find-it-grid">
+      <button
+        wx:for="{{findItems}}"
+        wx:key="id"
+        class="find-it-card"
+        data-id="{{item.id}}"
+        bind:tap="tapFindItem"
+      >
+        <view class="find-it-emoji">{{item.emoji}}</view>
+      </button>
+    </view>
+  </view>
+
+  <!-- ===== 单词气泡 (word-bubble) ===== -->
+  <view wx:if="{{taskType === 'word-bubble'}}" class="bubble-section">
+    <view class="bubble-grid">
+      <button
+        wx:for="{{bubbleItems}}"
+        wx:key="id"
+        class="bubble-card"
+        data-id="{{item.id}}"
+        bind:tap="tapBubble"
+      >
+        <text>{{item.label}}</text>
+      </button>
+    </view>
+  </view>
+
+  <!-- Hint Button -->
+  <view wx:if="{{!showHint && task.hint}}" class="hint-toggle">
+    <button class="hint-btn" bind:tap="showHintTap">💡 提示</button>
+  </view>
+
+  <feedback-toast text="{{feedback}}" type="{{sessionComplete ? 'success' : 'default'}}" />
+
+  <view wx:if="{{!completed}}" class="guide-row">
+    <view class="guide-text">{{challengeLabel}}</view>
+    <progress-dots dots="{{progressDots}}" />
+  </view>
+
+  <button wx:if="{{completed}}" class="next-card {{sessionComplete ? 'finished' : ''}}" bind:tap="pickTask">
+    {{sessionComplete ? '🎉 再玩一组' : '下一个惊喜任务 →'}}
   </button>
 </view>

@@ -1,3 +1,6 @@
 {
-  "navigationBarTitleText": "家长中心"
+  "navigationBarTitleText": "家长中心",
+  "usingComponents": {
+    "topbar": "../../components/topbar/index"
+  }
 }

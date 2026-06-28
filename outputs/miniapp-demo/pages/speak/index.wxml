@@ -1,34 +1,59 @@
-<view class="page page-{{layoutMode}}">
-  <view class="topbar">
-    <button class="round-btn" bind:tap="back">‹</button>
-    <view class="title">跟我说</view>
-    <button class="round-btn" bind:tap="nextWord">↻</button>
-  </view>
+<view class="page speak-page page-{{layoutMode}}">
+  <topbar title="跟我说" right-icon="↻" bind:back="back" bind:righttap="nextWord" />
 
+  <!-- Word Display Card -->
   <view class="word-card card">
-    <view class="subtitle">Yakka Dee style word pop</view>
-    <view class="word">{{wordText}}</view>
-    <view class="word-meta">
-      <text class="word-category">{{wordCategory}}</text>
-      <text class="word-hint">{{wordHint}}</text>
-    </view>
+    <view class="word-badge">{{wordCategory}}</view>
+    <view class="word-display">{{wordText}}</view>
+    <view class="word-hint">{{wordHint}}</view>
     <view class="phrase">{{practicePhrase}}</view>
-    <view class="step-row">
-      <view
-        wx:for="{{steps}}"
-        wx:key="id"
-        class="step-pill {{item.done ? 'done' : ''}} {{item.active ? 'active' : ''}}"
-      >
-        {{item.label}}
+  </view>
+
+  <!-- Step Flow -->
+  <view class="step-flow">
+    <view class="step-item {{stepCount >= 1 ? 'done' : ''}} {{stepCount === 0 ? 'current' : ''}}">
+      <view class="step-circle">
+        <text wx:if="{{stepCount >= 1}}" class="step-check">✓</text>
+        <text wx:else class="step-num">1</text>
       </view>
+      <view class="step-label">Listen</view>
+      <view class="step-desc">听发音</view>
+    </view>
+    <view class="step-line {{stepCount >= 2 ? 'active' : ''}}"></view>
+    <view class="step-item {{stepCount >= 2 ? 'done' : ''}} {{stepCount === 1 ? 'current' : ''}}">
+      <view class="step-circle">
+        <text wx:if="{{stepCount >= 2}}" class="step-check">✓</text>
+        <text wx:else class="step-num">2</text>
+      </view>
+      <view class="step-label">Say</view>
+      <view class="step-desc">大声说</view>
+    </view>
+    <view class="step-line {{stepCount >= 3 ? 'active' : ''}}"></view>
+    <view class="step-item {{stepCount >= 3 ? 'done' : ''}} {{stepCount === 2 ? 'current' : ''}}">
+      <view class="step-circle">
+        <text wx:if="{{stepCount >= 3}}" class="step-check">✓</text>
+        <text wx:else class="step-num">3</text>
+      </view>
+      <view class="step-label">Smile</view>
+      <view class="step-desc">完成啦</view>
     </view>
   </view>
 
+  <!-- Action Buttons -->
   <view class="actions">
-    <button class="action play" bind:tap="playWord">▶</button>
-    <button class="action record" bind:tap="practice">●</button>
-    <button class="action replay" bind:tap="playWord">↺</button>
+    <button class="action-btn action-play" bind:tap="playWord">
+      <text class="action-icon">▶</text>
+      <text class="action-label">听</text>
+    </button>
+    <button class="action-btn action-record {{stepCount === 0 ? 'disabled' : ''}}" bind:tap="practice">
+      <text class="action-icon">🎤</text>
+      <text class="action-label">说</text>
+    </button>
+    <button class="action-btn action-replay" bind:tap="playWord">
+      <text class="action-icon">↺</text>
+      <text class="action-label">重播</text>
+    </button>
   </view>
 
-  <view class="feedback">{{feedback}}</view>
+  <feedback-toast text="{{feedback}}" type="{{stepCount >= 3 ? 'success' : 'default'}}" />
 </view>

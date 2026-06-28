@@ -3,6 +3,7 @@ const { getAgeLevel } = require("../../utils/age")
 const { playText } = require("../../utils/audio")
 const { getCurrentLayoutMode, getResizeLayoutMode } = require("../../utils/layout")
 const { getParentSettings } = require("../../utils/settings")
+const { getWeekTheme } = require("../../utils/learning-path")
 
 function buildRestHint(durationMinutes, dailyLimitMinutes) {
   if (durationMinutes >= dailyLimitMinutes) {
@@ -45,12 +46,16 @@ Page({
     const parentSettings = getParentSettings()
     const level = getAgeLevel(profile.age)
     const durationMinutes = Math.ceil(record.durationSeconds / 60)
+    const weekTheme = getWeekTheme()
     this.setData({
       stars: "★ ".repeat(count) + "☆ ".repeat(3 - count),
+      completedCount: count,
       profile,
       ageLabel: level.label,
       restHint: buildRestHint(durationMinutes, parentSettings.dailyLimitMinutes),
-      restReached: durationMinutes >= parentSettings.dailyLimitMinutes
+      restReached: durationMinutes >= parentSettings.dailyLimitMinutes,
+      weekTheme: weekTheme.theme || "",
+      weekTip: weekTheme.dailyTip || ""
     })
   },
 

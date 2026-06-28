@@ -1,48 +1,99 @@
-<view class="page page-{{layoutMode}}">
-  <view class="topbar">
-    <button class="round-btn" bind:tap="back">‹</button>
-    <view class="title">小小艺术家</view>
-    <button class="round-btn" bind:tap="reset">↻</button>
+<view class="page art-page page-{{layoutMode}}">
+  <topbar title="小小艺术家" right-icon="↻" bind:back="back" bind:righttap="reset" />
+
+  <!-- Art Prompt Card -->
+  <view class="art-prompt card">
+    <view class="prompt-title">数字拼图</view>
+    <view class="prompt-steps">
+      <view class="prompt-step">
+        <text class="step-num">1</text>
+        <text>从下方拖拽数字块到拼图板</text>
+      </view>
+      <view class="prompt-step">
+        <text class="step-num">2</text>
+        <text>将数字放到对应位置完成拼图</text>
+      </view>
+    </view>
   </view>
 
-  <view class="painting card">
-    <image class="painting-image" src="{{artImage}}" mode="aspectFill"></image>
-    <view class="star star-a"></view>
-    <view class="star star-b"></view>
-    <view class="star star-c"></view>
+  <!-- Puzzle Board -->
+  <view class="puzzle-board">
+    <image class="board-bg" src="{{artImage}}" mode="aspectFill"></image>
+    <view class="board-overlay"></view>
+
+    <!-- Decorative elements -->
+    <view class="board-star star-1">✦</view>
+    <view class="board-star star-2">✧</view>
+    <view class="board-star star-3">✦</view>
+    <view class="board-star star-4">✧</view>
+
+    <!-- Board Grid -->
     <view class="board-grid {{gridClass}}">
-      <button
+      <view
         wx:for="{{board}}"
         wx:key="id"
         class="board-slot {{item.pieceId ? 'filled' : ''}}"
         data-id="{{item.id}}"
-        bind:tap="placePiece"
       >
-        {{item.label}}
-      </button>
+        <text wx:if="{{item.pieceId}}" class="slot-number">{{item.label}}</text>
+        <text wx:else class="slot-placeholder">{{item.id}}</text>
+      </view>
     </view>
   </view>
 
-  <view class="puzzle-status">
-    {{placedCount}} / {{pieceCount}}
+  <!-- Progress -->
+  <view class="puzzle-progress">
+    <view class="progress-bar">
+      <view class="progress-fill" style="width: {{placedCount / pieceCount * 100}}%;"></view>
+    </view>
+    <view class="progress-text">{{placedCount}} / {{pieceCount}} 已拼好</view>
   </view>
 
-  <view class="puzzle-grid {{gridClass}}">
+  <!-- Piece Selector (click to select, then click board to place) -->
+  <view class="piece-grid {{gridClass}}">
     <button
       wx:for="{{pieces}}"
       wx:key="id"
-      class="piece card {{item.placed ? 'done' : ''}} {{item.selected ? 'selected' : ''}}"
+      class="piece-card {{item.placed ? 'placed' : ''}} {{item.selected ? 'selected' : ''}}"
       data-id="{{item.id}}"
       bind:tap="selectPiece"
     >
-      {{item.placed ? "★" : item.label}}
+      <text wx:if="{{item.placed}}" class="piece-done">★</text>
+      <text wx:else class="piece-num">{{item.label}}</text>
     </button>
   </view>
 
-  <view class="card art-prompt">
-    <view class="prompt">Find yellow!</view>
-    <view class="subtitle">I see stars.</view>
+  <!-- Auto-place hint -->
+  <view wx:if="{{selectedPieceId && !completed}}" class="auto-hint">
+    <text>已选中数字 {{selectedPieceId}}，点击拼图板上对应位置放置</text>
   </view>
 
-  <view wx:if="{{feedback}}" class="feedback">{{feedback}}</view>
+  <!-- Board Taps to place -->
+  <view class="board-grid-tappable {{gridClass}}">
+    <button
+      wx:for="{{board}}"
+      wx:key="id"
+      class="board-slot-tap {{item.pieceId ? 'filled-tap' : 'empty-tap'}}"
+      data-id="{{item.id}}"
+      bind:tap="placePiece"
+      disabled="{{item.pieceId > 0}}"
+    >
+      <text wx:if="{{item.pieceId}}" class="slot-number-tap">{{item.label}}</text>
+      <text wx:else class="slot-placeholder-tap">{{selectedPieceId ? '放这里' : item.id}}</text>
+    </button>
+  </view>
+
+  <!-- Feedback -->
+  <feedback-toast text="{{feedback}}" type="{{completed ? 'success' : 'default'}}" />
+
+  <!-- Completion -->
+  <view wx:if="{{completed}}" class="completion-banner">
+    <view class="completion-icon">🎉</view>
+    <view class="completion-text">拼图完成！</view>
+    <view class="completion-sub">太棒了，再来一次吧</view>
+  </view>
+
+  <button wx:if="{{completed}}" class="next-card finished" bind:tap="reset">
+    再玩一次
+  </button>
 </view>

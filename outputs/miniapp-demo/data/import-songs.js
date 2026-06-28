@@ -239,5 +239,10 @@ if (typeof module !== "undefined" && require.main === module) {
 
 module.exports = {
   parseCsv,
+  normalizeId,
+  normalizeAge,
+  normalizeSong,
+  buildLine,
+  mergeSongs,
   importSongs
 }

@@ -1,3 +1,8 @@
 {
-  "navigationBarTitleText": "今日小游戏"
+  "navigationBarTitleText": "今日小游戏",
+  "usingComponents": {
+    "topbar": "../../components/topbar/index",
+    "progress-dots": "../../components/progress-dots/index",
+    "feedback-toast": "../../components/feedback-toast/index"
+  }
 }

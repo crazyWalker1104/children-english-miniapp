@@ -1,137 +1,157 @@
-<view class="page page-{{layoutMode}}">
-  <view class="topbar">
-    <button class="round-btn" bind:tap="back">‹</button>
-    <view class="title">家长中心</view>
-    <button class="round-btn" bind:tap="reset">清</button>
-  </view>
+<view class="page parent-page page-{{layoutMode}}">
+  <topbar title="家长中心" bind:back="back" />
 
-  <view class="profile card">
-    <view>
-      <view class="profile-title">{{profile.nickname}}</view>
-      <view class="subtitle">{{profile.age}} 岁 · {{ageLabel}}</view>
+  <!-- Child Profile -->
+  <view class="profile-card card">
+    <view class="profile-avatar">{{profile.nickname ? profile.nickname[0] : 'B'}}</view>
+    <view class="profile-info">
+      <view class="profile-name">{{profile.nickname}}</view>
+      <view class="profile-meta">{{profile.age}} 岁 · {{ageLabel}}</view>
     </view>
-    <view class="stars">{{rewardCount}} 枚贴纸</view>
+    <view class="profile-rewards">
+      <text class="rewards-num">{{rewardCount}}</text>
+      <text class="rewards-label">枚贴纸</text>
+    </view>
   </view>
 
-  <view class="age-panel card">
-    <view class="profile-title">年龄难度</view>
+  <!-- Stats Grid -->
+  <view class="stats-grid">
+    <view class="stat-card">
+      <view class="stat-icon">⏱️</view>
+      <view class="stat-value">{{duration}}</view>
+      <view class="stat-label">分钟学习</view>
+    </view>
+    <view class="stat-card">
+      <view class="stat-icon">✅</view>
+      <view class="stat-value">{{taskCount}}</view>
+      <view class="stat-label">完成任务</view>
+    </view>
+    <view class="stat-card">
+      <view class="stat-icon">📖</view>
+      <view class="stat-value">{{wordCount}}</view>
+      <view class="stat-label">听过单词</view>
+    </view>
+    <view class="stat-card">
+      <view class="stat-icon">🎵</view>
+      <view class="stat-value">{{songCount}}</view>
+      <view class="stat-label">儿歌播放</view>
+    </view>
+    <view class="stat-card">
+      <view class="stat-icon">🎤</view>
+      <view class="stat-value">{{speakCount}}</view>
+      <view class="stat-label">跟读次数</view>
+    </view>
+  </view>
+
+  <!-- Age Settings -->
+  <view class="settings-card card">
+    <view class="settings-title">年龄难度</view>
     <view class="age-options">
       <button
         wx:for="{{ages}}"
         wx:key="id"
-        class="age-option {{profile.age === item.value ? 'active' : ''}}"
+        class="age-chip {{profile.age === item.value ? 'active' : ''}}"
         data-age="{{item.value}}"
         bind:tap="setAge"
       >
         {{item.label}}
       </button>
     </view>
-    <view class="subtitle">切换后，随机主题会自动调整选项数量和任务难度。</view>
+    <view class="settings-hint">切换后，随机主题会自动调整任务难度</view>
   </view>
 
-  <view class="settings-panel card">
-    <view class="profile-title">照护设置</view>
-    <view class="time-limit-block">
-      <view class="setting-title">每日建议时长</view>
-      <view class="limit-options">
-        <button
-          wx:for="{{timeLimits}}"
-          wx:key="id"
-          class="limit-option {{parentSettings.dailyLimitMinutes === item.value ? 'active' : ''}}"
-          data-minutes="{{item.value}}"
-          bind:tap="setTimeLimit"
-        >
-          {{item.label}}
-        </button>
-      </view>
+  <!-- Time Settings -->
+  <view class="settings-card card">
+    <view class="settings-title">每日建议时长</view>
+    <view class="time-options">
+      <button
+        wx:for="{{timeLimits}}"
+        wx:key="id"
+        class="time-chip {{parentSettings.dailyLimitMinutes === item.value ? 'active' : ''}}"
+        data-minutes="{{item.value}}"
+        bind:tap="setTimeLimit"
+      >
+        {{item.label}}
+      </button>
     </view>
-    <view class="setting-row">
-      <view>
-        <view class="setting-title">声音提示</view>
-        <view class="subtitle">关闭后不播放单词和反馈音。</view>
+  </view>
+
+  <!-- Toggle Settings -->
+  <view class="settings-card card">
+    <view class="settings-title">照护设置</view>
+
+    <view class="toggle-row">
+      <view class="toggle-info">
+        <view class="toggle-label">声音提示</view>
+        <view class="toggle-desc">关闭后不播放单词和反馈音</view>
       </view>
       <switch
         checked="{{parentSettings.soundEnabled}}"
         data-key="soundEnabled"
         bind:change="toggleSetting"
-        color="#72d6b7"
+        color="#6bcb77"
       />
     </view>
-    <view class="setting-row">
-      <view>
-        <view class="setting-title">触觉反馈</view>
-        <view class="subtitle">支持设备会在答题时轻微震动。</view>
+
+    <view class="toggle-row">
+      <view class="toggle-info">
+        <view class="toggle-label">触觉反馈</view>
+        <view class="toggle-desc">支持设备会在答题时轻微震动</view>
       </view>
       <switch
         checked="{{parentSettings.hapticEnabled}}"
         data-key="hapticEnabled"
         bind:change="toggleSetting"
-        color="#72d6b7"
+        color="#6bcb77"
       />
     </view>
-    <view class="setting-row">
-      <view>
-        <view class="setting-title">安静模式</view>
-        <view class="subtitle">减少弹窗和震动，适合睡前短学。</view>
+
+    <view class="toggle-row">
+      <view class="toggle-info">
+        <view class="toggle-label">安静模式</view>
+        <view class="toggle-desc">减少弹窗和震动，适合睡前短学</view>
       </view>
       <switch
         checked="{{parentSettings.calmMode}}"
         data-key="calmMode"
         bind:change="toggleSetting"
-        color="#72d6b7"
+        color="#6bcb77"
       />
     </view>
   </view>
 
-  <view class="stats">
-    <view class="stat card">
-      <text>今日学习</text>
-      <text class="stat-value">{{duration}} 分钟</text>
+  <!-- Today Suggestion -->
+  <view class="suggestion-card card">
+    <view class="suggestion-header">
+      <text class="suggestion-icon">💡</text>
+      <text class="settings-title">今日建议</text>
     </view>
-    <view class="stat card">
-      <text>完成任务</text>
-      <text class="stat-value">{{taskCount}} 个</text>
-    </view>
-    <view class="stat card">
-      <text>听过单词</text>
-      <text class="stat-value">{{wordCount}} 个</text>
-    </view>
-    <view class="stat card">
-      <text>儿歌播放</text>
-      <text class="stat-value">{{songCount}} 次</text>
-    </view>
-    <view class="stat card">
-      <text>跟读次数</text>
-      <text class="stat-value">{{speakCount}} 次</text>
-    </view>
+    <view class="suggestion-text">{{todaySuggestion}}</view>
   </view>
 
-  <view class="card tip">
-    <view class="profile-title">今日建议</view>
-    <view class="subtitle">{{todaySuggestion}}</view>
-  </view>
-
-  <view class="card week-panel">
-    <view class="profile-title">一周概览</view>
-    <view class="week-total">
-      <view>
-        <view class="week-value">{{weeklySummary.activeDays}}</view>
-        <view class="subtitle">活跃天</view>
+  <!-- Weekly Overview -->
+  <view class="week-card card">
+    <view class="settings-title">一周概览</view>
+    <view class="week-summary">
+      <view class="week-stat">
+        <view class="week-stat-value">{{weeklySummary.activeDays}}</view>
+        <view class="week-stat-label">活跃天</view>
       </view>
-      <view>
-        <view class="week-value">{{weeklySummary.totalDurationMinutes}}</view>
-        <view class="subtitle">分钟</view>
+      <view class="week-stat">
+        <view class="week-stat-value">{{weeklySummary.totalDurationMinutes}}</view>
+        <view class="week-stat-label">分钟</view>
       </view>
-      <view>
-        <view class="week-value">{{weeklySummary.totalTaskCount}}</view>
-        <view class="subtitle">任务</view>
+      <view class="week-stat">
+        <view class="week-stat-value">{{weeklySummary.totalTaskCount}}</view>
+        <view class="week-stat-label">任务</view>
       </view>
-      <view>
-        <view class="week-value">{{weeklySummary.totalRewardCount}}</view>
-        <view class="subtitle">贴纸</view>
+      <view class="week-stat">
+        <view class="week-stat-value">{{weeklySummary.totalRewardCount}}</view>
+        <view class="week-stat-label">贴纸</view>
       </view>
     </view>
-    <view class="week-bars">
+
+    <view wx:if="{{weekItems.length > 0}}" class="week-bars">
       <view wx:for="{{weekItems}}" wx:key="id" class="week-day">
         <view class="bar-wrap">
           <view class="bar-fill" style="height: {{item.barHeight}};"></view>
@@ -140,22 +160,78 @@
         <view class="day-min">{{item.minutes}}m</view>
       </view>
     </view>
-    <view wx:if="{{weekItems.length === 0}}" class="empty-text">还没有一周记录</view>
+    <view wx:else class="empty-text">还没有一周记录</view>
   </view>
 
-  <view class="card detail-panel">
-    <view class="profile-title">今日听过</view>
+  <!-- Detail Sections -->
+  <view class="detail-card card">
+    <view class="settings-title">今日听过</view>
     <view class="tag-list">
       <text wx:for="{{heardWordItems}}" wx:key="id" class="word-tag">{{item.label}}</text>
       <text wx:if="{{heardWordItems.length === 0}}" class="empty-text">还没有记录</text>
     </view>
   </view>
 
-  <view class="card detail-panel">
-    <view class="profile-title">今日奖励</view>
+  <view class="detail-card card">
+    <view class="settings-title">今日奖励</view>
     <view class="tag-list">
       <text wx:for="{{rewardItems}}" wx:key="id" class="reward-tag">★ {{item.label}}</text>
       <text wx:if="{{rewardItems.length === 0}}" class="empty-text">完成任务后点亮贴纸</text>
     </view>
+  </view>
+
+  <!-- Content Management -->
+  <view class="settings-card card">
+    <view class="settings-title">内容管理</view>
+
+    <view class="content-row">
+      <view class="content-info">
+        <view class="content-label">单词库</view>
+        <view class="content-desc">{{wordCount}} 个单词 · {{wordCategoryCount}} 个分类</view>
+      </view>
+      <view class="content-count">{{wordCount}}</view>
+    </view>
+
+    <view class="content-row">
+      <view class="content-info">
+        <view class="content-label">儿歌库</view>
+        <view class="content-desc">{{songCount}} 首儿歌</view>
+      </view>
+      <view class="content-count">{{songCount}}</view>
+    </view>
+
+    <view class="content-row">
+      <view class="content-info">
+        <view class="content-label">每日任务池</view>
+        <view class="content-desc">{{taskPoolCount}} 个随机任务</view>
+      </view>
+      <view class="content-count">{{taskPoolCount}}</view>
+    </view>
+
+    <view class="content-row">
+      <view class="content-info">
+        <view class="content-label">学习主题</view>
+        <view class="content-desc">{{learningPathThemes}} 个主题 · 6 周计划</view>
+      </view>
+      <view class="content-count">{{learningPathThemes}}</view>
+    </view>
+  </view>
+
+  <!-- Learning Path -->
+  <view class="settings-card card">
+    <view class="settings-title">本周学习主题</view>
+    <view class="week-theme-card">
+      <view class="theme-icon">📚</view>
+      <view class="theme-info">
+        <view class="theme-title">{{currentWeekTheme.title}}</view>
+        <view class="theme-desc">{{currentWeekTheme.description}}</view>
+        <view class="theme-tip">{{currentWeekTheme.dailyTip}}</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- Reset -->
+  <view class="reset-area">
+    <button class="reset-btn" bind:tap="reset">清空今日记录</button>
   </view>
 </view>

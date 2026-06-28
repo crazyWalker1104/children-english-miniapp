@@ -1,0 +1,2 @@
+/* feedback-toast 组件依赖全局样式 .feedback / .feedback.success / .feedback.error */
+/* 通过 addGlobalClass: true 引用 app.wxss 中的全局样式，无需重复定义 */

@@ -1,6 +1,6 @@
 const { getSongsForAge } = require("../../data/content")
 const { playSong, completeTask, addStudySeconds } = require("../../utils/progress")
-const { playText } = require("../../utils/audio")
+const { playText, setPlayProgressCallback } = require("../../utils/audio")
 const { feedbackComplete } = require("../../utils/interaction")
 const { getCurrentLayoutMode, getResizeLayoutMode } = require("../../utils/layout")
 const { getAgeLevel } = require("../../utils/age")
@@ -12,73 +12,91 @@ Page({
     activeSongId: "",
     activeLineIndex: 0,
     feedback: "",
-    layoutMode: "mobile"
+    layoutMode: "mobile",
+    audioStatus: "idle",
+    loadProgress: 0
   },
 
-  lyricTimer: null,
+  _progressTimer: null,
+  _lastLineIndex: 0,
+  _lineCount: 0,
 
   onLoad() {
-    this.setData({
-      layoutMode: getCurrentLayoutMode()
-    })
+    this.setData({ layoutMode: getCurrentLayoutMode() })
   },
 
   onShow() {
     const app = getApp()
     const age = app.globalData.childProfile.age
     const level = getAgeLevel(age)
-
     this.setData({
       songs: getSongsForAge(age),
-      feedback: `年龄模式：${level.label}`
+      feedback: "年龄模式：" + level.label
     })
   },
 
   onHide() {
-    this.stopLyricTimer()
+    this.stopProgressTimer()
   },
 
   onUnload() {
-    this.stopLyricTimer()
+    this.stopProgressTimer()
+    setPlayProgressCallback(null)
   },
 
   onResize(resizeInfo) {
-    this.setData({
-      layoutMode: getResizeLayoutMode(resizeInfo)
-    })
+    this.setData({ layoutMode: getResizeLayoutMode(resizeInfo) })
   },
 
   play(event) {
-    const id = event.currentTarget.dataset.id
-    const song = this.data.songs.find((item) => item.id === id)
+    var id = event.currentTarget.dataset.id
+    var song = this.data.songs.find(function (item) { return item.id === id })
+    if (!song) return
 
-    if (!song) {
-      return
-    }
+    this.stopProgressTimer()
+    this._lastLineIndex = 0
+    this._lineCount = song.lines.length
 
-    this.stopLyricTimer()
     playSong(id)
-    completeTask(`song-${id}`, `${id}-sticker`)
+    completeTask("song-" + id, id + "-sticker")
     addStudySeconds(30)
+
     this.setData({
       activeSong: song,
       activeSongId: song.id,
       activeLineIndex: 0,
-      feedback: `${song.title}: ${song.action}`
+      feedback: song.title + ": " + song.action,
+      audioStatus: "loading"
     })
-    this.startLyricTimer(song)
-    playText("Sing with me!")
+
+    this.startProgressSync(song)
+    playText(song.audioKey || "")
   },
 
-  startLyricTimer(song) {
-    const page = this
-    this.lyricTimer = setInterval(function () {
-      const nextIndex = page.data.activeLineIndex + 1
+  startProgressSync(song) {
+    var page = this
+    var lineCount = song.lines.length
+    var hasRealProgress = false
 
-      if (nextIndex >= song.lines.length) {
-        page.stopLyricTimer()
+    setPlayProgressCallback(function (progress) {
+      if (!progress.duration || progress.duration <= 0) return
+
+      hasRealProgress = true
+      var perLine = progress.duration / lineCount
+      var lineIndex = Math.min(Math.floor(progress.currentTime / perLine), lineCount - 1)
+
+      if (lineIndex <= page._lastLineIndex) return
+      page._lastLineIndex = lineIndex
+
+      page.setData({ audioStatus: "playing", loadProgress: Math.round(progress.currentTime / progress.duration * 100) })
+
+      if (lineIndex >= lineCount - 1) {
+        page.stopProgressTimer()
         page.setData({
-          feedback: "Great singing! ★"
+          activeLineIndex: lineIndex,
+          feedback: "Great singing! ★",
+          audioStatus: "idle",
+          loadProgress: 100
         })
         feedbackComplete()
         playText("Great singing!")
@@ -86,19 +104,47 @@ Page({
       }
 
       page.setData({
+        activeLineIndex: lineIndex,
+        feedback: song.lines[lineIndex].action || ""
+      })
+    })
+
+    // 兜底：3秒后如果还没收到真实进度，用固定 interval
+    this._progressTimer = setTimeout(function () {
+      if (!hasRealProgress) {
+        page.setData({ audioStatus: "playing" })
+        page.startFallbackTimer(song)
+      }
+    }, 3000)
+  },
+
+  startFallbackTimer(song) {
+    setPlayProgressCallback(null)
+    var page = this
+    this._progressTimer = setInterval(function () {
+      var nextIndex = page.data.activeLineIndex + 1
+      if (nextIndex >= song.lines.length) {
+        page.stopProgressTimer()
+        page.setData({ feedback: "Great singing! ★", audioStatus: "idle", loadProgress: 100 })
+        feedbackComplete()
+        playText("Great singing!")
+        return
+      }
+      page.setData({
         activeLineIndex: nextIndex,
-        feedback: song.lines[nextIndex].action
+        feedback: song.lines[nextIndex].action || "",
+        loadProgress: Math.round(nextIndex / song.lines.length * 100)
       })
     }, 1400)
   },
 
-  stopLyricTimer() {
-    if (!this.lyricTimer) {
-      return
+  stopProgressTimer() {
+    setPlayProgressCallback(null)
+    if (this._progressTimer) {
+      clearTimeout(this._progressTimer)
+      clearInterval(this._progressTimer)
+      this._progressTimer = null
     }
-
-    clearInterval(this.lyricTimer)
-    this.lyricTimer = null
   },
 
   back() {

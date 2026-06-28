@@ -1,0 +1,7 @@
+<view class="topbar">
+  <button wx:if="{{showBack}}" class="round-btn" bind:tap="onBack">‹</button>
+  <view wx:else class="round-btn ghost-btn"></view>
+  <view class="title">{{title}}</view>
+  <button wx:if="{{rightIcon}}" class="round-btn" bind:tap="onRightTap">{{rightIcon}}</button>
+  <view wx:else class="round-btn ghost-btn"></view>
+</view>

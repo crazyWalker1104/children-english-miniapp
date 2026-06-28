@@ -1,22 +1,200 @@
-/* Design tokens for Hello Park */
+/* ============================================
+   Design Tokens — "Bouncy Toy Box" v4
+   超大圆角、饱满色彩、弹跳物理、实体触感
+   专为 3-6 岁幼儿设计
+   ============================================ */
 
+/* ===== Background Layers ===== */
 .token-bg {
-  background: linear-gradient(180deg, #edf8ff 0%, #fff8ea 46%, #fffdf8 100%);
+  background: linear-gradient(180deg, #fef9f0 0%, #fff5e8 28%, #fff1dd 56%, #fff8f2 100%);
 }
 
+/* ===== Card Surfaces — 更厚实的阴影模拟实体感 ===== */
 .token-card {
-  border-radius: 34rpx;
-  background: rgba(255, 255, 255, 0.96);
-  border: 2rpx solid rgba(80, 102, 135, 0.08);
-  box-shadow: 0 16rpx 34rpx rgba(44, 62, 93, 0.09);
+  border-radius: 36rpx;
+  background: rgba(255, 255, 255, 0.95);
+  border: 2rpx solid rgba(80, 102, 135, 0.06);
+  box-shadow: 0 4rpx 16rpx rgba(44, 62, 93, 0.06),
+              0 12rpx 32rpx rgba(44, 62, 93, 0.08),
+              0 24rpx 48rpx rgba(44, 62, 93, 0.04);
 }
 
+/* ===== Gradients — 更饱和更明快 ===== */
 .token-primary-gradient {
-  background: linear-gradient(135deg, #ff7f70 0%, #ffb86c 100%);
+  background: linear-gradient(135deg, #ff6b6b 0%, #ff8e53 50%, #ffd93d 100%);
 }
 
+.token-success-gradient {
+  background: linear-gradient(135deg, #6bcb77 0%, #4fd1c5 100%);
+}
+
+.token-blue-gradient {
+  background: linear-gradient(135deg, #4d96ff 0%, #68d6ff 100%);
+}
+
+.token-purple-gradient {
+  background: linear-gradient(135deg, #a29bfe 0%, #6c5ce7 100%);
+}
+
+.token-warm-gradient {
+  background: linear-gradient(135deg, #fdcb6e 0%, #e17055 100%);
+}
+
+/* ===== Soft Chips ===== */
 .token-soft-chip {
-  color: #087f5b;
-  background: rgba(114, 214, 183, 0.2);
-  border: 2rpx solid rgba(114, 214, 183, 0.42);
+  color: #2d6a4f;
+  background: rgba(107, 203, 119, 0.18);
+  border: 2rpx solid rgba(107, 203, 119, 0.36);
+}
+
+/* ===== Text Tokens ===== */
+.token-text-primary {
+  color: #2d3436;
+}
+
+.token-text-muted {
+  color: #636e72;
+}
+
+.token-accent {
+  color: #ff6b6b;
+}
+
+/* ===== Spacing Tokens ===== */
+.token-gap-sm { gap: 16rpx; }
+.token-gap-md { gap: 24rpx; }
+.token-gap-lg { gap: 32rpx; }
+
+/* ============================================
+   Animation Keyframes — 弹跳物理感
+   ============================================ */
+
+/* 入场动画 — 从下方弹入 */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(32rpx) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* 缩放入场 — 弹出效果 */
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* 弹跳弹出 — 模拟弹簧物理 */
+@keyframes popBounce {
+  0% { transform: scale(0.3) rotate(-10deg); opacity: 0; }
+  50% { transform: scale(1.2) rotate(5deg); }
+  70% { transform: scale(0.9) rotate(-2deg); }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+/* 呼吸脉冲 — 更大幅度的缩放 */
+@keyframes gentlePulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.06); }
+}
+
+/* 超强呼吸 — 用于奖励按钮 */
+@keyframes megaPulse {
+  0%, 100% { transform: scale(1); box-shadow: 0 8rpx 24rpx rgba(107, 203, 119, 0.3); }
+  50% { transform: scale(1.08); box-shadow: 0 12rpx 36rpx rgba(107, 203, 119, 0.5); }
+}
+
+/* 抖动 — 错误反馈，更夸张 */
+@keyframes wiggle {
+  0%, 100% { transform: translateX(0) rotate(0deg); }
+  15% { transform: translateX(-12rpx) rotate(-3deg); }
+  30% { transform: translateX(12rpx) rotate(3deg); }
+  45% { transform: translateX(-10rpx) rotate(-2deg); }
+  60% { transform: translateX(8rpx) rotate(2deg); }
+  75% { transform: translateX(-4rpx) rotate(-1deg); }
+}
+
+/* 光泽扫过 — 更宽的扫过范围 */
+@keyframes shimmer {
+  0% { background-position: -300% 0; }
+  100% { background-position: 300% 0; }
+}
+
+/* 浮动 — 更大的幅度 */
+@keyframes floatUpDown {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-16rpx); }
+}
+
+/* 星星弹出 — 更夸张的旋转 */
+@keyframes starPop {
+  0% { transform: scale(0) rotate(-60deg); opacity: 0; }
+  50% { transform: scale(1.5) rotate(20deg); }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+/* 从右滑入 */
+@keyframes slideInRight {
+  from { transform: translateX(60rpx); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+/* 进度光晕脉冲 */
+@keyframes progressGlow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255, 107, 107, 0.35); }
+  50% { box-shadow: 0 0 0 16rpx rgba(255, 107, 107, 0); }
+}
+
+/* 新增：弹跳入场 — 模拟弹力球落地 */
+@keyframes bounceIn {
+  0% { transform: translateY(-80rpx) scale(0.5); opacity: 0; }
+  40% { transform: translateY(20rpx) scale(1.1); opacity: 1; }
+  60% { transform: translateY(-12rpx) scale(0.95); }
+  80% { transform: translateY(6rpx) scale(1.02); }
+  100% { transform: translateY(0) scale(1); }
+}
+
+/* 新增：摇摆 — 持续左右轻摆，用于装饰元素 */
+@keyframes sway {
+  0%, 100% { transform: rotate(-4deg); }
+  50% { transform: rotate(4deg); }
+}
+
+/* 新增：旋转弹出 — 用于星星和奖励 */
+@keyframes spinPop {
+  0% { transform: scale(0) rotate(0deg); opacity: 0; }
+  60% { transform: scale(1.3) rotate(360deg); }
+  100% { transform: scale(1) rotate(360deg); opacity: 1; }
+}
+
+/* 新增：心跳 — 用于关键按钮吸引注意 */
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  14% { transform: scale(1.12); }
+  28% { transform: scale(1); }
+  42% { transform: scale(1.12); }
+  70% { transform: scale(1); }
+}
+
+/* 新增：彩色光波扩散 — 用于正确答题反馈 */
+@keyframes ripple {
+  0% { transform: scale(0.8); opacity: 0.6; }
+  100% { transform: scale(2); opacity: 0; }
+}
+
+/* 新增：上下弹跳 — 模拟弹跳球 */
+@keyframes bounceUpDown {
+  0%, 100% { transform: translateY(0); }
+  25% { transform: translateY(-20rpx) scaleY(1.05); }
+  50% { transform: translateY(0) scaleY(0.95); }
+  75% { transform: translateY(-10rpx) scaleY(1.02); }
 }
